@@ -26,7 +26,7 @@ specifiers:
   deepmerge-ts: ^4.2.2
   eslint: ^8.0.0
   eslint-config-next: ^13.2.1
-  eslint-config-prettier: 8.1.0
+  eslint-config-prettier: 8.8.0
   framer-motion: ^6.0.0
   next: ^13.2.1
   prettier: ^2.6.2
@@ -82,7 +82,7 @@ devDependencies:
   '@types/react-dom': 18.0.9
   eslint: 8.29.0
   eslint-config-next: 13.2.1_s5ps7njkmjlaqajutnox5ntcla
-  eslint-config-prettier: 8.1.0_eslint@8.29.0
+  eslint-config-prettier: 8.8.0_eslint@8.29.0
   prettier: 2.8.0
   typescript: 4.9.3
 
@@ -2682,8 +2682,8 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-config-prettier/8.1.0_eslint@8.29.0:
-    resolution: {integrity: sha512-oKMhGv3ihGbCIimCAjqkdzx2Q+jthoqnXSP+d86M9tptwugycmTFdVR4IpLgq2c4SHifbwO90z2fQ8/Aio73yw==}
+  /eslint-config-prettier/8.8.0_eslint@8.29.0:
+    resolution: {integrity: sha512-wLbQiFre3tdGgpDv67NQKnJuTlcUVYHas3k+DZCc2U2BadthoEY4B7hLPvAxaqdyOGCzuLfii2fqGph10va7oA==}
     hasBin: true
     peerDependencies:
       eslint: '>=7.0.0'
