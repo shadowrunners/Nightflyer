@@ -1,6 +1,4 @@
-/***
- * Custom types that should be configured by developer
- ***/
+/*** Custom feature types. **/
 
 import { z } from 'zod';
 import { GuildInfo } from './types';
@@ -15,13 +13,33 @@ export type CustomFeatures = {
   gaming: {};
   'reaction-role': {};
   meme: {};
-  'welcome-message': WelcomeMessageFeature;
+  'anti-phish': {},
+  'confessions': ConfessionSystem,
+  'welcome': WelcomeFeature;
 };
 
-/** example only */
-export type WelcomeMessageFeature = {
+export type ConfessionSystem = {
   channel?: string;
-  message: string;
+}
+
+export type WelcomeFeature = {
+  channel?: string;
+  embed?: {
+    messagecontent?: string;
+    author?: {
+      name?: string;
+      iconURL?: string;
+    }
+    color?: string;
+    title?: string;
+    description?: string;
+    thumbnail?: string;
+    image?: string;
+    footer?: {
+      text?: string;
+      iconURL?: string;
+    }
+  };
 };
 
 export const memeFeatureSchema = z.object({

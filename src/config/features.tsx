@@ -3,11 +3,14 @@ import { BsMusicNoteBeamed } from 'react-icons/bs';
 import { FaGamepad } from 'react-icons/fa';
 import { IoHappy } from 'react-icons/io5';
 import { MdAddReaction, MdMessage } from 'react-icons/md';
+import { GiTalk } from 'react-icons/gi'
 import { FeaturesConfig } from './types';
 import { provider } from '@/config/translations/provider';
 import { createI18n } from '@/utils/i18n';
-import { useWelcomeMessageFeature } from './example/WelcomeMessageFeature';
+import { useWelcomeFeature } from '../pages/guilds/[guild]/features/WelcomeSystem';
 import { useMemeFeature } from './example/MemeFeature';
+import { useAntiPhishFeature } from '@/pages/guilds/[guild]/features/AntiPhishSystem';
+import { useConfessionSystem } from '@/pages/guilds/[guild]/features/ConfessionsSystem';
 
 /**
  * Support i18n (Localization)
@@ -52,11 +55,23 @@ export const features: FeaturesConfig = {
       };
     },
   },
-  'welcome-message': {
-    name: 'Welcome Message',
-    description: 'Send message when user joined the server',
+  'antiphishing': {
+    name: 'Anti-Phishing System',
+    description: 'Protects your server against scammers.',
+    icon: <Icon as={GiTalk} />,
+    useRender: useAntiPhishFeature,
+  },
+  'confessions': {
+    name: 'Confessions',
+    description: 'Sends an anonymous message to a designated channel.',
+    icon: <Icon as={GiTalk} />,
+    useRender: useConfessionSystem,
+  },
+  'welcome': {
+    name: 'Welcome System',
+    description: 'Sends a custom message when a user joins the server',
     icon: <Icon as={MdMessage} />,
-    useRender: useWelcomeMessageFeature,
+    useRender: useWelcomeFeature,
   },
   gaming: {
     name: <T text="gaming" />,
