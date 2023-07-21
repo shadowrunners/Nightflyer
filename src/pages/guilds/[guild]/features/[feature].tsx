@@ -1,6 +1,5 @@
-import { Icon } from '@chakra-ui/react';
+import { Icon, Button } from '@chakra-ui/react';
 import { Center, Heading, Text } from '@chakra-ui/layout';
-import { Button } from '@chakra-ui/react';
 import { LoadingPanel } from '@/components/panel/LoadingPanel';
 import { features } from '@/config/features';
 import { CustomFeatures, FeatureConfig } from '@/config/types';

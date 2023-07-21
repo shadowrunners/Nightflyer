@@ -3,7 +3,7 @@ import { LoadingPanel } from '@/components/panel/LoadingPanel';
 import { QueryStatus } from '@/components/panel/QueryPanel';
 import { config } from '@/config/common';
 import { guild as view } from '@/config/translations/guild';
-import { BsMailbox } from 'react-icons/bs';
+import { BiSolidErrorAlt } from 'react-icons/bi';
 import { FaRobot } from 'react-icons/fa';
 import { useGuildInfoQuery } from '@/api/hooks';
 import { useRouter } from 'next/router';
@@ -21,7 +21,7 @@ const GuildPage: NextPageWithLayout = () => {
 
   return (
     <QueryStatus query={query} loading={<LoadingPanel />} error={t.error.load}>
-      {query.data != null ? (
+      {query?.data?.id != null ? (
         <GuildPanel guild={guild} info={query.data} />
       ) : (
         <NotJoined guild={guild} />
@@ -44,7 +44,7 @@ function GuildPanel({ guild: id, info }: { guild: string; info: CustomGuildInfo 
               key={feature.id}
               guild={id}
               feature={feature}
-              enabled={info.enabledFeatures.includes(feature.id)}
+              enabled={info?.enabledFeatures?.includes(feature.id)}
             />
           ))}
         </SimpleGrid>
@@ -58,7 +58,7 @@ function NotJoined({ guild }: { guild: string }) {
 
   return (
     <Center flexDirection="column" gap={3} h="full" p={5}>
-      <Icon as={BsMailbox} w={50} h={50} />
+      <Icon as={BiSolidErrorAlt} w={50} h={50} />
       <Text fontSize="xl" fontWeight="600">
         {t.error['not found']}
       </Text>
