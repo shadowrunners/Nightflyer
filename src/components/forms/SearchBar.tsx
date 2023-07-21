@@ -17,7 +17,7 @@ export function SearchBar(
     onSearch?: () => void;
   } & InputGroupProps
 ) {
-  const t = useMemo(() => common.useTranslations(), []);
+  const t = common.useTranslations();
   const { input, onSearch, ...rest } = props;
 
   const handleSearch = useCallback(() => {

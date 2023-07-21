@@ -37,7 +37,7 @@ function render(role: Role): Option {
 
 export const RoleSelect = forwardRef<SelectInstance<Option, false>, Props>((props, ref) => {
   const { value, onChange, ...rest } = props;
-  const guild = useMemo(() => (useRouter().query.guild as string), []);
+  const guild = useRouter().query.guild as string;
 
   const rolesQuery = useGuildRolesQuery(guild);
   const isLoading = rolesQuery.isLoading;

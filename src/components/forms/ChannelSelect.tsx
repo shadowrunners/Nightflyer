@@ -82,7 +82,7 @@ export const ChannelSelect = forwardRef<SelectInstance<Option, false>, Props>(
         placeholder={<common.T text="select channel" />}
         value={selected !== null ? render(selected) : null}
         options={options}
-        onChange={(e) => e?.value !== null && onChange(e?.value as string)}
+        onChange={(e) => e !== null && onChange(e.value as string)}
         ref={ref}
         {...rest}
       />
