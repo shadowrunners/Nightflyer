@@ -5,19 +5,18 @@ export const guild = createI18n(provider, {
   en: {
     features: 'Features',
     banner: {
-      title: 'Getting Started',
-      description: 'Create your bot and type something',
+      title: 'Welcome back, runner.',
+      description: 'What would you like to customize?',
     },
     error: {
-      'not found': 'Where is it?',
-      'not found description': "The bot can't access the server, let's invite him!",
-      load: 'Failed to load guild',
+      'not found': 'System failure',
+      'not found description': "Uh oh, Evelyn couldn't access this cyberspace as she isn't a member of it.",
+      load: 'Failed to load this cyberspace. Perhaps the backend has gone haywire?',
     },
     bn: {
       'enable feature': 'Enable',
       'config feature': 'Config',
-      invite: 'Invite bot',
-      settings: 'Settings',
+      invite: 'Invite Evelyn',
     },
   },
   cn: {
@@ -35,7 +34,6 @@ export const guild = createI18n(provider, {
       'enable feature': '啟用功能',
       'config feature': '配置',
       invite: '邀請機器人',
-      settings: '設置',
     },
   },
 });

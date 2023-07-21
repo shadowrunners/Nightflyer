@@ -5,14 +5,9 @@ export const dashboard = createI18n(provider, {
   en: {
     pricing: 'Pricing',
     learn_more: 'Learn More',
-    invite: {
-      title: 'Invite our Bot',
-      description: 'Try our discord bot with one-click',
-      bn: 'Invite now',
-    },
     servers: {
-      title: 'Select Server',
-      description: 'Select the server to configure',
+      title: 'Your journey starts here',
+      description: 'Select a server to continue your journey.',
     },
     vc: {
       create: 'Create a voice channel',
@@ -26,11 +21,6 @@ export const dashboard = createI18n(provider, {
   cn: {
     pricing: '價錢',
     learn_more: '了解更多',
-    invite: {
-      title: '邀請我們的機器人',
-      description: '一鍵試用我們的 Discord 機器人',
-      bn: '現在邀請',
-    },
     servers: {
       title: '選擇服務器',
       description: '自定義您的服務器',

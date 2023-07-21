@@ -10,8 +10,6 @@ export const profile = createI18n(provider, {
     settings: 'Settings',
     'dark mode': 'Dark Mode',
     'dark mode description': 'Enables dark theme in order to protect your eyes',
-    'dev mode': 'Developer Mode',
-    'dev mode description': 'Used for debugging and testing',
   },
   cn: {
     logout: common.translations.cn.logout,
@@ -20,7 +18,5 @@ export const profile = createI18n(provider, {
     settings: '設置',
     'dark mode': '黑暗模式',
     'dark mode description': '啟用深色主題可以保護您的眼睛',
-    'dev mode': '開發者模式',
-    'dev mode description': '用於調試和測試',
   },
 });
