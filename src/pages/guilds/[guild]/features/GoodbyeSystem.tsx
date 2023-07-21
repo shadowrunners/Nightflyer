@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import Embed from '@/components/Embed';
 import { TextAreaForm } from '@/components/forms/TextAreaForm';
 
-export const useWelcomeFeature: UseFormRender<WelcomeFeature> = (data, onSubmit) => {
+export const useGoodbyeSystem: UseFormRender<WelcomeFeature> = (data, onSubmit) => {
   const { register, reset, handleSubmit, formState, control, watch } = useForm<WelcomeFeature>({
     shouldUnregister: false,
     defaultValues: {
@@ -23,7 +23,7 @@ export const useWelcomeFeature: UseFormRender<WelcomeFeature> = (data, onSubmit)
           <ChannelSelectForm
             control={{
               label: 'Channel',
-              description: 'The channel where the welcome message will be sent.',
+              description: 'The channel where the goodbye message will be sent.',
             }}
             controller={{ control, name: 'channel' }}
           />

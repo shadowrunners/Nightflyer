@@ -1,10 +1,10 @@
 import { ChannelSelectForm } from '@/components/forms/ChannelSelect';
-import { ConfessionsFeature, UseFormRender } from '@/config/types';
+import { LogsFeature, UseFormRender } from '@/config/types';
 import { SimpleGrid } from '@chakra-ui/layout';
 import { useForm } from 'react-hook-form';
 
-export const useConfessionSystem: UseFormRender<ConfessionsFeature> = (data, onSubmit) => {
-  const { reset, handleSubmit, formState, control } = useForm<ConfessionsFeature>({
+export const useLogsSystem: UseFormRender<LogsFeature> = (data, onSubmit) => {
+  const { reset, handleSubmit, formState, control } = useForm<LogsFeature>({
     shouldUnregister: false,
     defaultValues: {
       channel: data.channel,
@@ -17,7 +17,7 @@ export const useConfessionSystem: UseFormRender<ConfessionsFeature> = (data, onS
         <ChannelSelectForm
           control={{
             label: 'Channel',
-            description: 'The channel where confessions will sent in.',
+            description: 'The channel where logs will be sent in.',
           }}
           controller={{ control, name: 'channel' }} />
       </SimpleGrid>

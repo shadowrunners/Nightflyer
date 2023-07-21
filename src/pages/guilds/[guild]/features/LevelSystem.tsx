@@ -1,13 +1,15 @@
 import { ChannelSelectForm } from '@/components/forms/ChannelSelect';
-import { ConfessionsFeature, UseFormRender } from '@/config/types';
+import { LevellingFeature, UseFormRender } from '@/config/types';
+import { TextAreaForm } from '@/components/forms/TextAreaForm';
 import { SimpleGrid } from '@chakra-ui/layout';
 import { useForm } from 'react-hook-form';
 
-export const useConfessionSystem: UseFormRender<ConfessionsFeature> = (data, onSubmit) => {
-  const { reset, handleSubmit, formState, control } = useForm<ConfessionsFeature>({
+export const useLevellingSystem: UseFormRender<LevellingFeature> = (data, onSubmit) => {
+  const { reset, handleSubmit, formState, control, register } = useForm<LevellingFeature>({
     shouldUnregister: false,
     defaultValues: {
       channel: data.channel,
+      message: data.message,
     },
   });
 
@@ -17,9 +19,16 @@ export const useConfessionSystem: UseFormRender<ConfessionsFeature> = (data, onS
         <ChannelSelectForm
           control={{
             label: 'Channel',
-            description: 'The channel where confessions will sent in.',
+            description: 'The channel where level up messages will sent in.',
           }}
           controller={{ control, name: 'channel' }} />
+        <TextAreaForm
+          control={{
+            label: 'Message',
+            description: 'The message that will be sent when a user levels up.'
+          }}
+          {...register('message')}
+        />
       </SimpleGrid>
       </>
     ),
@@ -27,6 +36,7 @@ export const useConfessionSystem: UseFormRender<ConfessionsFeature> = (data, onS
       await onSubmit(
         JSON.stringify({
           channel: e.channel,
+          message: e.message,
         })
       );
 
