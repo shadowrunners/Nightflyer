@@ -25,7 +25,7 @@ export function Sidebar({ sidebar }: { sidebar?: ReactNode }) {
       overflowX="hidden"
       overflowY="auto"
     >
-      <AnimatePresence exitBeforeEnter initial={false}>
+      <AnimatePresence mode='wait' initial={false}>
         <motion.div
           key={sidebar == null ? 'default' : 'new'}
           initial={{ x: '100px', opacity: 0 }}
