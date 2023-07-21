@@ -1,67 +1,61 @@
-import { Box, Center, Flex, Text } from '@chakra-ui/layout';
 import { Button, ButtonGroup, Card, CardBody, CardFooter } from '@chakra-ui/react';
-import { IdFeature } from '@/utils/common';
-import { IoOpen, IoOptions } from 'react-icons/io5';
-import { useEnableFeatureMutation } from '@/api/hooks';
 import { guild as view } from '@/config/translations/guild';
+import { useEnableFeatureMutation } from '@/api/hooks';
+import { IoOpen, IoOptions } from 'react-icons/io5';
+import { Center, Text } from '@chakra-ui/layout';
+import { IdFeature } from '@/utils/common';
 import Router from 'next/router';
+import { useMemo } from 'react';
 
-export function FeatureItem({
-  guild,
-  feature,
-  enabled,
-}: {
-  guild: string;
-  feature: IdFeature;
-  enabled: boolean;
-}) {
+export function FeatureItem({ guild, feature, enabled }: Props) {
   const t = view.useTranslations();
   const mutation = useEnableFeatureMutation();
 
+  const buttonProps = useMemo(() => {
+    if (enabled) {
+      return {
+        variant: 'action',
+        rounded: '2xl',
+        leftIcon: <IoOptions />,
+        onClick: () => Router.push(`/guilds/${guild}/features/${feature.id}`),
+        children: t.bn['config feature'],
+      };
+    } else {
+      return {
+        leftIcon: <IoOpen />,
+        onClick: () => mutation.mutate({ enabled: true, guild, feature: feature.id }),
+        children: t.bn['enable feature'],
+      };
+    }
+  }, [enabled, guild, feature, t.bn, mutation]);
+
   return (
-    <Card variant="primary">
-      <CardBody as={Flex} direction="row" gap={3}>
-        <Center
-          bg={enabled ? 'Brand' : 'brandAlpha.100'}
-          color={enabled ? 'white' : 'brand.500'}
-          rounded="xl"
-          w="50px"
-          h="50px"
-          fontSize="3xl"
+    <Card variant='primary'>
+      <CardBody className='flex flex-row gap-3'>
+        <Center 
+          className={`rounded-xl w-[50px] h-[50px] text-3xl ${enabled ? 'bg-Brand text-white' : 'bg-brandAlpha-100 text-brand-500'}`}
           _dark={{
             color: enabled ? 'white' : 'brand.200',
           }}
         >
           {feature.icon}
         </Center>
-        <Box flex={1}>
-          <Text fontSize={{ base: '16px', md: 'lg' }} fontWeight="600">
-            {feature.name}
-          </Text>
-          <Text fontSize={{ base: 'sm', md: 'md' }} color="TextSecondary">
-            {feature.description}
-          </Text>
-        </Box>
+        <div className='flex-1'>
+          <Text className='font-semibold text-base md:text-lg'>{feature.name}</Text>
+          <Text className='text-sm md:text-md text-TextSecondary'>{feature.description}</Text>
+        </div>
       </CardBody>
-      <CardFooter as={ButtonGroup} mt={3}>
-        <Button
-          size={{ base: 'sm', md: 'md' }}
-          disabled={mutation.isLoading}
-          {...(enabled
-            ? {
-                variant: 'action',
-                rounded: '2xl',
-                leftIcon: <IoOptions />,
-                onClick: () => Router.push(`/guilds/${guild}/features/${feature.id}`),
-                children: t.bn['config feature'],
-              }
-            : {
-                leftIcon: <IoOpen />,
-                onClick: () => mutation.mutate({ enabled: true, guild, feature: feature.id }),
-                children: t.bn['enable feature'],
-              })}
-        />
+      <CardFooter className='mt-3'>
+        <ButtonGroup>
+          <Button size={{ base: 'sm', md: 'md' }} disabled={mutation.isLoading} {...buttonProps} />
+        </ButtonGroup>
       </CardFooter>
     </Card>
   );
+}
+
+interface Props {
+  guild: string;
+  feature: IdFeature;
+  enabled: boolean | undefined;
 }
