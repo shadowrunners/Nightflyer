@@ -17,7 +17,6 @@ import { SwitchField } from '@/components/forms/SwitchField';
 import { languages, names, useLang } from '@/config/translations/provider';
 import { profile } from '@/config/translations/profile';
 import { IoLogOut } from 'react-icons/io5';
-import { useSettingsStore } from '@/stores';
 import { NextPageWithLayout } from '@/pages/_app';
 import AppLayout from '@/components/layout/app';
 import { useLogoutMutation } from '@/utils/auth/hooks';
@@ -33,7 +32,6 @@ const ProfilePage: NextPageWithLayout = () => {
 
   const { colorMode, setColorMode } = useColorMode();
   const { lang, setLang } = useLang();
-  const [devMode, setDevMode] = useSettingsStore((s) => [s.devMode, s.setDevMode]);
 
   return (
     <Grid templateColumns={{ base: '1fr', lg: 'minmax(0, 800px) auto' }} gap={{ base: 3, lg: 6 }}>
@@ -74,13 +72,6 @@ const ProfilePage: NextPageWithLayout = () => {
             desc={t['dark mode description']}
             isChecked={colorMode === 'dark'}
             onChange={(e) => setColorMode(e.target.checked ? 'dark' : 'light')}
-          />
-          <SwitchField
-            id="developer-mode"
-            label={t['dev mode']}
-            desc={t['dev mode description']}
-            isChecked={devMode}
-            onChange={(e) => setDevMode(e.target.checked)}
           />
           <FormControl>
             <Box mb={2}>
