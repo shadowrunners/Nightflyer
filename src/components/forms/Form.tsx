@@ -1,20 +1,23 @@
 import {
-  FormControl,
-  FormControlProps,
-  FormErrorMessage,
-  FormLabel,
-} from '@chakra-ui/form-control';
-import { Flex, Spacer, Text } from '@chakra-ui/layout';
-import { ReactNode } from 'react';
-import {
   Controller,
   ControllerProps,
   FieldValues,
   Path,
   UseControllerProps,
 } from 'react-hook-form';
+import {
+  FormControl,
+  FormControlProps,
+  FormErrorMessage,
+  FormLabel,
+} from '@chakra-ui/form-control';
+import { Flex, Spacer, Text } from '@chakra-ui/layout';
+import { ReactNode, useMemo, memo } from 'react';
 
-export function Form(props: FormControlProps) {
+
+export const Form: React.FC<FormControlProps> = memo((props) => {
+  const memProps = useMemo(() => props, [props]);
+
   return (
     <FormControl
       as={Flex}
@@ -23,12 +26,29 @@ export function Form(props: FormControlProps) {
       rounded="3xl"
       p={5}
       boxShadow="normal"
-      {...props}
+      {...memProps}
     >
       {props.children}
     </FormControl>
   );
-}
+})
+
+export const FormNoBg: React.FC<FormControlProps> = memo((props) => {
+  const memProps = useMemo(() => props, [props]);
+
+  return (
+    <FormControl
+      as={Flex}
+      direction="column"
+      rounded="3xl"
+      p={5}
+      boxShadow="normal"
+      {...memProps}
+    >
+      {props.children}
+    </FormControl>
+  );
+})
 
 export type FormCardProps = {
   required?: boolean;
@@ -66,6 +86,20 @@ export function FormCard({
   );
 }
 
+export function FormCardNoBg({
+  required,
+  baseControl,
+  children,
+  error,
+}: FormCardProps) {
+  return (
+    <FormNoBg isRequired={required} isInvalid={error != null} {...baseControl}>
+      {children}
+      <FormErrorMessage>{error}</FormErrorMessage>
+    </FormNoBg>
+  );
+}
+
 export type FormCardControllerProps<
   TFieldValue extends FieldValues,
   TName extends Path<TFieldValue>
@@ -90,3 +124,4 @@ export function FormCardController<
     />
   );
 }
+

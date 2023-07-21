@@ -3,7 +3,6 @@ import {
   Flex,
   Input,
   InputGroup,
-  InputLeftAddon,
   Popover,
   PopoverBody,
   PopoverContent,
@@ -13,10 +12,10 @@ import {
 } from '@chakra-ui/react';
 import { HexAlphaColorPicker, HexColorPicker } from 'react-colorful';
 import { ColorPickerBaseProps } from 'react-colorful/dist/types';
-import { FormCard } from './Form';
-import { convertHexToRGBA } from '@/utils/common';
+import { FormCardNoBg } from './Form';
 import { useController } from 'react-hook-form';
 import { ControlledInput } from './types';
+import { useMemo } from 'react';
 
 export type ColorPickerFormProps = Omit<ColorPickerProps, 'value' | 'onChange'>;
 
@@ -27,12 +26,14 @@ export const SmallColorPickerForm: ControlledInput<
   const { field, fieldState } = useController(controller);
   const { value } = field;
 
+  const memControl = useMemo(() => control, [control]);
+  const memProps = useMemo(() => props, [props]);
+
   return (
-    <FormCard {...control} error={fieldState.error?.message}>
+    <FormCardNoBg {...memControl} error={fieldState.error?.message}>
       <Popover>
-        <PopoverTrigger>
-          <InputGroup>
-            <InputLeftAddon bg={value} rounded="xl" h="full" />
+        <PopoverTrigger >
+          <InputGroup >
             <Input
               autoComplete="off"
               variant="main"
@@ -45,11 +46,11 @@ export const SmallColorPickerForm: ControlledInput<
 
         <PopoverContent>
           <PopoverBody>
-            <ColorPicker value={value} onChange={field.onChange} {...props} />
+            <ColorPicker value={value} onChange={field.onChange} {...memProps} />
           </PopoverBody>
         </PopoverContent>
       </Popover>
-    </FormCard>
+    </FormCardNoBg>
   );
 };
 
@@ -62,16 +63,16 @@ export const ColorPickerForm: ControlledInput<ColorPickerFormProps, ColorPickerP
   const { value } = field;
 
   return (
-    <FormCard {...control} error={fieldState.error?.message}>
+    <FormCardNoBg {...control} error={fieldState.error?.message}>
       <SimpleGrid columns={{ base: 1, '3sm': 2 }} gap={2}>
         <Flex direction="column" gap={3}>
           <Center
+            bg='transparent'
             display={{ base: 'none', '3sm': 'flex' }}
             minH="150px"
             rounded="xl"
             border="1px solid"
             borderColor="InputBorder"
-            bgColor={value == null ? 'InputBackground' : convertHexToRGBA(value)}
             flex={1}
           >
             {value == null && (
@@ -90,7 +91,7 @@ export const ColorPickerForm: ControlledInput<ColorPickerFormProps, ColorPickerP
         </Flex>
         <ColorPicker value={field.value} onChange={field.onChange} {...props} />
       </SimpleGrid>
-    </FormCard>
+    </FormCardNoBg>
   );
 };
 

@@ -1,71 +1,55 @@
-import { BsChatLeftText as ChatIcon } from 'react-icons/bs';
-import { GuildChannel } from '@/api/bot';
-import { ChannelTypes } from '@/api/discord';
+import { SelectInstance, Props as SelectProps } from 'chakra-react-select';
 import { Option, SelectField } from '@/components/forms/SelectField';
-import { forwardRef, useMemo } from 'react';
-import { MdRecordVoiceOver } from 'react-icons/md';
+import { BsChatLeftText as ChatIcon } from 'react-icons/bs';
+import { common } from '@/config/translations/common';
 import { useGuildChannelsQuery } from '@/api/hooks';
+import { MdRecordVoiceOver } from 'react-icons/md';
+import { useController } from 'react-hook-form';
+import { ChannelTypes } from '@/api/discord';
+import { forwardRef, useMemo } from 'react';
+import { ControlledInput } from './types';
+import { GuildChannel } from '@/api/bot';
+import { Override } from '@/utils/types';
 import { Icon } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { SelectInstance, Props as SelectProps } from 'chakra-react-select';
-import { Override } from '@/utils/types';
-import { ControlledInput } from './types';
 import { FormCard } from './Form';
-import { useController } from 'react-hook-form';
-import { common } from '@/config/translations/common';
 
-/**
- * Render an options
- */
-const render = (channel: GuildChannel): Option => {
-  const icon = () => {
-    switch (channel.type) {
-      case ChannelTypes.GUILD_STAGE_VOICE:
-      case ChannelTypes.GUILD_VOICE: {
-        return <Icon as={MdRecordVoiceOver} />;
-      }
-      default:
-        return <ChatIcon />;
-    }
-  };
+/** Renders the options. */
+const render = (channel: GuildChannel | undefined): Option => {
+  const icon = channel?.type === ChannelTypes.GUILD_STAGE_VOICE || channel?.type === ChannelTypes.GUILD_VOICE ? (
+    <Icon as={MdRecordVoiceOver} />
+  ) : ( <ChatIcon /> );
 
   return {
-    label: channel.name,
-    value: channel.id,
-    icon: icon(),
+    label: channel?.name ?? null,
+    value: channel?.id ?? null,
+    icon,
   };
 };
 
+/** Maps the channels. */
 function mapOptions(channels: GuildChannel[]) {
-  //channels in category
-  const categories = new Map<string, GuildChannel[]>();
-  //channels with no parent category
+  const categories: { [key: string]: GuildChannel[] } = {};
   const roots: GuildChannel[] = [];
 
-  //group channels
   for (const channel of channels) {
     if (channel.category == null) roots.push(channel);
     else {
-      const category = categories.get(channel.category);
-
-      if (category == null) {
-        categories.set(channel.category, [channel]);
-      } else {
-        category.push(channel);
-      }
+      if (!categories[channel.category]) categories[channel.category] = [channel];
+      else categories[channel.category].push(channel);
     }
   }
 
   //map channels into select menu options
   return roots.map((channel) => {
-    if (channel.type === ChannelTypes.GUILD_CATEGORY) {
-      return {
-        ...render(channel),
-        options: categories.get(channel.id)?.map(render) ?? [],
-      };
-    }
+    const renderedChannel = render(channel);
 
-    return render(channel);
+    if (channel.type === ChannelTypes.GUILD_CATEGORY) {
+      const options = categories[channel.id]?.map(render) || [];
+      return { ...renderedChannel, options };
+    }
+    
+    return renderedChannel;
   });
 }
 
@@ -83,20 +67,22 @@ export const ChannelSelect = forwardRef<SelectInstance<Option, false>, Props>(
     const channelsQuery = useGuildChannelsQuery(guild);
     const isLoading = channelsQuery.isLoading;
 
-    const selected = value != null ? channelsQuery.data?.find((c) => c.id === value) : null;
-    const options = useMemo(
-      () => (channelsQuery.data != null ? mapOptions(channelsQuery.data) : []),
-      [channelsQuery.data]
-    );
+    const selected = useMemo(() => {
+      return value !== undefined ? channelsQuery.data?.find((c) => c.id === value) : null;
+    }, [value, channelsQuery.data])
+ 
+    const options = useMemo(() => {
+      return channelsQuery?.data !== undefined ? mapOptions(channelsQuery.data) : [];
+    }, [channelsQuery.data]);
 
     return (
       <SelectField<Option>
         isDisabled={isLoading}
         isLoading={isLoading}
         placeholder={<common.T text="select channel" />}
-        value={selected != null ? render(selected) : null}
+        value={selected !== null ? render(selected) : null}
         options={options}
-        onChange={(e) => e != null && onChange(e.value)}
+        onChange={(e) => e?.value !== null && onChange(e?.value as string)}
         ref={ref}
         {...rest}
       />

@@ -9,6 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { AiOutlineSearch as SearchIcon } from 'react-icons/ai';
 import { common } from '@/config/translations/common';
+import { useCallback, useMemo } from 'react';
 
 export function SearchBar(
   props: {
@@ -16,21 +17,17 @@ export function SearchBar(
     onSearch?: () => void;
   } & InputGroupProps
 ) {
-  const t = common.useTranslations();
+  const t = useMemo(() => common.useTranslations(), []);
   const { input, onSearch, ...rest } = props;
+
+  const handleSearch = useCallback(() => {
+    onSearch?.();
+  }, [onSearch]);
 
   return (
     <InputGroup {...rest}>
       <InputLeftElement>
-        <IconButton
-          aria-label="search"
-          bg="inherit"
-          borderRadius="inherit"
-          _active={{}}
-          variant="ghost"
-          icon={<Icon as={SearchIcon} color="TextPrimary" width="15px" height="15px" />}
-          onClick={onSearch}
-        />
+        <Icon as={SearchIcon} color="TextPrimary" width="15px" height="15px" />
       </InputLeftElement>
       <Input
         variant="search"
@@ -42,7 +39,7 @@ export function SearchBar(
         borderRadius="30px"
         placeholder={`${t.search}...`}
         onKeyDown={(e) => {
-          if (e.key === 'Enter') onSearch?.();
+          if (e.key === 'Enter') handleSearch();
         }}
         _dark={{
           bg: 'navy.900',

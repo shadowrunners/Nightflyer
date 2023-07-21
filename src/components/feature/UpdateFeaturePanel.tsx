@@ -1,7 +1,6 @@
 import { RiErrorWarningFill as WarningIcon } from 'react-icons/ri';
 import { Box, Flex, Heading, Spacer, Text } from '@chakra-ui/layout';
-import { ButtonGroup, Button, Icon } from '@chakra-ui/react';
-import { SlideFade } from '@chakra-ui/react';
+import { ButtonGroup, Button, Icon, SlideFade } from '@chakra-ui/react';
 import { FeatureConfig, UseFormRenderResult, CustomFeatures } from '@/config/types';
 import { IoSave } from 'react-icons/io5';
 import { useEnableFeatureMutation, useUpdateFeatureMutation } from '@/api/hooks';
@@ -19,8 +18,8 @@ export function UpdateFeaturePanel({
   const { guild, feature: featureId } = useRouter().query as Params;
   const mutation = useUpdateFeatureMutation();
   const enableMutation = useEnableFeatureMutation();
-  const result = config.useRender(feature, (data) => {
-    return mutation.mutateAsync({
+  const result = config.useRender(feature, async (data) => {
+    return await mutation.mutateAsync({
       guild,
       feature: featureId,
       options: data,
@@ -67,18 +66,9 @@ function Savebar({
     <Flex
       as={SlideFade}
       in={canSave}
-      bg="CardBackground"
-      rounded="3xl"
+      className='bg-CardBackground rounded-3xl sticky bottom-2 md:bottom-10 w-full p-1 md:p-15px shadow-normal items-center flex-col md:flex-row gap-1 md:gap-2 mt-auto'
       zIndex="sticky"
       pos="sticky"
-      bottom={{ base: 2, [breakpoint]: '10px' }}
-      w="full"
-      p={{ base: 1, [breakpoint]: '15px' }}
-      shadow="normal"
-      alignItems="center"
-      flexDirection={{ base: 'column', [breakpoint]: 'row' }}
-      gap={{ base: 1, [breakpoint]: 2 }}
-      mt="auto"
     >
       <Icon
         display={{ base: 'none', [breakpoint]: 'block' }}
@@ -88,9 +78,7 @@ function Savebar({
         w="30px"
         h="30px"
       />
-      <Text fontSize={{ base: 'md', [breakpoint]: 'lg' }} fontWeight="600">
-        {t.unsaved}
-      </Text>
+      <Text className="font-semibold text-md md:text-lg">{t.unsaved}</Text>
       <Spacer />
       <ButtonGroup isDisabled={isLoading} size={{ base: 'sm', [breakpoint]: 'md' }}>
         <Button
