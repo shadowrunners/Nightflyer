@@ -1,13 +1,13 @@
 import { FaChevronLeft as ChevronLeftIcon } from 'react-icons/fa';
+import { Avatar, Icon, SkeletonCircle } from '@chakra-ui/react';
+import { sidebarBreakpoint } from '@/theme/breakpoints';
 import { Box, Flex, Text } from '@chakra-ui/layout';
-import { Avatar, Icon, IconButton, SkeletonCircle } from '@chakra-ui/react';
-import { iconUrl } from '@/api/discord';
 import { useGuildPreview } from '@/api/hooks';
+import { useRouter } from 'next/router';
+import { iconUrl } from '@/api/discord';
 import { motion } from 'framer-motion';
 import { ReactElement } from 'react';
-import { sidebarBreakpoint } from '@/theme/breakpoints';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
 export default function GuildNavbar({ back }: { back?: boolean }) {
   const { guild: selected } = useRouter().query as { guild: string };
