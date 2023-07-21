@@ -3,7 +3,7 @@ import { Input, Textarea, Box, Text } from '@chakra-ui/react';
 import { SmallColorPickerForm } from './forms/ColorPicker';
 import React from 'react';
 
-const Embed = ({ data, fullData, register, control }) => {
+const Embed = ({ fullData, register, control }) => {
   return (
     <React.Fragment>
       <Box className='flex-1'>
@@ -85,6 +85,9 @@ const Embed = ({ data, fullData, register, control }) => {
             author="Evelyn"
             avatar="https://cdn.discordapp.com/avatars/274973338676494347/00dcf84af54a0a58d2394b4054e0f7f5.png?size=100"
           >
+          <DiscordMessage>
+            {fullData?.embed?.messagecontent}
+          </DiscordMessage>
           <DiscordEmbed
             slot='embeds'
             authorName={fullData?.embed?.author?.name}
