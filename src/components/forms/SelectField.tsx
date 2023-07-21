@@ -97,8 +97,8 @@ const styles: ChakraStylesConfig<any, any, any> = {
 };
 
 export type Option = OptionBase & {
-  label: string;
-  value: string;
+  label: string | null;
+  value: string | null;
   icon?: ReactNode;
 };
 
