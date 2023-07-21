@@ -71,7 +71,7 @@ export function DefaultNavbar() {
         ))}
       </Breadcrumb>
       <Text color="TextPrimary" fontWeight="bold" fontSize={{ base: '25px', '3sm': '34px' }} mb={2}>
-        {activeItem?.name || <SkeletonText w="full" noOfLines={2} />}
+        {activeItem?.name ?? <SkeletonText w="full" noOfLines={2} />}
       </Text>
     </Flex>
   );
