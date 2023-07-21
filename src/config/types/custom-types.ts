@@ -1,6 +1,4 @@
 /*** Custom feature types. **/
-
-import { z } from 'zod';
 import { GuildInfo } from './types';
 
 export type CustomGuildInfo = GuildInfo & {};
@@ -9,17 +7,52 @@ export type CustomGuildInfo = GuildInfo & {};
  * Define feature ids and it's option types
  */
 export type CustomFeatures = {
-  music: {};
-  gaming: {};
-  'reaction-role': {};
-  meme: {};
-  'anti-phish': {},
-  'confessions': ConfessionSystem,
-  'welcome': WelcomeFeature;
+  antiphishing: AntiPhishingFeature,
+  confessions: ConfessionsFeature,
+  goodbye: GoodbyeFeature,
+  logs: LogsFeature,
+  levelling: LevellingFeature,
+  tickets: TicketsFeature,
+  verification: VerifyFeature,
+  welcome: WelcomeFeature,
 };
 
-export type ConfessionSystem = {
+export type AntiPhishingFeature = {
   channel?: string;
+}
+
+export type ConfessionsFeature = {
+  channel?: string;
+}
+
+export type LogsFeature = {
+  channel?: string;
+}
+
+export type LevellingFeature = {
+  channel?: string;
+  message?: string;
+}
+
+export type TicketsFeature = {
+  transcriptChannel?: string;
+  assistantRole?: string;
+  embed?: {
+    messagecontent?: string;
+    author?: {
+      name?: string;
+      iconURL?: string;
+    }
+    color?: string;
+    title?: string;
+    description?: string;
+    thumbnail?: string;
+    image?: string;
+    footer?: {
+      text?: string;
+      iconURL?: string;
+    }
+  };
 }
 
 export type WelcomeFeature = {
@@ -42,9 +75,26 @@ export type WelcomeFeature = {
   };
 };
 
-export const memeFeatureSchema = z.object({
-  channel: z.string().optional(),
-  source: z.enum(['youtube', 'twitter', 'discord']).optional(),
-});
+export type GoodbyeFeature = {
+  channel?: string;
+  embed?: {
+    messagecontent?: string;
+    author?: {
+      name?: string;
+      iconURL?: string;
+    }
+    color?: string;
+    title?: string;
+    description?: string;
+    thumbnail?: string;
+    image?: string;
+    footer?: {
+      text?: string;
+      iconURL?: string;
+    }
+  };
+};
 
-export type MemeFeature = z.infer<typeof memeFeatureSchema>;
+export type VerifyFeature = {
+  role?: string;
+}
