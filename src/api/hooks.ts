@@ -1,6 +1,6 @@
-import { CustomFeatures, CustomGuildInfo } from '../config/types';
+import { CustomFeatures, CustomGuildInfo } from "@/config/types";
 import { QueryClient, useMutation, useQuery } from '@tanstack/react-query';
-import { UserInfo, getGuild, getGuilds, fetchUserInfo } from '@/api/discord';
+import { UserInfo, getGuilds, fetchUserInfo } from '@/api/discord';
 import {
   disableFeature,
   enableFeature,
@@ -30,21 +30,9 @@ export const Keys = {
   login: ['login'],
   guild_info: (guild: string) => ['guild_info', guild],
   features: (guild: string, feature: string) => ['feature', guild, feature],
-  guildRoles: (guild: string) => ['gulid_roles', guild],
-  guildChannels: (guild: string) => ['gulid_channel', guild],
+  guildRoles: (guild: string) => ['guild_roles', guild],
+  guildChannels: (guild: string) => ['guild_channel', guild],
 };
-
-export const Mutations = {
-  updateFeature: (guild: string, id: string) => ['feature', guild, id],
-};
-
-export function useGuild(id: string) {
-  const accessToken = useAccessToken();
-
-  return useQuery(['guild', id], () => getGuild(accessToken as string, id), {
-    enabled: accessToken != null,
-  });
-}
 
 export function useGuilds() {
   const accessToken = useAccessToken();
@@ -104,14 +92,14 @@ export function useEnableFeatureMutation() {
           if (enabled) {
             return {
               ...prev,
-              enabledFeatures: prev.enabledFeatures.includes(feature)
+              enabledFeatures: prev?.enabledFeatures?.includes(feature)
                 ? prev.enabledFeatures
-                : [...prev.enabledFeatures, feature],
+                : [...prev.enabledFeatures as string[], feature],
             };
           } else {
             return {
               ...prev,
-              enabledFeatures: prev.enabledFeatures.filter((f) => f !== feature),
+              enabledFeatures: prev?.enabledFeatures?.filter((f) => f !== feature),
             };
           }
         });
