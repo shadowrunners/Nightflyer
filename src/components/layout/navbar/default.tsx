@@ -14,7 +14,7 @@ export function DefaultNavbar() {
     {
       icon: (<IoHome />) as ReactNode,
       text: (<common.T text="pages" />) as ReactNode,
-      href: '/user/home',
+      href: '/dash/user/home',
     },
   ];
 

@@ -68,7 +68,7 @@ function List(props: { textColor: string; shadow: string; menuBg: string; user: 
           borderRadius="8px"
           px="14px"
           as={Link}
-          href={`/user/profile`}
+          href={`/dash/user/profile`}
         >
           <Text fontSize="sm">{t.profile}</Text>
         </MenuItem>

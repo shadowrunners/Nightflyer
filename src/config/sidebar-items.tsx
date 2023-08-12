@@ -1,18 +1,13 @@
-import { Icon } from '@chakra-ui/react';
 import { common } from '@/config/translations/common';
-import { MdPerson, MdDashboard } from 'react-icons/md';
 import { SidebarItemInfo } from '@/utils/router';
+import { MdDashboard } from 'react-icons/md';
+import { Icon } from '@chakra-ui/react';
 
 const items: SidebarItemInfo[] = [
   {
     name: <common.T text="dashboard" />,
-    path: '/user/home',
+    path: '/dash/user/home',
     icon: <Icon as={MdDashboard} />,
-  },
-  {
-    name: <common.T text="profile" />,
-    path: '/user/profile',
-    icon: <Icon as={MdPerson} />,
   },
 ];
 
