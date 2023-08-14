@@ -16,41 +16,39 @@ import { FormCard } from './Form';
 
 /** Renders the options. */
 const render = (channel: GuildChannel | undefined): Option => {
-  const icon = channel?.type === ChannelTypes.GUILD_STAGE_VOICE || channel?.type === ChannelTypes.GUILD_VOICE ? (
-    <Icon as={MdRecordVoiceOver} />
-  ) : ( <ChatIcon /> );
+	const icon = channel?.type === ChannelTypes.GUILD_STAGE_VOICE || channel?.type === ChannelTypes.GUILD_VOICE ? (
+		<Icon as={MdRecordVoiceOver} />
+	) : (<ChatIcon />);
 
-  return {
-    label: channel?.name ?? null,
-    value: channel?.id ?? null,
-    icon,
-  };
+	return {
+		label: channel?.name ?? null,
+		value: channel?.id ?? null,
+		icon,
+	};
 };
 
 /** Maps the channels. */
 function mapOptions(channels: GuildChannel[]) {
-  const categories: { [key: string]: GuildChannel[] } = {};
-  const roots: GuildChannel[] = [];
+	const categories: { [key: string]: GuildChannel[] } = {};
+	const roots: GuildChannel[] = [];
 
-  for (const channel of channels) {
-    if (channel.category == null) roots.push(channel);
-    else {
-      if (!categories[channel.category]) categories[channel.category] = [channel];
-      else categories[channel.category].push(channel);
-    }
-  }
+	for (const channel of channels) {
+		if (channel.category == null) roots.push(channel);
+		else if (!categories[channel.category]) categories[channel.category] = [channel];
+		else categories[channel.category].push(channel);
+	}
 
-  //map channels into select menu options
-  return roots.map((channel) => {
-    const renderedChannel = render(channel);
+	// map channels into select menu options
+	return roots.map((channel) => {
+		const renderedChannel = render(channel);
 
-    if (channel.type === ChannelTypes.GUILD_CATEGORY) {
-      const options = categories[channel.id]?.map(render) || [];
-      return { ...renderedChannel, options };
-    }
-    
-    return renderedChannel;
-  });
+		if (channel.type === ChannelTypes.GUILD_CATEGORY) {
+			const options = categories[channel.id]?.map(render) || [];
+			return { ...renderedChannel, options };
+		}
+
+		return renderedChannel;
+	});
 }
 
 type Props = Override<
@@ -62,46 +60,46 @@ type Props = Override<
 >;
 
 export const ChannelSelect = forwardRef<SelectInstance<Option, false>, Props>(
-  ({ value, onChange, ...rest }, ref) => {
-    const guild = useRouter().query.guild as string;
-    const channelsQuery = useGuildChannelsQuery(guild);
-    const isLoading = channelsQuery.isLoading;
+	({ value, onChange, ...rest }, ref) => {
+		const guild = useRouter().query.guild as string;
+		const channelsQuery = useGuildChannelsQuery(guild);
+		const isLoading = channelsQuery.isLoading;
 
-    const selected = useMemo(() => {
-      return value !== undefined ? channelsQuery.data?.find((c) => c.id === value) : null;
-    }, [value, channelsQuery.data])
- 
-    const options = useMemo(() => {
-      return channelsQuery?.data !== undefined ? mapOptions(channelsQuery.data) : [];
-    }, [channelsQuery.data]);
+		const selected = useMemo(() => {
+			return value !== undefined ? channelsQuery.data?.find((c) => c.id === value) : null;
+		}, [value, channelsQuery.data]);
 
-    return (
-      <SelectField<Option>
-        isDisabled={isLoading}
-        isLoading={isLoading}
-        placeholder={<common.T text="select channel" />}
-        value={selected !== null ? render(selected) : null}
-        options={options}
-        onChange={(e) => e !== null && onChange(e.value as string)}
-        ref={ref}
-        {...rest}
-      />
-    );
-  }
+		const options = useMemo(() => {
+			return channelsQuery?.data !== undefined ? mapOptions(channelsQuery.data) : [];
+		}, [channelsQuery.data]);
+
+		return (
+			<SelectField<Option>
+				isDisabled={isLoading}
+				isLoading={isLoading}
+				placeholder={<common.T text="select channel" />}
+				value={selected !== null ? render(selected) : null}
+				options={options}
+				onChange={(e) => e !== null && onChange(e.value as string)}
+				ref={ref}
+				{...rest}
+			/>
+		);
+	},
 );
 
 ChannelSelect.displayName = 'ChannelSelect';
 
 export const ChannelSelectForm: ControlledInput<Omit<Props, 'value' | 'onChange'>> = ({
-  control,
-  controller,
-  ...props
+	control,
+	controller,
+	...props
 }) => {
-  const { field, fieldState } = useController(controller);
+	const { field, fieldState } = useController(controller);
 
-  return (
-    <FormCard {...control} error={fieldState.error?.message}>
-      <ChannelSelect {...field} {...props} />
-    </FormCard>
-  );
+	return (
+		<FormCard {...control} error={fieldState.error?.message}>
+			<ChannelSelect {...field} {...props} />
+		</FormCard>
+	);
 };

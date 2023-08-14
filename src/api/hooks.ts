@@ -1,111 +1,112 @@
-import { CustomFeatures, CustomGuildInfo } from "@/config/types";
+import { CustomFeatures, CustomGuildInfo } from '@/config/types';
 import { QueryClient, useMutation, useQuery } from '@tanstack/react-query';
 import { UserInfo, getGuilds, fetchUserInfo } from '@/api/discord';
 import {
-  disableFeature,
-  enableFeature,
-  fetchGuildChannels,
-  fetchGuildInfo,
-  fetchGuildRoles,
-  getFeature,
-  updateFeature,
+	disableFeature,
+	enableFeature,
+	fetchGuildChannels,
+	fetchGuildInfo,
+	fetchGuildRoles,
+	getFeature,
+	updateFeature,
 } from '@/api/bot';
 import { GuildInfo } from '@/config/types';
 import { useAccessToken, useSession } from '@/utils/auth/hooks';
 
 export const client = new QueryClient({
-  defaultOptions: {
-    mutations: {
-      retry: 0,
-    },
-    queries: {
-      refetchOnWindowFocus: false,
-      staleTime: Infinity,
-      retry: 0,
-    },
-  },
+	defaultOptions: {
+		mutations: {
+			retry: 0,
+		},
+		queries: {
+			refetchOnWindowFocus: false,
+			staleTime: Infinity,
+			retry: 0,
+		},
+	},
 });
 
 export const Keys = {
-  login: ['login'],
-  guild_info: (guild: string) => ['guild_info', guild],
-  features: (guild: string, feature: string) => ['feature', guild, feature],
-  guildRoles: (guild: string) => ['guild_roles', guild],
-  guildChannels: (guild: string) => ['guild_channel', guild],
+	login: ['login'],
+	guild_info: (guild: string) => ['guild_info', guild],
+	features: (guild: string, feature: string) => ['feature', guild, feature],
+	guildRoles: (guild: string) => ['guild_roles', guild],
+	guildChannels: (guild: string) => ['guild_channel', guild],
 };
 
 export function useGuilds() {
-  const accessToken = useAccessToken();
+	const accessToken = useAccessToken();
 
-  return useQuery(['user_guilds'], () => getGuilds(accessToken as string), {
-    enabled: accessToken != null,
-  });
+	return useQuery(['user_guilds'], () => getGuilds(accessToken as string), {
+		enabled: accessToken != null,
+	});
 }
 
 export function useSelfUserQuery() {
-  const accessToken = useAccessToken();
+	const accessToken = useAccessToken();
 
-  return useQuery<UserInfo>(['users', 'me'], () => fetchUserInfo(accessToken!!), {
-    enabled: accessToken != null,
-    staleTime: Infinity,
-  });
+	return useQuery<UserInfo>(['users', 'me'], () => fetchUserInfo(accessToken!), {
+		enabled: accessToken != null,
+		staleTime: Infinity,
+	});
 }
 
 export function useGuildInfoQuery(guild: string) {
-  const { status, session } = useSession();
+	const { status, session } = useSession();
 
-  return useQuery<CustomGuildInfo | null>(
-    Keys.guild_info(guild),
-    () => fetchGuildInfo(session!!, guild),
-    {
-      enabled: status === 'authenticated',
-      refetchOnWindowFocus: true,
-      retry: false,
-      staleTime: 0,
-    }
-  );
+	return useQuery<CustomGuildInfo | null>(
+		Keys.guild_info(guild),
+		() => fetchGuildInfo(session!, guild),
+		{
+			enabled: status === 'authenticated',
+			refetchOnWindowFocus: true,
+			retry: false,
+			staleTime: 0,
+		},
+	);
 }
 
 export function useFeatureQuery<K extends keyof CustomFeatures>(guild: string, feature: K) {
-  const { status, session } = useSession();
+	const { status, session } = useSession();
 
-  return useQuery(Keys.features(guild, feature), () => getFeature(session!!, guild, feature), {
-    enabled: status === 'authenticated',
-  });
+	return useQuery(Keys.features(guild, feature), () => getFeature(session!, guild, feature), {
+		enabled: status === 'authenticated',
+	});
 }
 
 export type EnableFeatureOptions = { guild: string; feature: string; enabled: boolean };
 export function useEnableFeatureMutation() {
-  const { session } = useSession();
+	const { session } = useSession();
 
-  return useMutation(
-    async ({ enabled, guild, feature }: EnableFeatureOptions) => {
-      if (enabled) return enableFeature(session!!, guild, feature);
-      return disableFeature(session!!, guild, feature);
-    },
-    {
-      async onSuccess(_, { guild, feature, enabled }) {
-        await client.invalidateQueries(Keys.features(guild, feature));
-        client.setQueryData<GuildInfo | null>(Keys.guild_info(guild), (prev) => {
-          if (prev == null) return null;
+	return useMutation(
+		async ({ enabled, guild, feature }: EnableFeatureOptions) => {
+			if (enabled) return enableFeature(session!, guild, feature);
+			return disableFeature(session!, guild, feature);
+		},
+		{
+			async onSuccess(_, { guild, feature, enabled }) {
+				await client.invalidateQueries(Keys.features(guild, feature));
+				client.setQueryData<GuildInfo | null>(Keys.guild_info(guild), (prev) => {
+					if (prev == null) return null;
 
-          if (enabled) {
-            return {
-              ...prev,
-              enabledFeatures: prev?.enabledFeatures?.includes(feature)
-                ? prev.enabledFeatures
-                : [...prev.enabledFeatures as string[], feature],
-            };
-          } else {
-            return {
-              ...prev,
-              enabledFeatures: prev?.enabledFeatures?.filter((f) => f !== feature),
-            };
-          }
-        });
-      },
-    }
-  );
+					if (enabled) {
+						return {
+							...prev,
+							enabledFeatures: prev?.enabledFeatures?.includes(feature)
+								? prev.enabledFeatures
+								: [...prev.enabledFeatures as string[], feature],
+						};
+					}
+					else {
+						return {
+							...prev,
+							enabledFeatures: prev?.enabledFeatures?.filter((f) => f !== feature),
+						};
+					}
+				});
+			},
+		},
+	);
 }
 
 export type UpdateFeatureOptions = {
@@ -114,42 +115,42 @@ export type UpdateFeatureOptions = {
   options: FormData | string;
 };
 export function useUpdateFeatureMutation() {
-  const { session } = useSession();
+	const { session } = useSession();
 
-  return useMutation(
-    (options: UpdateFeatureOptions) =>
-      updateFeature(session!!, options.guild, options.feature, options.options),
-    {
-      onSuccess(updated, options) {
-        const key = Keys.features(options.guild, options.feature);
+	return useMutation(
+		(options: UpdateFeatureOptions) =>
+			updateFeature(session!, options.guild, options.feature, options.options),
+		{
+			onSuccess(updated, options) {
+				const key = Keys.features(options.guild, options.feature);
 
-        return client.setQueryData(key, updated);
-      },
-    }
-  );
+				return client.setQueryData(key, updated);
+			},
+		},
+	);
 }
 
 export function useGuildRolesQuery(guild: string) {
-  const { session } = useSession();
+	const { session } = useSession();
 
-  return useQuery(Keys.guildRoles(guild), () => fetchGuildRoles(session!!, guild));
+	return useQuery(Keys.guildRoles(guild), () => fetchGuildRoles(session!, guild));
 }
 
 export function useGuildChannelsQuery(guild: string) {
-  const { session } = useSession();
+	const { session } = useSession();
 
-  return useQuery(Keys.guildChannels(guild), () => fetchGuildChannels(session!!, guild));
+	return useQuery(Keys.guildChannels(guild), () => fetchGuildChannels(session!, guild));
 }
 
 export function useSelfUser(): UserInfo {
-  return useSelfUserQuery().data!!;
+	return useSelfUserQuery().data!;
 }
 
 export function useGuildPreview(guild: string) {
-  const query = useGuilds();
+	const query = useGuilds();
 
-  return {
-    guild: query.data?.find((g) => g.id === guild),
-    query,
-  };
+	return {
+		guild: query.data?.find((g) => g.id === guild),
+		query,
+	};
 }

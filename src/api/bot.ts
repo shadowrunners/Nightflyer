@@ -27,86 +27,89 @@ export type GuildChannel = {
 
 /**
  * Get custom guild info on from backend
- *
+ * @param session The access token.
  * @param guild Guild ID
  * @return Guild info, or null if bot hasn't joined the guild
  */
 export async function fetchGuildInfo(
-  session: AccessToken,
-  guild: string
+	session: AccessToken,
+	guild: string,
 ): Promise<CustomGuildInfo | null> {
-  return await callReturn<CustomGuildInfo | null>(
-    `/guilds/${guild}`,
-    botRequest(session, {
-      request: {
-        method: 'GET',
-      },
-      allowed: {
-        404: () => null,
-      },
-    })
-  );
+	return await callReturn<CustomGuildInfo | null>(
+		`/guilds/${guild}`,
+		botRequest(session, {
+			request: {
+				method: 'GET',
+			},
+			allowed: {
+				404: () => null,
+			},
+		}),
+	);
 }
 
-export async function enableFeature(session: AccessToken, guild: string, feature: string) {
-  return await callDefault(
-    `/guilds/${guild}/features/${feature}`,
-    botRequest(session, {
-      request: {
-        method: 'POST',
-      },
-    })
-  );
+export async function enableFeature(session: Exclude<AccessToken, never[]>, guild: string, feature: string) {
+	return await callDefault(
+		`/guilds/${guild}/features/${feature}`,
+		botRequest(session, {
+			request: {
+				method: 'POST',
+			},
+		}),
+	);
 }
 
-export async function disableFeature(session: AccessToken, guild: string, feature: string) {
-  return await callDefault(
-    `/guilds/${guild}/features/${feature}`,
-    botRequest(session, {
-      request: {
-        method: 'DELETE',
-      },
-    })
-  );
+export async function disableFeature(session: Exclude<AccessToken, never[]>, guild: string, feature: string) {
+	return await callDefault(
+		`/guilds/${guild}/features/${feature}`,
+		botRequest(session, {
+			request: {
+				method: 'DELETE',
+			},
+		}),
+	);
 }
 
 export async function getFeature<K extends keyof CustomFeatures>(
-  session: AccessToken,
-  guild: string,
-  feature: K
+	session: AccessToken,
+	guild: string,
+	feature: K,
 ): Promise<CustomFeatures[K]> {
-  return await callReturn<CustomFeatures[K]>(
-    `/guilds/${guild}/features/${feature}`,
-    botRequest(session, {
-      request: {
-        method: 'GET',
-      },
-    })
-  );
+	const request = await callReturn<CustomFeatures[K]>(
+		`/guilds/${guild}/features/${feature}`,
+		botRequest(session, {
+			request: {
+				method: 'GET',
+			},
+		}),
+	);
+
+	console.log(request);
+	return request;
 }
 
 export async function updateFeature<K extends keyof CustomFeatures>(
-  session: AccessToken,
-  guild: string,
-  feature: K,
-  options: FormData | string
+	session: AccessToken,
+	guild: string,
+	feature: K,
+	options: FormData | string,
 ): Promise<CustomFeatures[K]> {
-  const isForm = options instanceof FormData;
+	const isForm = options instanceof FormData;
 
-  return await callReturn<CustomFeatures[K]>(
-    `/guilds/${guild}/features/${feature}`,
-    botRequest(session, {
-      request: {
-        method: 'PATCH',
-        headers: isForm
-          ? {}
-          : {
-              'Content-Type': 'application/json',
-            },
-        body: options,
-      },
-    })
-  );
+	return await callReturn<CustomFeatures[K]>(
+		`/guilds/${guild}/features/${feature}`,
+		botRequest(session, {
+			request: {
+				method: 'PATCH',
+				headers: isForm
+					? {}
+					: {
+						'Content-Type': 'application/json',
+					},
+				body: options,
+			},
+		}),
+	);
 }
 
 /**
@@ -116,26 +119,26 @@ export async function updateFeature<K extends keyof CustomFeatures>(
  * @returns Guild roles
  */
 export async function fetchGuildRoles(session: AccessToken, guild: string) {
-  return await callReturn<Role[]>(
-    `/guilds/${guild}/roles`,
-    botRequest(session, {
-      request: {
-        method: 'GET',
-      },
-    })
-  );
+	return await callReturn<Role[]>(
+		`/guilds/${guild}/roles`,
+		botRequest(session, {
+			request: {
+				method: 'GET',
+			},
+		}),
+	);
 }
 
 /**
  * @returns Guild channels
  */
 export async function fetchGuildChannels(session: AccessToken, guild: string) {
-  return await callReturn<GuildChannel[]>(
-    `/guilds/${guild}/channels`,
-    botRequest(session, {
-      request: {
-        method: 'GET',
-      },
-    })
-  );
+	return await callReturn<GuildChannel[]>(
+		`/guilds/${guild}/channels`,
+		botRequest(session, {
+			request: {
+				method: 'GET',
+			},
+		}),
+	);
 }
