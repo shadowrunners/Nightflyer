@@ -2,20 +2,18 @@
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "prettier"
+    "plugin:@typescript-eslint/eslint-recommended"
   ],
   "env": {
     "node": true,
     "es6": true
   },
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint/eslint-plugin", "prettier"],
+  "plugins": ["@typescript-eslint/eslint-plugin"],
   "parserOptions": {
     "ecmaVersion": 2021
   },
   "rules": {
-    "prettier/prettier": ["error"],
     "arrow-spacing": ["warn", { "before": true, "after": true }],
     "brace-style": ["error", "stroustrup", { "allowSingleLine": true }],
     "comma-dangle": ["error", "always-multiline"],
