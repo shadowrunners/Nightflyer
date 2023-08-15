@@ -1,6 +1,6 @@
 import { Flex, Icon } from '@chakra-ui/react';
 import { IoMenuOutline } from 'react-icons/io5';
-import { usePageStore } from '@/stores';
+import { usePageStore } from '@/utils/pageStore';
 import { sidebarBreakpoint } from '@/theme/breakpoints';
 
 export function SidebarTrigger() {

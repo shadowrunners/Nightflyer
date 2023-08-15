@@ -6,6 +6,6 @@ export type PageStore = {
 };
 
 export const usePageStore = create<PageStore>((set) => ({
-  sidebarIsOpen: false,
-  setSidebarIsOpen: (v) => set({ sidebarIsOpen: v }),
+	sidebarIsOpen: false,
+	setSidebarIsOpen: (v) => set({ sidebarIsOpen: v }),
 }));

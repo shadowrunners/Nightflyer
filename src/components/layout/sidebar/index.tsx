@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { BottomCard, SidebarContent } from './SidebarContent';
 import { AnimatePresence, motion } from 'framer-motion';
-import { usePageStore } from '@/stores';
+import { usePageStore } from '@/utils/pageStore';
 import { sidebarBreakpoint } from '@/theme/breakpoints';
 import { ReactNode } from 'react';
 
