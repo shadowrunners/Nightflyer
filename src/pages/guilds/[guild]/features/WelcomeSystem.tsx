@@ -33,7 +33,7 @@ export const useWelcomeFeature: UseFormRender<WelcomeFeature> = (data, onSubmit)
 							description: 'The message that will be sent alongside the embed.',
 						}}
 						placeholder="Type some text here..."
-						{...register('embed.messagecontent')}
+						{...register('embed.content')}
 					/>
 				</SimpleGrid>
 
