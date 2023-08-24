@@ -1,7 +1,7 @@
-/*** Custom feature types. **/
+/** * Custom feature types. **/
 import { GuildInfo } from './types';
 
-export type CustomGuildInfo = GuildInfo & {};
+export type CustomGuildInfo = GuildInfo & unknown;
 
 /**
  * Define feature ids and it's option types
@@ -38,7 +38,7 @@ export type TicketsFeature = {
   transcriptChannel?: string;
   assistantRole?: string;
   embed?: {
-    messagecontent?: string;
+    content?: string;
     author?: {
       name?: string;
       iconURL?: string;
@@ -58,7 +58,7 @@ export type TicketsFeature = {
 export type WelcomeFeature = {
   channel?: string;
   embed?: {
-    messagecontent?: string;
+    content?: string;
     author?: {
       name?: string;
       iconURL?: string;
@@ -78,7 +78,7 @@ export type WelcomeFeature = {
 export type GoodbyeFeature = {
   channel?: string;
   embed?: {
-    messagecontent?: string;
+    content?: string;
     author?: {
       name?: string;
       iconURL?: string;
