@@ -1,25 +1,47 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { DiscordMessages, DiscordMessage, DiscordEmbed, DiscordEmbedDescription, DiscordEmbedFooter } from '@skyra/discord-components-react';
 import { Input, Textarea, Box, Text } from '@chakra-ui/react';
 import { UseFormRegister, Control } from 'react-hook-form';
 import { SmallColorPickerForm } from './ColorPicker';
+import { Features } from '@/utils/types';
 import React from 'react';
-import { CustomFeatures } from '@/config/types';
 
-type Feature = 'WelcomeFeature' | 'GoodbyeSystem'
-
-// @eslint-ignore
-interface IEmbed {
+interface IEmbed<T extends Features> {
 	fullData: unknown;
-	register: UseFormRegister<Feature>;
-	control: Control<any>;
+	register: UseFormRegister<T>;
+	control: Control<T>;
 }
 
 interface IEmbedData {
-		messagecontent: string;
+		/** The content of the message. */
+		content: string;
+		/** The embed's color. */
+		color: string;
+		/** The embed's title. */
 		title: string;
+		/** The embed's author object. */
+		author: {
+			/** The embed's author name. */
+			name: string;
+			/** The embed's author icon. */
+			iconURL: string;
+		};
+		/** The embed's description. */
+		description: string;
+		/** The embed's thumbnail. */
+		thumbnail: string;
+		/** The embed's image. */
+		image: string;
+		/** The embed's footer object. */
+		footer: {
+			/** The embed's footer text. */
+			text: string;
+			/** The embed's footer icon. */
+			iconURL: string;
+		}
 }
 
-const Embed = ({ fullData, register, control }: IEmbed) => {
+const Embed = ({ fullData, register, control }: IEmbed<any>) => {
 	const embed = fullData as IEmbedData;
 	return (
 		<React.Fragment>
@@ -103,25 +125,25 @@ const Embed = ({ fullData, register, control }: IEmbed) => {
 						avatar="https://cdn.discordapp.com/avatars/274973338676494347/00dcf84af54a0a58d2394b4054e0f7f5.png?size=100"
 					>
 						<DiscordMessage>
-							{embed?.messagecontent}
+							{embed?.content}
 						</DiscordMessage>
 						<DiscordEmbed
 							slot='embeds'
-							authorName={fullData?.embed?.author?.name}
-							authorImage={fullData?.embed?.author?.iconURL}
-							color={fullData?.embed?.color}
-							embedTitle={fullData?.embed?.title}
-							image={fullData?.embed?.image}
-							thumbnail={fullData?.embed?.thumbnail}
+							authorName={embed?.author?.name}
+							authorImage={embed?.author?.iconURL}
+							color={embed?.color}
+							embedTitle={embed?.title}
+							image={embed?.image}
+							thumbnail={embed?.thumbnail}
 						>
 							<DiscordEmbedDescription slot='description'>
-								{fullData?.embed?.description}
+								{embed?.description}
 							</DiscordEmbedDescription>
 							<DiscordEmbedFooter
 								slot='footer'
-								footerImage={fullData?.embed?.footer?.iconURL}
+								footerImage={embed?.footer?.iconURL}
 							>
-								{fullData?.embed?.footer?.text}
+								{embed?.footer?.text}
 							</DiscordEmbedFooter>
 						</DiscordEmbed>
 					</DiscordMessage>
