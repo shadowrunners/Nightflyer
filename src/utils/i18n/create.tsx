@@ -32,41 +32,41 @@ export function initI18n<Languages extends string>(config: {
    */
   useLang: () => Languages;
 }): I18nProvider<Languages> {
-  return {
-    useLang: config.useLang,
-    useTranslations(text) {
-      const lang = config.useLang();
+	return {
+		useLang: config.useLang,
+		useTranslations(text) {
+			const lang = config.useLang();
 
-      return text[lang];
-    },
-    T(props) {
-      const lang = config.useLang();
+			return text[lang];
+		},
+		T(props) {
+			const lang = config.useLang();
 
-      return <>{props[lang]}</>;
-    },
-  };
+			return <>{props[lang]}</>;
+		},
+	};
 }
 
 export function createI18n<Model extends TranslationModel, Languages extends string>(
-  provider: I18nProvider<Languages>,
-  translations: {
+	provider: I18nProvider<Languages>,
+	translations: {
     [lang in Languages]: Translation<Model>;
-  }
+  },
 ): I18nConfig<Languages, Model> {
-  return {
-    translations: translations,
-    useTranslations() {
-      const lang = provider.useLang();
-      const translation = translations[lang];
+	return {
+		translations: translations,
+		useTranslations() {
+			const lang = provider.useLang();
+			const translation = translations[lang];
 
-      return translation;
-    },
-    T({ text }) {
-      const lang = provider.useLang();
-      const translation = translations[lang];
-      if (typeof text === 'function') return <>{text(translation)}</>;
+			return translation;
+		},
+		T({ text }) {
+			const lang = provider.useLang();
+			const translation = translations[lang];
+			if (typeof text === 'function') return <>{text(translation)}</>;
 
-      return <>{translation[text]}</>;
-    },
-  };
+			return <>{translation[text]}</>;
+		},
+	};
 }

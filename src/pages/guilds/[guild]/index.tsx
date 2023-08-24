@@ -13,70 +13,72 @@ import { FeatureItem } from '@/components/feature/FeatureItem';
 import type { CustomGuildInfo } from '@/config/types/custom-types';
 import { NextPageWithLayout } from '@/pages/_app';
 import getGuildLayout from '@/components/layout/guild/get-guild-layout';
+import { fetchGuild } from '@/utils/api';
+import { GetServerSidePropsContext } from 'next';
 
 const GuildPage: NextPageWithLayout = () => {
-  const t = view.useTranslations();
-  const guild = useRouter().query.guild as string;
-  const query = useGuildInfoQuery(guild);
+	const t = view.useTranslations();
+	const guild = useRouter().query.guild as string;
+	const query = useGuildInfoQuery(guild);
 
-  return (
-    <QueryStatus query={query} loading={<LoadingPanel />} error={t.error.load}>
-      {query?.data?.id != null ? (
-        <GuildPanel guild={guild} info={query.data} />
-      ) : (
-        <NotJoined guild={guild} />
-      )}
-    </QueryStatus>
-  );
+	return (
+		<QueryStatus query={query} loading={<LoadingPanel />} error={t.error.load}>
+		  {query?.data?.id != null ? (
+			<GuildPanel guild={guild} info={query.data} />
+		  ) : (
+			<NotJoined guild={guild} />
+		  )}
+		</QueryStatus>
+	  );
 };
 
 function GuildPanel({ guild: id, info }: { guild: string; info: CustomGuildInfo }) {
-  const t = view.useTranslations();
+	const t = view.useTranslations();
 
-  return (
-    <Flex direction="column" gap={5}>
-      <Banner />
-      <Flex direction="column" gap={5} mt={3}>
-        <Heading size="md">{t.features}</Heading>
-        <SimpleGrid columns={{ base: 1, md: 2, '2xl': 3 }} gap={3}>
-          {getFeatures().map((feature) => (
-            <FeatureItem
-              key={feature.id}
-              guild={id}
-              feature={feature}
-              enabled={info?.enabledFeatures?.includes(feature.id)}
-            />
-          ))}
-        </SimpleGrid>
-      </Flex>
-    </Flex>
-  );
+	return (
+		<Flex direction="column" gap={5}>
+			<Banner />
+			<Flex direction="column" gap={5} mt={3}>
+				<Heading size="md">{t.features}</Heading>
+				<SimpleGrid columns={{ base: 1, md: 2, '2xl': 3 }} gap={3}>
+					{getFeatures().map((feature) => (
+						<FeatureItem
+							key={feature.id}
+							guild={id}
+							feature={feature}
+							enabled={info?.enabledFeatures?.includes(feature.id)}
+						/>
+					))}
+				</SimpleGrid>
+			</Flex>
+		</Flex>
+	);
 }
 
 function NotJoined({ guild }: { guild: string }) {
-  const t = view.useTranslations();
+	const t = view.useTranslations();
 
-  return (
-    <Center flexDirection="column" gap={3} h="full" p={5}>
-      <Icon as={BiSolidErrorAlt} w={50} h={50} />
-      <Text fontSize="xl" fontWeight="600">
-        {t.error['not found']}
-      </Text>
-      <Text textAlign="center" color="TextSecondary">
-        {t.error['not found description']}
-      </Text>
-      <Button
-        variant="action"
-        leftIcon={<FaRobot />}
-        px={6}
-        as="a"
-        href={`${config.inviteUrl}&guild_id=${guild}`}
-        target="_blank"
-      >
-        {t.bn.invite}
-      </Button>
-    </Center>
-  );
+	return (
+		<Center flexDirection="column" gap={3} h="full" p={5}>
+			<Icon as={BiSolidErrorAlt} w={50} h={50} />
+			<Text fontSize="xl" fontWeight="600">
+				{t.error['not found']}
+			</Text>
+			<Text textAlign="center" color="TextSecondary">
+				{t.error['not found description']}
+			</Text>
+			<Button
+				variant="action"
+				leftIcon={<FaRobot />}
+				px={6}
+				as="a"
+				href={`${config.inviteUrl}&guild_id=${guild}`}
+				target="_blank"
+			>
+				{t.bn.invite}
+			</Button>
+		</Center>
+	);
 }
 
 GuildPage.getLayout = (c) => getGuildLayout({ children: c });

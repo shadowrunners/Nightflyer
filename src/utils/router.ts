@@ -3,15 +3,15 @@ import items from '@/config/sidebar-items';
 import { ReactNode, useMemo } from 'react';
 
 export function useActiveSidebarItem(): SidebarItemInfo | null {
-  const route = useRouter().route;
+	const route = useRouter().route;
 
-  return useMemo(() => {
-    for (const item of items) {
-      if (item.path === route) return item;
-    }
+	return useMemo(() => {
+		for (const item of items) {
+			if (item.path === route) return item;
+		}
 
-    return null;
-  }, [route]);
+		return null;
+	}, [route]);
 }
 
 export interface SidebarItemInfo {

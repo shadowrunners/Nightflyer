@@ -25,38 +25,39 @@ export type Options = {
 };
 
 export async function callDefault(url: string, init: Options) {
-  const options = await parseOptions(url, init);
+	const options = await parseOptions(url, init);
 
-  return fetch(options.url, options.request).then((r) => handleError(r, init));
+	return fetch(options.url, options.request).then((r) => handleError(r, init));
 }
 
 export async function callReturn<T>(url: string, init: ReturnOptions<T>): Promise<T> {
-  const options = await parseOptions(url, init);
+	const options = await parseOptions(url, init);
 
-  const res = await fetch(options.url, options.request);
+	const res = await fetch(options.url, options.request);
 
-  if (!res.ok) {
-    if (init.allowed?.[res.status] != null) {
-      return await init.allowed[res.status](res);
-    } else {
-      await handleError(res, options);
-    }
-  }
+	if (!res.ok) {
+		if (init.allowed?.[res.status] != null) {
+			return await init.allowed[res.status](res);
+		}
+		else {
+			await handleError(res, options);
+		}
+	}
 
-  return await res.json();
+	return await res.json();
 }
 
 /** throw error if condition matches */
 async function handleError(res: Response, options: Options) {
-  if (!res.ok && (options.errorOnFail ?? true)) {
-    const raw = await res.json();
-    throw new Error(raw);
-  }
+	if (!res.ok && (options.errorOnFail ?? true)) {
+		const raw = await res.json();
+		throw new Error(raw);
+	}
 }
 
 async function parseOptions<T extends Options>(url: string, options: T) {
-  return {
-    url: options.origin == null ? url : `${options.origin}${url}`,
-    request: options.request,
-  };
+	return {
+		url: options.origin == null ? url : `${options.origin}${url}`,
+		request: options.request,
+	};
 }

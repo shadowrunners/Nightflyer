@@ -4,7 +4,7 @@ import { I18nConfig } from './create';
 export type TranslationKey = string | number | symbol;
 
 export type TranslationModel = {
-  [key: TranslationKey]: any;
+  [key: TranslationKey]: unknown;
 };
 
 export type Translation<Model extends TranslationModel> = {
@@ -12,8 +12,8 @@ export type Translation<Model extends TranslationModel> = {
 };
 
 export function element<Languages extends string, Model extends TranslationModel>(
-  config: I18nConfig<Languages, Model>,
-  key: keyof Model | ((model: Model) => ReactNode)
+	config: I18nConfig<Languages, Model>,
+	key: keyof Model | ((model: Model) => ReactNode),
 ): ReactElement {
-  return <config.T text={key} />;
+	return <config.T text={key} />;
 }
