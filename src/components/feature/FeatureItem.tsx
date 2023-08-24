@@ -7,27 +7,32 @@ import { IdFeature } from '@/utils/common';
 import Router from 'next/router';
 import { useMemo } from 'react';
 
-export function FeatureItem({ guild, feature, enabled }: Props) {
+export function FeatureItem({
+	guild,
+	feature,
+	enabled,
+}: {
+		guild: string;
+		feature: IdFeature;
+		enabled: boolean | undefined;
+	}) {
 	const t = view.useTranslations();
 	const mutation = useEnableFeatureMutation();
 
 	const buttonProps = useMemo(() => {
-		if (enabled) {
-			return {
-				variant: 'action',
-				rounded: '2xl',
-				leftIcon: <IoOptions />,
-				onClick: () => Router.push(`/guilds/${guild}/features/${feature.id}`),
-				children: t.bn['config feature'],
-			};
-		}
-		else {
-			return {
-				leftIcon: <IoOpen />,
-				onClick: () => mutation.mutate({ enabled: true, guild, feature: feature.id }),
-				children: t.bn['enable feature'],
-			};
-		}
+		if (enabled) return {
+			variant: 'action',
+			rounded: '2xl',
+			leftIcon: <IoOptions />,
+			onClick: () => Router.push(`/guilds/${guild}/features/${feature.id}`),
+			children: t.bn['config feature'],
+		};
+
+		else return {
+			leftIcon: <IoOpen />,
+			onClick: () => mutation.mutate({ enabled: true, guild, feature: feature.id }),
+			children: t.bn['enable feature'],
+		};
 	}, [enabled, guild, feature, t.bn, mutation]);
 
 	return (
@@ -53,10 +58,4 @@ export function FeatureItem({ guild, feature, enabled }: Props) {
 			</CardFooter>
 		</Card>
 	);
-}
-
-interface Props {
-  guild: string;
-  feature: IdFeature;
-  enabled: boolean | undefined;
 }

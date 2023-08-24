@@ -12,6 +12,7 @@ import { useRouter } from 'next/router';
 import { toRGB } from '@/utils/common';
 import { FormCard } from './Form';
 import { Role } from '@/api/bot';
+import React from 'react';
 
 type Props = Override<
   SelectProps<Option, false>,
@@ -35,7 +36,7 @@ function render(role: Role): Option {
 	};
 }
 
-export const RoleSelect = forwardRef<SelectInstance<Option, false>, Props>((props, ref) => {
+export const RoleSelect = forwardRef<SelectInstance<Option>, Props>((props, ref) => {
 	const { value, onChange, ...rest } = props;
 	const guild = useRouter().query.guild as string;
 

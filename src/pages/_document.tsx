@@ -5,14 +5,14 @@ import { ColorModeScript } from '@chakra-ui/react';
 import { theme } from '@/theme/config';
 
 export default function Document() {
-  return (
-    <Html lang="en">
-      <Head />
-      <body>
-        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-        <Main />
-        <NextScript />
-      </body>
-    </Html>
-  );
+	return (
+		<Html lang="en">
+			<Head />
+			<body>
+				<ColorModeScript initialColorMode={theme.config.initialColorMode} />
+				<Main />
+				<NextScript />
+			</body>
+		</Html>
+	);
 }

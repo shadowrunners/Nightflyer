@@ -23,6 +23,7 @@ export type Guild = {
   permissions: string;
 };
 
+// eslint-disable-next-line no-shadow
 export enum PermissionFlags {
   CREATE_INSTANT_INVITE = 1 << 0,
   KICK_MEMBERS = 1 << 1,
@@ -67,6 +68,7 @@ export enum PermissionFlags {
   MODERATE_MEMBERS = 1 << 40,
 }
 
+// eslint-disable-next-line no-shadow
 export enum ChannelTypes {
   GUILD_TEXT = 0,
   DM = 1,

@@ -1,12 +1,13 @@
 import { ChannelSelectForm } from '@/components/forms/ChannelSelect';
-import { UseFormRender, WelcomeFeature } from '@/config/types';
+import { GoodbyeFeature, UseFormRender } from '@/config/types';
 import { SimpleGrid } from '@chakra-ui/layout';
 import { useForm } from 'react-hook-form';
 import Embed from '@/components/forms/Embed';
 import { TextAreaForm } from '@/components/forms/TextAreaForm';
+import React from 'react';
 
-export const useGoodbyeSystem: UseFormRender<WelcomeFeature> = (data, onSubmit) => {
-	const { register, reset, handleSubmit, formState, control, watch } = useForm<WelcomeFeature>({
+export const useGoodbyeSystem: UseFormRender<GoodbyeFeature> = (data, onSubmit) => {
+	const { register, reset, handleSubmit, formState, control, watch } = useForm<GoodbyeFeature>({
 		shouldUnregister: false,
 		defaultValues: {
 			channel: data.channel,

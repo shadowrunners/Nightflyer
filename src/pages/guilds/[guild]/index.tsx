@@ -13,8 +13,6 @@ import { FeatureItem } from '@/components/feature/FeatureItem';
 import type { CustomGuildInfo } from '@/config/types/custom-types';
 import { NextPageWithLayout } from '@/pages/_app';
 import getGuildLayout from '@/components/layout/guild/get-guild-layout';
-import { fetchGuild } from '@/utils/api';
-import { GetServerSidePropsContext } from 'next';
 
 const GuildPage: NextPageWithLayout = () => {
 	const t = view.useTranslations();
