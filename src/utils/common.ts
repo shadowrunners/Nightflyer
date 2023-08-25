@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CustomFeatures, FeatureConfig } from '@/config/types';
 import { features } from '@/config/features';
 
@@ -5,7 +6,7 @@ export type IdFeature<K extends keyof CustomFeatures = keyof CustomFeatures> = F
   id: K;
 };
 
-export function getFeatures() {
+export function getFeatures(): IdFeature<any>[] {
 	return Object.entries(features).map(([k, v]) => {
 		return {
 			id: k,

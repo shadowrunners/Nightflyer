@@ -47,14 +47,14 @@ const ProfilePage: NextPageWithLayout = () => {
 				<VStack mt="-50px" ml="40px" align="start">
 					<Avatar
 						src={avatarUrl(user)}
-						name={user?.name}
+						name={user?.username}
 						w="100px"
 						h="100px"
 						ringColor="CardBackground"
 						ring="6px"
 					/>
 					<Text fontWeight="600" fontSize="2xl">
-						{user.name}
+						{user.username}
 					</Text>
 				</VStack>
 			</Flex>
