@@ -25,9 +25,7 @@ type Props = Override<
 function render(role: Role): Option {
 	const iconColor = toRGB(role.color);
 	const icon =
-    role.icon?.iconUrl
-    	? (<Image alt="icon" src={role.icon.iconUrl} bg={iconColor} w="25px" h="25px" />)
-    	: (<Icon as={BsPeopleFill} color={iconColor} w="20px" h="20px" />);
+    role.icon?.iconUrl ? (<Image alt="icon" src={role.icon.iconUrl} bg={iconColor} w="25px" h="25px" />) : (<Icon as={BsPeopleFill} color={iconColor} w="20px" h="20px" />);
 
 	return {
 		value: role.id,
