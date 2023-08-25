@@ -1,6 +1,5 @@
-import { AnimatePresence, motion } from 'framer-motion';
-import { styles } from '@/utils/utils';
 import { Footer, Navbar } from '@/components/layout/main';
+import { styles } from '@/utils/utils';
 
 const PrivacyPolicy = () => (
 	<div className='bg-black w-full overflow-hidden font-poppins'>
