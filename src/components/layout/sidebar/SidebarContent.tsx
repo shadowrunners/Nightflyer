@@ -17,7 +17,7 @@ import { SearchBar } from '@/components/forms/SearchBar';
 import { useCallback, useMemo, useState, ChangeEvent } from 'react';
 import { config } from '@/config/common';
 import { FiSettings as SettingsIcon } from 'react-icons/fi';
-import { Guild, UserInfo, avatarUrl } from '@/api/discord';
+import { Guild, avatarUrl } from '@/api/discord';
 import { GuildItem, GuildItemsSkeleton } from './GuildItem';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -81,13 +81,13 @@ export function SidebarContent() {
 export function BottomCard() {
 	const user = useSelfUserQuery().data;
 
-	if (user == null) return <></>;
+	if (user === null) return <></>;
 
 	return (
 		<Card pos="sticky" left={0} bottom={0} w="full" py={2}>
 			<CardBody as={HStack}>
-				<Avatar src={avatarUrl(user)} name={user.username} size="sm" />
-				<Text fontWeight="600">{user.username}</Text>
+				<Avatar src={avatarUrl(user)} name={user?.username} size="sm" />
+				<Text fontWeight="600">{user?.username}</Text>
 				<Spacer />
 				<Link href="/dash/user/profile">
 					<IconButton icon={<SettingsIcon />} aria-label="settings" />

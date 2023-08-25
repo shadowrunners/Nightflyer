@@ -2,8 +2,6 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import {
 	AccessToken,
 	API_ENDPOINT,
-	CLIENT_ID,
-	CLIENT_SECRET,
 	setServerSession,
 } from '@/utils/auth/server';
 import { i18n } from 'next.config';

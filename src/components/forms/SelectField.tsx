@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box, HStack } from '@chakra-ui/layout';
 import {
 	chakraComponents,

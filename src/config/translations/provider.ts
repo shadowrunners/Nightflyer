@@ -21,6 +21,7 @@ export function useLang() {
 	const lang = provider.useLang();
 	return {
 		lang,
+		// eslint-disable-next-line no-shadow
 		setLang(lang: Languages) {
 			const path = Router.asPath;
 

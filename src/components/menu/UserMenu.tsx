@@ -24,12 +24,13 @@ export function UserMenu(props: { color: string; shadow: string; bg: string }) {
 					_hover={{ cursor: 'pointer' }}
 					color="white"
 					name={user?.username}
-					src={user?.avatar}
+					src={avatarUrl(user)}
 					bg="#11047A"
 					w="40px"
 					h="40px"
 				/>
 			</MenuButton>
+			<List user={user} shadow={props.shadow} menuBg={props.bg} textColor={props.color} />
 		</Menu>
 	);
 }

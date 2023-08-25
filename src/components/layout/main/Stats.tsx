@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Counter from './Counter';
 import { motion } from 'framer-motion';
-import { get } from 'superagent';
+// import { get } from 'superagent';
 import { styles } from '@/utils/utils';
 
 const Stats = () => {

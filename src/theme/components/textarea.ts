@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { mode } from '@chakra-ui/theme-tools';
 import { defineStyle, defineStyleConfig } from '@chakra-ui/react';
 import { light, dark } from '../colors';

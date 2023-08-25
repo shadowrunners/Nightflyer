@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { mode } from '@chakra-ui/theme-tools';
 
 export const globalStyles = (props: any) => ({

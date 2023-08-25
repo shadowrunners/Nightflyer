@@ -120,10 +120,10 @@ export function iconUrl(guild: Guild) {
 	return `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}`;
 }
 
-export function avatarUrl(user: UserInfo) {
-	return `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}?size=512`;
+export function avatarUrl(user: UserInfo | undefined) {
+	return `https://cdn.discordapp.com/avatars/${user?.id}/${user?.avatar}?size=512`;
 }
 
-export function bannerUrl(id: string, banner: string): string {
+export function bannerUrl(id: string, banner: string | undefined): string {
 	return `https://cdn.discordapp.com/banners/${id}/${banner}?size=1024`;
 }

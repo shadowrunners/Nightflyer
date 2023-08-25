@@ -21,13 +21,11 @@ const GuildPage: NextPageWithLayout = () => {
 
 	return (
 		<QueryStatus query={query} loading={<LoadingPanel />} error={t.error.load}>
-		  {query?.data?.id != null ? (
-			<GuildPanel guild={guild} info={query.data} />
-		  ) : (
-			<NotJoined guild={guild} />
-		  )}
+			{query?.data?.id != null ? (
+				<GuildPanel guild={guild} info={query.data} />
+			) : (<NotJoined guild={guild} />)}
 		</QueryStatus>
-	  );
+	);
 };
 
 function GuildPanel({ guild: id, info }: { guild: string; info: CustomGuildInfo }) {

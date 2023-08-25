@@ -46,7 +46,7 @@ const ProfilePage: NextPageWithLayout = () => {
 				)}
 				<VStack mt="-50px" ml="40px" align="start">
 					<Avatar
-						src={user?.image}
+						src={avatarUrl(user)}
 						name={user?.name}
 						w="100px"
 						h="100px"
@@ -83,9 +83,9 @@ const ProfilePage: NextPageWithLayout = () => {
 								value: lang,
 							}}
 							onChange={(e) => e != null && setLang(e.value)}
-							options={languages.map((lang) => ({
-								label: lang.name,
-								value: lang.key,
+							options={languages.map((language) => ({
+								label: language.name,
+								value: language.key,
 							}))}
 						/>
 					</FormControl>

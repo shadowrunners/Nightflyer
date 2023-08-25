@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CustomFeatures } from './custom-types';
 import { Guild } from '@/api/discord';
 import { ReactElement, ReactNode } from 'react';
@@ -59,7 +60,7 @@ export interface FeatureConfig<K extends keyof CustomFeatures> {
    */
   useRender: UseFormRender<CustomFeatures[K]>;
   /**
-   * Render skeleton before featrue is loaded
+   * Render skeleton before feature is loaded
    */
   useSkeleton?: () => ReactNode;
 }
