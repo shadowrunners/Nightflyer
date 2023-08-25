@@ -20,11 +20,10 @@ import { IoLogOut } from 'react-icons/io5';
 import { NextPageWithLayout } from '@/pages/_app';
 import AppLayout from '@/components/layout/app';
 import { useLogoutMutation } from '@/utils/auth/hooks';
+import { useSelfUser } from '@/api/hooks';
 
-/**
- * User info and general settings here
- */
 const ProfilePage: NextPageWithLayout = () => {
+	const user = useSelfUser();
 	const logout = useLogoutMutation();
 	const t = profile.useTranslations();
 
@@ -34,10 +33,10 @@ const ProfilePage: NextPageWithLayout = () => {
 	return (
 		<Grid templateColumns={{ base: '1fr', lg: 'minmax(0, 800px) auto' }} gap={{ base: 3, lg: 6 }}>
 			<Flex direction="column">
-				{session != null ? (
+				{user.banner !== null ? (
 					<Image
 						alt="banner"
-						src={bannerUrl(user.id, user.banner)}
+						src={bannerUrl(user.id, user?.banner)}
 						sx={{ aspectRatio: '1100 / 440' }}
 						objectFit="cover"
 						rounded="2xl"
@@ -47,15 +46,15 @@ const ProfilePage: NextPageWithLayout = () => {
 				)}
 				<VStack mt="-50px" ml="40px" align="start">
 					<Avatar
-						src={session?.user?.image as string}
-						name={session?.user?.name as string}
+						src={user?.image}
+						name={user?.name}
 						w="100px"
 						h="100px"
 						ringColor="CardBackground"
 						ring="6px"
 					/>
 					<Text fontWeight="600" fontSize="2xl">
-						{session?.user?.name}
+						{user.name}
 					</Text>
 				</VStack>
 			</Flex>
