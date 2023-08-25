@@ -6,22 +6,22 @@ import Router from 'next/router';
 
 
 async function auth() {
-  return await callReturn<AccessToken>('/api/auth', {
-    request: {
-      method: 'GET',
-    },
-  });
+	return await callReturn<AccessToken>('/api/auth', {
+		request: {
+			method: 'GET',
+		},
+	});
 }
 
 export async function logout() {
-  await callDefault(`/api/auth/signout`, {
-    request: {
-      method: 'POST',
-    },
-  });
+	await callDefault('/api/auth/signout', {
+		request: {
+			method: 'POST',
+		},
+	});
 
-  await client.invalidateQueries(Keys.login);
-  await Router.push('/auth/signin');
+	await client.invalidateQueries(Keys.login);
+	await Router.push('/auth/signin');
 }
 
 type SessionResult =
@@ -35,32 +35,32 @@ type SessionResult =
     };
 
 export function useSession(): SessionResult {
-  const { isError, isLoading, data } = useQuery(Keys.login, () => auth());
+	const { isError, isLoading, data } = useQuery(Keys.login, () => auth());
 
-  if (isError)
-    return {
-      status: 'unauthenticated',
-      session: null,
-    };
+	if (isError)
+		return {
+			status: 'unauthenticated',
+			session: null,
+		};
 
-  if (isLoading)
-    return {
-      status: 'loading',
-      session: null,
-    };
+	if (isLoading)
+		return {
+			status: 'loading',
+			session: null,
+		};
 
-  return {
-    status: 'authenticated',
-    session: data,
-  };
+	return {
+		status: 'authenticated',
+		session: data,
+	};
 }
 
 export function useAccessToken() {
-  const { session } = useSession();
+	const { session } = useSession();
 
-  return session?.access_token;
+	return session?.access_token;
 }
 
 export function useLogoutMutation() {
-  return useMutation(['logout'], () => logout());
+	return useMutation(['logout'], () => logout());
 }
