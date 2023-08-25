@@ -12,7 +12,7 @@ import { useController } from 'react-hook-form';
 import { ControlledInput } from './types';
 import { Form } from './Form';
 
-export const SwitchFieldForm: ControlledInput<{}, boolean> = ({
+export const SwitchFieldForm: ControlledInput<NonNullable<unknown>, boolean> = ({
 	control,
 	controller,
 	...props
