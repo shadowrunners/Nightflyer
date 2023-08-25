@@ -16,9 +16,6 @@ import AppLayout from '@/components/layout/app';
 import { iconUrl } from '@/api/discord';
 import Link from 'next/link';
 import { dashboard } from '@/config/translations/dashboard';
-import { getSession, useSession } from 'next-auth/react';
-import { redirect } from 'next/navigation';
-import { LoadingPanel } from '@/components/panel/LoadingPanel';
 
 const HomePage: NextPageWithLayout = () => {
 	const t = dashboard.useTranslations();
