@@ -2,16 +2,16 @@ import { Icon } from '@chakra-ui/react';
 import { MdMessage } from 'react-icons/md';
 import { GiTalk } from 'react-icons/gi';
 import { FeaturesConfig } from './types';
-import { useWelcomeFeature } from '@/pages/guilds/[guild]/features/WelcomeSystem';
-import { useAntiPhishFeature } from '@/pages/guilds/[guild]/features/AntiPhishSystem';
-import { useConfessionSystem } from '@/pages/guilds/[guild]/features/ConfessionsSystem';
-import { useLevellingSystem } from '@/pages/guilds/[guild]/features/LevelSystem';
-import { useGoodbyeSystem } from '@/pages/guilds/[guild]/features/GoodbyeSystem';
-import { useLogsSystem } from '@/pages/guilds/[guild]/features/LogsSystem';
-import { useTicketSystem } from '@/pages/guilds/[guild]/features/TicketSystem';
-import { useVerifySystem } from '@/pages/guilds/[guild]/features/VerifySystem';
+import { useWelcomeFeature } from '../features/WelcomeSystem';
+import { useAntiPhishFeature } from '../features/AntiPhishSystem';
+import { useConfessionSystem } from '../features/ConfessionsSystem';
+import { useLevellingSystem } from '../features/LevelSystem';
+import { useGoodbyeSystem } from '../features/GoodbyeSystem';
+import { useLogsSystem } from '../features/LogsSystem';
+import { useTicketSystem } from '../features/TicketSystem';
+import { useVerifySystem } from '../features/VerifySystem';
 
-/** This where the information for every feature is. */
+/** This is where the information for every feature is. */
 export const features: FeaturesConfig = {
 	antiphishing: {
 		name: 'Anti-Phishing System',

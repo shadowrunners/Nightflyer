@@ -1,10 +1,10 @@
 import { ChannelSelectForm } from '@/components/forms/ChannelSelect';
-import { UseFormRender, WelcomeFeature } from '@/config/types';
+import { AntiPhishingFeature, UseFormRender } from '@/config/types';
 import { SimpleGrid } from '@chakra-ui/layout';
 import { useForm } from 'react-hook-form';
 
-export const useAntiPhishFeature: UseFormRender<WelcomeFeature> = (data, onSubmit) => {
-	const { reset, handleSubmit, formState, control } = useForm({
+export const useAntiPhishFeature: UseFormRender<AntiPhishingFeature> = (data, onSubmit) => {
+	const { reset, handleSubmit, formState, control } = useForm<AntiPhishingFeature>({
 		shouldUnregister: false,
 		defaultValues: {
 			channel: data.channel,
