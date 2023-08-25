@@ -1,8 +1,4 @@
-import { authOptions } from '@/pages/api/auth/[...nextauth]';
-import { getServerSession } from 'next-auth/next';
-
 /** Styles used in the main website. */
-
 export type Styles = {
 	boxWidth: string;
 	boxNav: string;
@@ -57,3 +53,4 @@ export function getAbsoluteUrl(): string {
 	if (process.env.APP_URL !== null) return process.env.APP_URL as string;
 	return process.env.VERCEL_URL === null ? defaultUrl : `https://${process.env.VERCEL_URL}`;
 }
+
