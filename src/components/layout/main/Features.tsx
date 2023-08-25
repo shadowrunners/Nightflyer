@@ -1,6 +1,5 @@
-import { features } from '../../../utils/constants';
-import { styles, layout } from '@/utils/utils';
 import React, { useEffect, useRef, useState } from 'react';
+import { styles } from '@/utils/utils';
 import { motion } from 'framer-motion';
 
 const Features = () => {
@@ -96,9 +95,3 @@ const Features = () => {
 };
 
 export default Features;
-interface FeatureCardProps {
-  icon: string;
-  title: string;
-  content: string;
-  index: number;
-}
