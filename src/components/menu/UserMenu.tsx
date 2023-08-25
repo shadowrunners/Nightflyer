@@ -15,14 +15,16 @@ import { useSelfUser } from '@/api/hooks';
 import { useLogoutMutation } from '@/utils/auth/hooks';
 
 export function UserMenu(props: { color: string; shadow: string; bg: string }) {
+	const user = useSelfUser();
+
 	return (
 		<Menu>
 			<MenuButton p="0px">
 				<Avatar
 					_hover={{ cursor: 'pointer' }}
 					color="white"
-					name='Runner'
-					src='google.com'
+					name={user?.username}
+					src={user?.avatar}
 					bg="#11047A"
 					w="40px"
 					h="40px"
