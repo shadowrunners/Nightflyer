@@ -5,7 +5,7 @@ const Footer = () => (
 		<div className={`${styles.flexStart} md:flex-row flex-col mb-8 w-full`}>
 			<div className="flex-1 flex flex-col justify-start mr-10">
 				<img
-					src='https://cdn.evelynbot.ml/upload/q_auto/evl_logo.webp'
+					src='https://res.cloudinary.com/shadowrunners/image/upload/v1687690764/evl_logo.webp'
 					alt="evelyn"
 					className="w-[128px] h-[128px] object-contain"
 				/>
@@ -39,9 +39,9 @@ const Footer = () => (
 			</div>
 			<div>
 				<ul>
-					<img src="https://cdn.evelynbot.ml/upload/q_auto/pwrdbyvercel.svg" alt="vercel" className="mb-2" />
-					<img src="https://cdn.evelynbot.ml/upload/q_auto/pwrdbycfworkers.webp" alt="cfworkers" className="mb-2" />
-					<img src="https://cdn.evelynbot.ml/upload/q_auto/pwrdbycldnry.webp" alt="cldnry" />
+					<img src="https://res.cloudinary.com/shadowrunners/image/upload/v1687549856/pwrdbyvercel.svg" alt="vercel" className="mb-2" />
+					<img src="https://res.cloudinary.com/shadowrunners/image/upload/v1687690774/pwrdbycfworkers.webp" alt="cfworkers" className="mb-2" />
+					<img src="https://res.cloudinary.com/shadowrunners/image/upload/v1687690764/pwrdbycldnry.webp" alt="cldnry" />
 				</ul>
 
 			</div>
