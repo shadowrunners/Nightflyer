@@ -43,7 +43,7 @@ const Navbar = () => {
 
 			<div className="sm:hidden flex flex-1 justify-end items-center">
 				<img
-					src="https://cdn.evelynbot.ml/upload/q_auto/menu.svg"
+					src="https://res.cloudinary.com/shadowrunners/image/upload/q_auto/evelyn/menu.svg"
 					alt="menu"
 					className="w-[28px] h-[28px] object-contain"
 					onClick={() => setToggle((prev) => !prev)} />
@@ -80,10 +80,10 @@ const Navbar = () => {
 							className="font-poppins font-normal cursor-pointer text-16 mr-0 mt-3"
 							onClick={() => {
 								if (!session) return window.location.replace('/dash/user/home');
-								else return window.location.replace('fksdkfsdkfskd');
+								else return window.location.replace('/api/auth/login');
 							}}
 						>
-							{session.status === 'unauthenticated' ? 'DDDD' : 'FFFFFFFF' }
+							{session.status === 'unauthenticated' ? 'Sign in with Discord' : 'Dashboard' }
 						</li>
 					</ul>
 				</div>
