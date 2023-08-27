@@ -11,7 +11,7 @@ import { Override } from '@/utils/types';
 import { useRouter } from 'next/router';
 import { toRGB } from '@/utils/common';
 import { FormCard } from './Form';
-import { Role } from '@/api/bot';
+import { Role } from '@/utils/types';
 import React from 'react';
 
 type Props = Override<
