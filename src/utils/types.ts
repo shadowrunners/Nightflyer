@@ -109,7 +109,7 @@ export enum PermissionFlags {
     MODERATE_MEMBERS = 1 << 40,
   }
 // eslint-disable-next-line no-shadow
-  enum ChannelTypes {
+export enum ChannelTypes {
     GUILD_TEXT = 0,
     DM = 1,
     GUILD_VOICE = 2,
