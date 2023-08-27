@@ -7,12 +7,12 @@ import type { OptionsType } from 'cookies-next/lib/types';
 import type { IncomingMessage } from 'http';
 
 export const API_ENDPOINT = 'https://discord.com/api/v10';
-export const CLIENT_ID = process.env.BOT_CLIENT_ID ?? '';
-export const CLIENT_SECRET = process.env.BOT_CLIENT_SECRET ?? '';
+export const CLIENT_ID = process.env.CLIENT_ID ?? '';
+export const CLIENT_SECRET = process.env.CLIENT_SECRET ?? '';
 
 const TokenCookie = 'ts-token';
 
-export const tokenSchema = z.object({
+const tokenSchema = z.object({
 	access_token: z.string(),
 	token_type: z.literal('Bearer'),
 	expires_in: z.number(),
@@ -28,8 +28,9 @@ const options: OptionsType = {
 export type AccessToken = z.infer<typeof tokenSchema>;
 
 export function middleware_hasServerSession(req: NextRequest) {
-	const raw = req.cookies.get(TokenCookie)?.value as string;
-	return raw !== null && tokenSchema.safeParse(JSON.parse(raw)).success;
+	const raw = req.cookies.get(TokenCookie)?.value;
+
+	return raw != null && tokenSchema.safeParse(JSON.parse(raw)).success;
 }
 
 export function getServerSession(
@@ -62,9 +63,12 @@ async function revokeToken(accessToken: string) {
 		token: accessToken,
 	};
 
+	const headers = {
+		'Content-Type': 'application/x-www-form-urlencoded',
+	};
 
-	return await fetch('https://discord.com/api/oauth2/token/revoke', {
-		headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+	await fetch('https://discord.com/api/oauth2/token/revoke', {
+		headers,
 		body: new URLSearchParams(data),
 		method: 'POST',
 	});

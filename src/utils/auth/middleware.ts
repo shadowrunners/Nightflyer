@@ -16,4 +16,4 @@ export const withAuth = (authUrl: string, middleware: NextMiddleware): NextMiddl
 	};
 };
 
-export default withAuth('/auth/signin', () => NextResponse.next());
+export default withAuth('/landing', () => NextResponse.next());

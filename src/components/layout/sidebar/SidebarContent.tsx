@@ -17,13 +17,14 @@ import { SearchBar } from '@/components/forms/SearchBar';
 import { useCallback, useMemo, useState, ChangeEvent } from 'react';
 import { config } from '@/config/common';
 import { FiSettings as SettingsIcon } from 'react-icons/fi';
-import { Guild, avatarUrl } from '@/api/discord';
+import { avatarUrl } from '@/api/discord';
 import { GuildItem, GuildItemsSkeleton } from './GuildItem';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { SidebarItem } from './SidebarItem';
 import items from '@/config/sidebar-items';
 import Image from 'next/image';
+import type { Guild } from '@/utils/types';
 
 export function SidebarContent() {
 	const [filter, setFilter] = useState('');
@@ -81,7 +82,7 @@ export function SidebarContent() {
 export function BottomCard() {
 	const user = useSelfUserQuery().data;
 
-	if (user === null) return <></>;
+	if (user == null) return <></>;
 
 	return (
 		<Card pos="sticky" left={0} bottom={0} w="full" py={2}>

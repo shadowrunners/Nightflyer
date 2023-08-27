@@ -4,7 +4,9 @@ import { AccessToken } from './server';
 import { callReturn, callDefault } from '@/utils/fetch/core';
 import Router from 'next/router';
 
-
+/**
+ * Get discord oauth2 access token if logged in, otherwise return null
+ */
 async function auth() {
 	return await callReturn<AccessToken>('/api/auth', {
 		request: {
@@ -21,7 +23,7 @@ export async function logout() {
 	});
 
 	await client.invalidateQueries(Keys.login);
-	await Router.push('/auth/signin');
+	await Router.push('/landing');
 }
 
 type SessionResult =

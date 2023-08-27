@@ -33,7 +33,7 @@ const ProfilePage: NextPageWithLayout = () => {
 	return (
 		<Grid templateColumns={{ base: '1fr', lg: 'minmax(0, 800px) auto' }} gap={{ base: 3, lg: 6 }}>
 			<Flex direction="column">
-				{user.banner !== null ? (
+				{user.banner != null ? (
 					<Image
 						alt="banner"
 						src={bannerUrl(user.id, user?.banner)}
@@ -47,7 +47,7 @@ const ProfilePage: NextPageWithLayout = () => {
 				<VStack mt="-50px" ml="40px" align="start">
 					<Avatar
 						src={avatarUrl(user)}
-						name={user?.username}
+						name={user.username}
 						w="100px"
 						h="100px"
 						ringColor="CardBackground"

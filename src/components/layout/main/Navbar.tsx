@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@chakra-ui/react';
+import { useSession } from '@/utils/auth/hooks';
 
 const Navbar = () => {
 	const [toggle, setToggle] = useState(false);
+	const session = useSession();
 
 	return (
 		<nav className="w-full flex py-6 justify-between items-center navbar relative z-10">
@@ -31,8 +33,11 @@ const Navbar = () => {
 				</li>
 			</ul>
 			<div className="list-none hidden sm:block ml-5">
-				<Button onClick={() => window.location.replace('/dash/user/home')}>
-          Dashboard
+				<Button onClick={() => {
+					if (!session) return window.location.replace('/dash/user/home');
+					else return window.location.replace('/api/auth/login');
+				}}>
+					{session.status === 'unauthenticated' ? 'Sign in with Discord' : 'Dashboard' }
 				</Button>
 			</div>
 
@@ -73,9 +78,12 @@ const Navbar = () => {
 						</li>
 						<li
 							className="font-poppins font-normal cursor-pointer text-16 mr-0 mt-3"
-							onClick={() => window.location.replace('/dash/user/home')}
+							onClick={() => {
+								if (!session) return window.location.replace('/dash/user/home');
+								else return window.location.replace('fksdkfsdkfskd');
+							}}
 						>
-              Dashboard
+							{session.status === 'unauthenticated' ? 'DDDD' : 'FFFFFFFF' }
 						</li>
 					</ul>
 				</div>

@@ -2,34 +2,13 @@ import { CustomFeatures, CustomGuildInfo } from '@/config/types/custom-types';
 import { AccessToken } from '@/utils/auth/server';
 import { callDefault, callReturn } from '@/utils/fetch/core';
 import { botRequest } from '@/utils/fetch/requests';
-import { ChannelTypes } from './discord';
-
-export type Role = {
-  id: string;
-  name: string;
-  color: number;
-  position: number;
-  icon?: {
-    iconUrl?: string;
-    emoji?: string;
-  };
-};
-
-export type GuildChannel = {
-  id: string;
-  name: string;
-  type: ChannelTypes;
-  /**
-   * parent category of the channel
-   */
-  category?: string;
-};
+import type { Role, GuildChannel } from '@/utils/types';
 
 /**
- * Get custom guild info on from backend
- * @param session The access token.
+ * Gets the custom information about the guild from the backend.
+ * @param session
  * @param guild Guild ID
- * @return Guild info, or null if bot hasn't joined the guild
+ * @return The information if the user is in the guild otherwise null.
  */
 export async function fetchGuildInfo(
 	session: AccessToken,
@@ -48,7 +27,7 @@ export async function fetchGuildInfo(
 	);
 }
 
-export async function enableFeature(session: Exclude<AccessToken, never[]>, guild: string, feature: string) {
+export async function enableFeature(session: AccessToken, guild: string, feature: string) {
 	return await callDefault(
 		`/guilds/${guild}/features/${feature}`,
 		botRequest(session, {
@@ -59,7 +38,7 @@ export async function enableFeature(session: Exclude<AccessToken, never[]>, guil
 	);
 }
 
-export async function disableFeature(session: Exclude<AccessToken, never[]>, guild: string, feature: string) {
+export async function disableFeature(session: AccessToken, guild: string, feature: string) {
 	return await callDefault(
 		`/guilds/${guild}/features/${feature}`,
 		botRequest(session, {
@@ -75,7 +54,7 @@ export async function getFeature<K extends keyof CustomFeatures>(
 	guild: string,
 	feature: K,
 ): Promise<CustomFeatures[K]> {
-	const request = await callReturn<CustomFeatures[K]>(
+	return await callReturn<CustomFeatures[K]>(
 		`/guilds/${guild}/features/${feature}`,
 		botRequest(session, {
 			request: {
@@ -83,9 +62,6 @@ export async function getFeature<K extends keyof CustomFeatures>(
 			},
 		}),
 	);
-
-	console.log(request);
-	return request;
 }
 
 export async function updateFeature<K extends keyof CustomFeatures>(
