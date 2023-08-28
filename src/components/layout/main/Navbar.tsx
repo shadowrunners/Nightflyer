@@ -34,8 +34,8 @@ const Navbar = () => {
 			</ul>
 			<div className="list-none hidden sm:block ml-5">
 				<Button onClick={() => {
-					if (!session) return window.location.replace('/dash/user/home');
-					else return window.location.replace('/api/auth/login');
+					if (!session) return window.location.replace('/api/auth/login');
+					else return window.location.replace('/dash/user/home');
 				}}>
 					{session.status === 'unauthenticated' ? 'Sign in with Discord' : 'Dashboard' }
 				</Button>
@@ -77,10 +77,10 @@ const Navbar = () => {
 							</motion.a>
 						</li>
 						<li
-							className="font-poppins font-normal cursor-pointer text-16 mr-0 mt-3"
+							className="font-poppins text-white font-normal cursor-pointer text-16 mr-0 mt-3"
 							onClick={() => {
-								if (!session) return window.location.replace('/dash/user/home');
-								else return window.location.replace('/api/auth/login');
+								if (!session) return window.location.replace('/api/auth/login');
+								else return window.location.replace('/dash/user/home');
 							}}
 						>
 							{session.status === 'unauthenticated' ? 'Sign in with Discord' : 'Dashboard' }

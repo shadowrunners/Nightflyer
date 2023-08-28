@@ -1,6 +1,6 @@
 {
-  "name": "dashboard",
-  "version": "1.2.0",
+  "name": "@shadowrunners/evelyndash",
+  "version": "1.0.1",
   "license": "MIT",
   "scripts": {
     "dev": "next dev",

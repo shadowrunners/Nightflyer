@@ -7,7 +7,7 @@ import { Features } from '@/utils/types';
 import React from 'react';
 
 interface IEmbed<T extends Features> {
-	fullData: unknown;
+	fullData: any;
 	register: UseFormRegister<T>;
 	control: Control<T>;
 }
@@ -42,7 +42,7 @@ interface IEmbedData {
 }
 
 const Embed = ({ fullData, register, control }: IEmbed<any>) => {
-	const embed = fullData as IEmbedData;
+	const embed = fullData.embed as IEmbedData;
 	return (
 		<React.Fragment>
 			<Box className='flex-1'>
