@@ -8,7 +8,6 @@ import {
 	TicketsFeature,
 	VerifyFeature,
 } from '@/config/types';
-import { Session } from 'next-auth';
 
 export type Features =
   WelcomeFeature |
