@@ -3,7 +3,7 @@ const nextConfig = {
 	reactStrictMode: true,
 	async redirects() {
 		return [
-			{ source: '/auth', destination: '/api/auth/login', permanent: false },
+			{ source: '/auth', destination: '/auth/signin', permanent: false },
 			{ source: '/user', destination: '/dash/user/home', permanent: false },
 			{ source: '/', destination: '/landing', permanent: true },
 		];
