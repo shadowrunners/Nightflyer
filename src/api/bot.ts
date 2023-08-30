@@ -1,8 +1,8 @@
 import { CustomFeatures, CustomGuildInfo } from '@/config/types/custom-types';
-import { AccessToken } from '@/utils/auth/server';
 import { callDefault, callReturn } from '@/utils/fetch/core';
 import { botRequest } from '@/utils/fetch/requests';
 import type { Role, GuildChannel } from '@/utils/types';
+import { Session } from 'next-auth';
 
 /**
  * Gets the custom information about the guild from the backend.
@@ -11,12 +11,12 @@ import type { Role, GuildChannel } from '@/utils/types';
  * @return The information if the user is in the guild otherwise null.
  */
 export async function fetchGuildInfo(
-	session: AccessToken,
+	session: Session | null,
 	guild: string,
 ): Promise<CustomGuildInfo | null> {
 	return await callReturn<CustomGuildInfo | null>(
 		`/guilds/${guild}`,
-		botRequest(session, {
+		botRequest(<Session>session, {
 			request: {
 				method: 'GET',
 			},
@@ -27,10 +27,10 @@ export async function fetchGuildInfo(
 	);
 }
 
-export async function enableFeature(session: AccessToken, guild: string, feature: string) {
+export async function enableFeature(session: Session | null, guild: string, feature: string) {
 	return await callDefault(
 		`/guilds/${guild}/features/${feature}`,
-		botRequest(session, {
+		botRequest(<Session>session, {
 			request: {
 				method: 'POST',
 			},
@@ -38,10 +38,10 @@ export async function enableFeature(session: AccessToken, guild: string, feature
 	);
 }
 
-export async function disableFeature(session: AccessToken, guild: string, feature: string) {
+export async function disableFeature(session: Session | null, guild: string, feature: string) {
 	return await callDefault(
 		`/guilds/${guild}/features/${feature}`,
-		botRequest(session, {
+		botRequest(<Session>session, {
 			request: {
 				method: 'DELETE',
 			},
@@ -50,13 +50,13 @@ export async function disableFeature(session: AccessToken, guild: string, featur
 }
 
 export async function getFeature<K extends keyof CustomFeatures>(
-	session: AccessToken,
+	session: Session | null,
 	guild: string,
 	feature: K,
 ): Promise<CustomFeatures[K]> {
 	return await callReturn<CustomFeatures[K]>(
 		`/guilds/${guild}/features/${feature}`,
-		botRequest(session, {
+		botRequest(<Session>session, {
 			request: {
 				method: 'GET',
 			},
@@ -65,16 +65,16 @@ export async function getFeature<K extends keyof CustomFeatures>(
 }
 
 export async function updateFeature<K extends keyof CustomFeatures>(
-	session: AccessToken,
+	session: Session | null,
 	guild: string,
-	feature: K,
+	feature: 'antiphishing' | 'confessions' | 'goodbye' | 'logs' | 'levelling' | 'tickets' | 'verification' | 'welcome',
 	options: FormData | string,
 ): Promise<CustomFeatures[K]> {
 	const isForm = options instanceof FormData;
 
 	return await callReturn<CustomFeatures[K]>(
 		`/guilds/${guild}/features/${feature}`,
-		botRequest(session, {
+		botRequest(<Session>session, {
 			request: {
 				method: 'PATCH',
 				headers: isForm
@@ -94,7 +94,7 @@ export async function updateFeature<K extends keyof CustomFeatures>(
  * The dashboard itself doesn't use it
  * @returns Guild roles
  */
-export async function fetchGuildRoles(session: AccessToken, guild: string) {
+export async function fetchGuildRoles(session: Session, guild: string) {
 	return await callReturn<Role[]>(
 		`/guilds/${guild}/roles`,
 		botRequest(session, {
@@ -108,7 +108,7 @@ export async function fetchGuildRoles(session: AccessToken, guild: string) {
 /**
  * @returns Guild channels
  */
-export async function fetchGuildChannels(session: AccessToken, guild: string) {
+export async function fetchGuildChannels(session: Session, guild: string) {
 	return await callReturn<GuildChannel[]>(
 		`/guilds/${guild}/channels`,
 		botRequest(session, {
