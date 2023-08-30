@@ -12,7 +12,7 @@ declare global {
       /** The secret used to encrypt / decrypt JWT tokens. */
       NEXTAUTH_SECRET: string;
       /** The URL to the dashboard's API. */
-      API_URL: string;
+      NEXT_PUBLIC_API_ENDPOINT: string;
 
       /**
        * The url where the frontend is hosted

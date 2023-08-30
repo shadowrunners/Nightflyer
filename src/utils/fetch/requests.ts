@@ -3,9 +3,10 @@ import { Options } from './core';
 import { Session } from 'next-auth';
 
 export function botRequest<T extends Options>(session: Session, options: T): T {
+	console.log(process.env.NEXT_PUBLIC_API_ENDPOINT);
 	return {
 		...options,
-		origin: process.env.API_URL ?? 'http://localhost:8080/api',
+		origin: process.env.NEXT_PUBLIC_API_ENDPOINT ?? 'http://localhost:8080/api',
 		request: deepmerge(
 			{
 				headers: {
