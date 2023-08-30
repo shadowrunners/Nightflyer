@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@chakra-ui/react';
-import { useSession } from '@/utils/auth/hooks';
+import { useSession } from 'next-auth/react';
 
 const Navbar = () => {
 	const [toggle, setToggle] = useState(false);
-	const session = useSession();
+	const { data: session, status } = useSession();
 
 	return (
 		<nav className="w-full flex py-6 justify-between items-center navbar relative z-10">
@@ -34,10 +34,10 @@ const Navbar = () => {
 			</ul>
 			<div className="list-none hidden sm:block ml-5">
 				<Button onClick={() => {
-					if (!session) return window.location.replace('/api/auth/login');
+					if (!session) return window.location.replace('/auth/signin');
 					else return window.location.replace('/dash/user/home');
 				}}>
-					{session.status === 'unauthenticated' ? 'Sign in with Discord' : 'Dashboard' }
+					{status === 'unauthenticated' ? 'Sign in with Discord' : 'Dashboard' }
 				</Button>
 			</div>
 
@@ -79,11 +79,11 @@ const Navbar = () => {
 						<li
 							className="font-poppins text-white font-normal cursor-pointer text-16 mr-0 mt-3"
 							onClick={() => {
-								if (!session) return window.location.replace('/api/auth/login');
+								if (!session) return window.location.replace('/auth/signin');
 								else return window.location.replace('/dash/user/home');
 							}}
 						>
-							{session.status === 'unauthenticated' ? 'Sign in with Discord' : 'Dashboard' }
+							{status === 'unauthenticated' ? 'Sign in with Discord' : 'Dashboard' }
 						</li>
 					</ul>
 				</div>
