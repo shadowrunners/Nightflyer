@@ -1,18 +1,15 @@
 import { deepmerge } from 'deepmerge-ts';
-import { AccessToken } from '@/utils/auth/server';
 import { Options } from './core';
+import { Session } from 'next-auth';
 
-const bot_api_endpoint = process.env.NEXT_PUBLIC_API_ENDPOINT ?? 'http://localhost:8080';
-const discord_api_endpoint = 'https://discord.com/api/v10';
-
-export function botRequest<T extends Options>(session: AccessToken, options: T): T {
+export function botRequest<T extends Options>(session: Session, options: T): T {
 	return {
 		...options,
-		origin: bot_api_endpoint,
+		origin: process.env.API_URL ?? 'http://localhost:8080/api',
 		request: deepmerge(
 			{
 				headers: {
-					Authorization: `${session.token_type} ${session.access_token}`,
+					Authorization: `Bearer ${session.accessToken}`,
 				},
 				credentials: 'include',
 				mode: 'cors',
@@ -25,7 +22,7 @@ export function botRequest<T extends Options>(session: AccessToken, options: T):
 export function discordRequest<T extends Options>(accessToken: string, options: T): T {
 	return {
 		...options,
-		origin: discord_api_endpoint,
+		origin: 'https://discord.com/api/v10',
 		request: deepmerge(
 			{
 				headers: {
