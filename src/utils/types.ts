@@ -8,6 +8,7 @@ import {
 	TicketsFeature,
 	VerifyFeature,
 } from '@/config/types';
+import { Session } from 'next-auth';
 
 export type Features =
   WelcomeFeature |
@@ -107,7 +108,8 @@ export enum PermissionFlags {
     SEND_MESSAGES_IN_THREADS = 1 << 38,
     USE_EMBEDDED_ACTIVITIES = 1 << 39,
     MODERATE_MEMBERS = 1 << 40,
-  }
+}
+
 // eslint-disable-next-line no-shadow
 export enum ChannelTypes {
     GUILD_TEXT = 0,
@@ -122,4 +124,18 @@ export enum ChannelTypes {
     GUILD_STAGE_VOICE = 13,
     GUILD_DIRECTORY = 14,
     GUILD_FORUM = 15,
-  }
+}
+
+export type Styles = {
+    boxWidth: string;
+    boxNav: string;
+    heading2: string;
+    paragraph: string;
+    flexCenter: string;
+    flexStart: string;
+    paddingX: string;
+    paddingY: string;
+    padding: string;
+    marginX: string;
+    marginY: string;
+};
