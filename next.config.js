@@ -9,15 +9,7 @@ const nextConfig = {
 		];
 	},
 	images: {
-		domains: ['i.imgur.com'],
-		remotePatterns: [
-			{
-				protocol: 'https',
-				hostname: 'i.imgur.com',
-				port: '',
-				pathname: '/pahJQQm.png',
-			},
-		],
+		domains: ['i.imgur.com', 'cdn.discordapp.com', 'res.cloudinary.com'],
 	},
 	i18n: {
 		locales: ['en', 'cn'],
