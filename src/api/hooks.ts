@@ -12,7 +12,6 @@ import {
 } from '@/api/bot';
 import { GuildInfo } from '@/config/types';
 import type { UserInfo } from '@/utils/types';
-import { useAccessToken } from '@/utils/auth/hooks';
 import { useSession } from 'next-auth/react';
 
 export const client = new QueryClient({
@@ -28,6 +27,12 @@ export const client = new QueryClient({
 	},
 });
 
+/** Gets the access token from the session. */
+export function getAccessToken() {
+	const { data: session } = useSession();
+	return session?.accessToken;
+}
+
 export const Keys = {
 	login: ['login'],
 	guild_info: (guild: string) => ['guild_info', guild],
@@ -37,7 +42,7 @@ export const Keys = {
 };
 
 export function useGuilds() {
-	const accessToken = useAccessToken();
+	const accessToken = getAccessToken();
 
 	return useQuery(['user_guilds'], () => getGuilds(accessToken as string), {
 		enabled: accessToken != null,
@@ -45,7 +50,7 @@ export function useGuilds() {
 }
 
 export function useSelfUserQuery() {
-	const accessToken = useAccessToken();
+	const accessToken = getAccessToken();
 
 	return useQuery<UserInfo>(['users', 'me'], () => fetchUserInfo(accessToken as string), {
 		enabled: accessToken != null,
