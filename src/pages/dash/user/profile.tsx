@@ -19,12 +19,11 @@ import { profile } from '@/config/translations/profile';
 import { IoLogOut } from 'react-icons/io5';
 import { NextPageWithLayout } from '@/pages/_app';
 import AppLayout from '@/components/layout/app';
-import { useLogoutMutation } from '@/utils/auth/hooks';
+import { signOut } from 'next-auth/react';
 import { useSelfUser } from '@/api/hooks';
 
 const ProfilePage: NextPageWithLayout = () => {
 	const user = useSelfUser();
-	const logout = useLogoutMutation();
 	const t = profile.useTranslations();
 
 	const { colorMode, setColorMode } = useColorMode();
@@ -93,8 +92,7 @@ const ProfilePage: NextPageWithLayout = () => {
 					<Button
 						leftIcon={<IoLogOut />}
 						variant="danger"
-						isLoading={logout.isLoading}
-						onClick={() => logout.mutate()}
+						onClick={async () => await signOut()}
 					>
 						{t.logout}
 					</Button>
