@@ -1,28 +1,23 @@
+import { observerHook, styles, variants } from '@/utils/utils';
 import React, { useEffect, useRef, useState } from 'react';
-import { styles } from '@/utils/utils';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 const Features = () => {
-	const [inView, setInView] = useState(false);
+	const [isElementInView, setInView] = useState(false);
 	const ref = useRef<HTMLDivElement | null>(null);
 
 	useEffect(() => {
-		const observer = new IntersectionObserver(([entry]) => {
-			setInView(entry.isIntersecting);
-		}, { threshold: 0.3 });
-		if (ref.current) observer.observe(ref.current);
-		return () => {
-			if (ref.current) observer.unobserve(ref.current);
-		};
+		observerHook(ref, setInView);
 	}, []);
 
 	return (
 		<motion.section
 			id="features"
 			ref={ref}
-			initial={{ opacity: 0, x: inView ? 0 : -100 }}
-			animate={{ opacity: inView ? 1 : 0, x: inView ? 0 : -100 }}
-			exit={{ opacity: 0, x: -100 }}
+			variants={variants}
+			initial='hidden'
+			animate={ isElementInView ? 'visible' : 'hidden' }
 			transition={{ duration: 0.5 }}
 		>
 			<div
@@ -38,7 +33,9 @@ const Features = () => {
 			<div className="flex flex-col md:flex-row px-10 py-12 rounded-[20px] md:mr-5">
 				<div className={'md:w-[33.33%] px-10 py-12 rounded-[20px] md:mr-5 my-5 feedback-card'}>
 					<div className={`w-[64px] h-[64px] rounded-full ${styles.flexCenter} bg-dimBlue`}>
-						<img
+						<Image
+							width={32}
+							height={32}
 							src="https://res.cloudinary.com/shadowrunners/image/upload/v1683319996/evelyn/music.webp"
 							className="w-[50%] h-[50%] object-contain"
 							alt="Music Feature"
@@ -58,7 +55,9 @@ const Features = () => {
 
 				<div className={'md:w-[33.3%] px-10 py-12 rounded-[20px] md:mr-5 my-5 feedback-card'}>
 					<div className={`w-[64px] h-[64px] rounded-full ${styles.flexCenter} bg-dimBlue`}>
-						<img
+						<Image
+							width={32}
+							height={32}
 							src="https://res.cloudinary.com/shadowrunners/image/upload/v1683319996/evelyn/shield.webp"
 							className="w-[50%] h-[50%] object-contain"
 							alt="Overwatch Feature"
@@ -77,7 +76,9 @@ const Features = () => {
 
 				<div className={'md:w-[33.3%] px-10 py-12 rounded-[20px] md:mr-5 my-5 feedback-card'}>
 					<div className={`w-[64px] h-[64px] rounded-full ${styles.flexCenter} bg-dimBlue`}>
-						<img
+						<Image
+							width={32}
+							height={32}
 							src="https://res.cloudinary.com/shadowrunners/image/upload/v1683319996/evelyn/send.webp"
 							className="w-[45%] h-[50%] object-contain"
 							alt="WL_FW Feature"

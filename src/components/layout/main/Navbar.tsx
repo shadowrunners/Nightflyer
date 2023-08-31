@@ -1,7 +1,9 @@
+import { useSession } from 'next-auth/react';
+import { Button } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@chakra-ui/react';
-import { useSession } from 'next-auth/react';
+import Router from 'next/router';
+import Image from 'next/image';
 
 const Navbar = () => {
 	const [toggle, setToggle] = useState(false);
@@ -10,8 +12,10 @@ const Navbar = () => {
 	return (
 		<nav className="w-full flex py-6 justify-between items-center navbar relative z-10">
 			<a href="/">
-				<img
-					src="https://i.imgur.com/Ivp3uW4.png"
+				<Image
+					width={500}
+					height={200}
+					src="https://res.cloudinary.com/shadowrunners/image/upload/v1687690764/evl_logo.webp"
 					alt="evelyn"
 					className="w-[128px] h-[128px] object-contain" />
 			</a>
@@ -34,15 +38,17 @@ const Navbar = () => {
 			</ul>
 			<div className="list-none hidden sm:block ml-5">
 				<Button onClick={() => {
-					if (!session) return window.location.replace('/auth/signin');
-					else return window.location.replace('/dash/user/home');
+					if (!session) return Router.replace('/auth/signin');
+					else return Router.replace('/dash/user/home');
 				}}>
 					{status === 'unauthenticated' ? 'Sign in with Discord' : 'Dashboard' }
 				</Button>
 			</div>
 
 			<div className="sm:hidden flex flex-1 justify-end items-center">
-				<img
+				<Image
+					height={20}
+					width={12}
 					src="https://res.cloudinary.com/shadowrunners/image/upload/q_auto/evelyn/menu.svg"
 					alt="menu"
 					className="w-[28px] h-[28px] object-contain"
@@ -79,8 +85,8 @@ const Navbar = () => {
 						<li
 							className="font-poppins text-white font-normal cursor-pointer text-16 mr-0 mt-3"
 							onClick={() => {
-								if (!session) return window.location.replace('/auth/signin');
-								else return window.location.replace('/dash/user/home');
+								if (!session) return Router.replace('/auth/signin');
+								else return Router.replace('/dash/user/home');
 							}}
 						>
 							{status === 'unauthenticated' ? 'Sign in with Discord' : 'Dashboard' }

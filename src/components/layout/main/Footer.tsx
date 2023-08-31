@@ -1,10 +1,14 @@
 import { styles } from '@/utils/utils';
+import Router from 'next/router';
+import Image from 'next/image';
 
 const Footer = () => (
 	<section className={`${styles.flexCenter} ${styles.paddingY} flex-col`}>
 		<div className={`${styles.flexStart} md:flex-row flex-col mb-8 w-full`}>
 			<div className="flex-1 flex flex-col justify-start mr-10">
-				<img
+				<Image
+					width={128}
+					height={128}
 					src='https://res.cloudinary.com/shadowrunners/image/upload/v1687690764/evl_logo.webp'
 					alt="evelyn"
 					className="w-[128px] h-[128px] object-contain"
@@ -23,14 +27,14 @@ const Footer = () => (
 						<li
 							key="privacy"
 							className="font-poppins font-normal text-[16px] leading-[24px] text-dimWhite hover:text-secondary cursor-pointer"
-							onClick={() => window.open('/privacy')}
+							onClick={() => Router.replace('/privacy')}
 						>
               Privacy Policy
 						</li>
 						<li
 							key="tos"
 							className="font-poppins font-normal text-[16px] leading-[24px] text-dimWhite hover:text-secondary cursor-pointer mt-3"
-							onClick={() => window.open('/tos')}
+							onClick={() => Router.replace('/tos')}
 						>
               Terms of Service
 						</li>
