@@ -13,7 +13,7 @@ import { common } from '@/config/translations/common';
 import Link from 'next/link';
 import { useSelfUser } from '@/api/hooks';
 import { signOut } from 'next-auth/react';
-import type { UserInfo } from '@/utils/types';
+import type { UserInfo } from '@/types/types';
 
 export function UserMenu(props: { color: string; shadow: string; bg: string }) {
 	const user = useSelfUser();

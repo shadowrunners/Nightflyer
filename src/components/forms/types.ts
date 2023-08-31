@@ -1,4 +1,4 @@
-import type { Override } from '@/utils/types';
+import type { Override } from '@/types/types';
 import type { ReactElement } from 'react';
 import type { FieldValues, Path, UseControllerProps, FieldPathByValue } from 'react-hook-form';
 import type { FormCardProps } from './Form';

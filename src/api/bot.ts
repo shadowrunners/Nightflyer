@@ -1,7 +1,7 @@
 import { CustomFeatures, CustomGuildInfo } from '@/config/types/custom-types';
 import { callDefault, callReturn } from '@/utils/fetch/core';
 import { botRequest } from '@/utils/fetch/requests';
-import type { Role, GuildChannel } from '@/utils/types';
+import type { Role, GuildChannel } from '@/types/types';
 import { Session } from 'next-auth';
 
 /**

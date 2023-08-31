@@ -24,7 +24,7 @@ import { useRouter } from 'next/router';
 import { SidebarItem } from './SidebarItem';
 import items from '@/config/sidebar-items';
 import Image from 'next/image';
-import type { Guild } from '@/utils/types';
+import type { Guild } from '@/types/types';
 
 export function SidebarContent() {
 	const [filter, setFilter] = useState('');

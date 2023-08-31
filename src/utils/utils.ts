@@ -1,4 +1,4 @@
-import { Styles } from '@/utils/types';
+import { Styles } from '@/types/types';
 
 export const styles: Styles = {
 	boxWidth: 'xl:max-w-[1280px] w-full',

@@ -11,7 +11,7 @@ import {
 	updateFeature,
 } from '@/api/bot';
 import { GuildInfo } from '@/config/types';
-import type { UserInfo } from '@/utils/types';
+import type { UserInfo } from '@/types/types';
 import { useSession } from 'next-auth/react';
 
 export const client = new QueryClient({

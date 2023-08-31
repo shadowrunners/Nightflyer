@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CustomFeatures } from './custom-types';
-import { Guild } from '@/utils/types';
+import { Guild } from '@/types/types';
 import { ReactElement, ReactNode } from 'react';
 
 export type AppConfig = {

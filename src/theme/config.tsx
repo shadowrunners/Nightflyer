@@ -11,7 +11,7 @@ import { menuTheme } from './components/menu';
 import { skeletonStyles } from './components/skeleton';
 import { tabsStyles } from './components/tabs';
 import { cardStyles } from './components/card';
-import { globalStyles } from '../styles/global';
+import { globalStyles } from '@/styles/global';
 import { colors, dark, light } from './colors';
 import { selectStyles } from './components/select';
 import { popoverStyles } from './components/popover';

@@ -1,5 +1,5 @@
 import { createIcon } from '@chakra-ui/react';
-import { PermissionFlags } from '@/utils/types';
+import { PermissionFlags } from '@/types/types';
 import { AppConfig } from './types';
 
 const BotIcon = createIcon({
