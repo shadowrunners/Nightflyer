@@ -7,7 +7,7 @@
 @tailwind utilities;
 
 body {
-  font-family: 'DM Sans', 'Noto Color Emoji';
+  font-family: 'DM Sans', 'Noto Color Emoji', sans-serif;
   min-width: 350px;
   width: auto;
 }
@@ -31,10 +31,6 @@ body {
   -ms-overflow-style: none;
 }
 
-.background-test {
-  background: linear-gradient(to bottom, blue, black);
-}
-
 .text-gradient {
   background: linear-gradient(to right, rgb(174, 28, 28), rgb(167, 139, 250), rgb(132, 10, 74));
   -webkit-background-clip: text;
@@ -42,30 +38,9 @@ body {
   background-clip: text;
 }
 
-.bg-blue-gradient {
-  background: linear-gradient(
-    157.81deg,
-    #def9fa -43.27%,
-    #bef3f5 -21.24%,
-    #9dedf0 12.19%,
-    #7de7eb 29.82%,
-    #5ce1e6 51.94%,
-    #33bbcf 90.29%
-  );
-}
-
 .bg-black-gradient {
   background: linear-gradient(
     144.39deg,
-    #ffffff -278.56%,
-    #6d6d6d -78.47%,
-    #11101d 91.61%
-  );
-}
-
-.bg-black-gradient-2 {
-  background: linear-gradient(
-    -168.39deg,
     #ffffff -278.56%,
     #6d6d6d -78.47%,
     #11101d 91.61%
@@ -80,12 +55,8 @@ body {
   );
 }
 
-.bg-discount-gradient {
-  background: linear-gradient(125.17deg, #272727 0%, #11101d 100%);
-}
-
 .box-shadow {
-  box-shadow: 0px 20px 100px -10px rgba(66, 71, 91, 0.1);
+  box-shadow: 0 20px 100px -10px rgba(66, 71, 91, 0.1);
 }
 
 .sidebar {
@@ -121,7 +92,7 @@ body {
 }
 
 .feedback-container .feedback-card:last-child {
-  margin-right: 0px;
+  margin-right: 0;
 }
 
 .feedback-card {
@@ -130,21 +101,6 @@ body {
 
 .feedback-card:hover {
   background: var(--black-gradient);
-}
-
-.blue__gradient {
-  background: linear-gradient(180deg, rgba(188, 165, 255, 0) 0%, #214d76 100%);
-  filter: blur(123px);
-}
-
-.pink__gradient {
-  background: linear-gradient(90deg, #f4c4f3 0%, #fc67fa 100%);
-  filter: blur(900px);
-}
-
-.white__gradient {
-  background: rgba(255, 255, 255, 0.6);
-  filter: blur(750px);
 }
 
 html,

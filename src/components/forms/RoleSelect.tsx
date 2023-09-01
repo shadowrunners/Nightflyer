@@ -7,11 +7,11 @@ import { Icon, Image } from '@chakra-ui/react';
 import { BsPeopleFill } from 'react-icons/bs';
 import { forwardRef, useMemo } from 'react';
 import { ControlledInput } from './types';
-import { Override } from '@/utils/types';
+import { Override } from '@/types/types';
 import { useRouter } from 'next/router';
 import { toRGB } from '@/utils/common';
 import { FormCard } from './Form';
-import { Role } from '@/utils/types';
+import { Role } from '@/types/types';
 import React from 'react';
 
 type Props = Override<

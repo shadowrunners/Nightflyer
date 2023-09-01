@@ -1,6 +1,3 @@
-export { default } from './utils/auth/middleware';
+export { default } from 'next-auth/middleware';
 
-// Pages need to be logged in before visiting
-export const config = {
-	matcher: ['/guilds/:path*', '/user/:path*'],
-};
+export const config = { matcher: ['/guilds/:path*', '/dash/:path*'] };

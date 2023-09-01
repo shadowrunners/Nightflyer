@@ -1,7 +1,7 @@
-import { logout } from '@/utils/auth/hooks';
+import { signOut } from 'next-auth/react';
 import { callReturn } from '@/utils/fetch/core';
 import { discordRequest } from '@/utils/fetch/requests';
-import type { Guild, UserInfo } from '@/utils/types';
+import type { Guild, UserInfo } from '@/types/types';
 
 export async function fetchUserInfo(accessToken: string) {
 	return await callReturn<UserInfo>(
@@ -12,7 +12,7 @@ export async function fetchUserInfo(accessToken: string) {
 			},
 			allowed: {
 				401: async () => {
-					await logout();
+					await signOut();
 
 					throw new Error('Not logged in');
 				},

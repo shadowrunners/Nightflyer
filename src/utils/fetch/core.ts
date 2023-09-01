@@ -36,12 +36,8 @@ export async function callReturn<T>(url: string, init: ReturnOptions<T>): Promis
 	const res = await fetch(options.url, options.request);
 
 	if (!res.ok) {
-		if (init.allowed?.[res.status] != null) {
-			return await init.allowed[res.status](res);
-		}
-		else {
-			await handleError(res, options);
-		}
+		if (init.allowed?.[res.status] != null) return init.allowed[res.status](res);
+		else await handleError(res, options);
 	}
 
 	return await res.json();

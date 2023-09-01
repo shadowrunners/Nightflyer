@@ -12,8 +12,8 @@ import { avatarUrl } from '@/api/discord';
 import { common } from '@/config/translations/common';
 import Link from 'next/link';
 import { useSelfUser } from '@/api/hooks';
-import { useLogoutMutation } from '@/utils/auth/hooks';
-import type { UserInfo } from '@/utils/types';
+import { signOut } from 'next-auth/react';
+import type { UserInfo } from '@/types/types';
 
 export function UserMenu(props: { color: string; shadow: string; bg: string }) {
 	const user = useSelfUser();
@@ -40,7 +40,6 @@ function List(props: { textColor: string; shadow: string; menuBg: string; user: 
 	const t = common.useTranslations();
 	const { menuBg, shadow, textColor, user } = props;
 	const borderColor = useColorModeValue('#E6ECFA', 'rgba(135, 140, 189, 0.3)');
-	const logout = useLogoutMutation();
 
 	return (
 		<MenuList boxShadow={shadow} p="0px" mt="10px" borderRadius="20px" bg={menuBg} border="none">
@@ -78,7 +77,7 @@ function List(props: { textColor: string; shadow: string; menuBg: string; user: 
 					_focus={{ bg: 'none' }}
 					color="red.400"
 					borderRadius="8px"
-					onClick={() => logout.mutate()}
+					onClick={async () => await signOut()}
 					px="14px"
 				>
 					<Text fontSize="sm">{t.logout}</Text>

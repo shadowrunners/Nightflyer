@@ -3,7 +3,7 @@ import { DiscordMessages, DiscordMessage, DiscordEmbed, DiscordEmbedDescription,
 import { Input, Textarea, Box, Text } from '@chakra-ui/react';
 import { UseFormRegister, Control } from 'react-hook-form';
 import { SmallColorPickerForm } from './ColorPicker';
-import { Features } from '@/utils/types';
+import { Features } from '@/types/types';
 import React from 'react';
 
 interface IEmbed<T extends Features> {

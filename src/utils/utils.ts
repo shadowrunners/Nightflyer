@@ -1,17 +1,5 @@
-/** Styles used in the main website. */
-export type Styles = {
-	boxWidth: string;
-	boxNav: string;
-	heading2: string;
-	paragraph: string;
-	flexCenter: string;
-	flexStart: string;
-	paddingX: string;
-	paddingY: string;
-	padding: string;
-	marginX: string;
-	marginY: string;
-};
+import { MutableRefObject, Dispatch, SetStateAction } from 'react';
+import { Styles } from '@/types/types';
 
 export const styles: Styles = {
 	boxWidth: 'xl:max-w-[1280px] w-full',
@@ -33,23 +21,22 @@ export const styles: Styles = {
 	marginY: 'sm:my-16 my-6',
 };
 
-export const layout = {
-	section: `flex md:flex-row flex-col ${styles.paddingY}`,
-	sectionReverse: `flex md:flex-row flex-col-reverse ${styles.paddingY}`,
-
-	sectionImgReverse: `flex-1 flex ${styles.flexCenter} md:mr-20 mr-0 md:mt-0 mt-10 relative`,
-	sectionImg: `flex-1 flex ${styles.flexCenter} md:ml-10 ml-0 md:mt-0 mt-10 relative`,
-
-	sectionInfo: `flex-1 ${styles.flexStart} flex-col`,
-};
-
-/**
- * Gets the URL of the callback URL.
- * @returns The callback URL.
- */
-export function getAbsoluteUrl(): string {
-	const defaultUrl = 'http://localhost:3000';
-
-	if (process.env.APP_URL !== null) return process.env.APP_URL as string;
-	return process.env.VERCEL_URL === null ? defaultUrl : `https://${process.env.VERCEL_URL}`;
+/** The observer hook used to detect when certain components are in view. Mostly used for animations. */
+export function observerHook(
+	ref: MutableRefObject<HTMLDivElement | null>,
+	setInView: Dispatch<SetStateAction<boolean>>,
+) {
+	const observer = new IntersectionObserver(([entry]) => {
+		setInView(entry.isIntersecting);
+	}, { threshold: 0.3 });
+	if (ref.current) observer.observe(ref.current);
+	return () => {
+		if (ref.current) observer.unobserve(ref.current);
+	};
 }
+
+/** The variants used for animations. */
+export const variants = {
+	hidden: { opacity: 0 },
+	visible: { opacity: 1 },
+};
