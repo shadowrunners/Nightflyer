@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "preinstall": "npx only-allow pnpm"
+    "start": "next start"
   },
   "private": true,
   "dependencies": {
