@@ -1,33 +1,22 @@
-import {
-	Avatar,
-	Box,
-	Card,
-	CardBody,
-	Flex,
-	HStack,
-	IconButton,
-	Spacer,
-	Stack,
-	Text,
-	VStack,
-} from '@chakra-ui/react';
+import { Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import { useActiveSidebarItem, SidebarItemInfo } from '@/utils/router';
-import { useGuilds, useSelfUserQuery } from '@/api/hooks';
-import { SearchBar } from '@/components/forms/SearchBar';
-import { useCallback, useMemo, useState, ChangeEvent } from 'react';
-import { config } from '@/config/common';
-import { FiSettings as SettingsIcon } from 'react-icons/fi';
-import { avatarUrl } from '@/api/discord';
+import { IoMdMoon, IoMdSunny, IoMdLogOut } from "react-icons/io";
 import { GuildItem, GuildItemsSkeleton } from './GuildItem';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useGuilds, useSelfUserQuery } from '@/api/hooks';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from "@/components/ui/button";
 import { SidebarItem } from './SidebarItem';
-import items from '@/config/sidebar-items';
-import Image from 'next/image';
 import type { Guild } from '@/types/types';
+import items from '@/config/sidebar-items';
+import { avatarUrl } from '@/api/discord';
+import {Fragment, useMemo, useState} from 'react';
+import { config } from '@/config/common';
+import { useRouter } from 'next/router';
+import Image from 'next/image';
+import { signOut } from "next-auth/react";
 
 export function SidebarContent() {
-	const [filter, setFilter] = useState('');
+	const [filter] = useState('');
 	const guilds = useGuilds();
 	const { guild: selectedGroup } = useRouter().query as { guild: string };
 
@@ -39,29 +28,18 @@ export function SidebarContent() {
 	};
 
 	const filteredGuilds = useMemo(() => filterGuilds(guilds?.data), [guilds?.data, filter]);
-	const handleSearchChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-		setFilter(e.target.value);
-	}, []);
 
 	return (
-		<>
-			<VStack align="center" py="2rem" m={3} rounded="xl">
+		<Fragment>
+			<section className='flex flex-col gap-16 py-2 m-3 rounded-xl p-10 mt-5 mb-5'>
 				<Image alt='logo' src='https://i.imgur.com/pahJQQm.png' width={200} height={200} />
-			</VStack>
+			</section>
 
-			<Stack direction="column" mb="auto">
+			<div className='flex flex-col mb-auto'>
 				<Items />
-				<Box px="10px">
-					<SearchBar
-						w="full"
-						input={{
-							value: filter,
-							onChange: handleSearchChange,
-						}}
-					/>
-				</Box>
-				<Flex direction="column" px="10px" gap={3}>
-					{filteredGuilds == null ? (
+
+				<div className='flex flex-col px-[10px] gap-3'>
+					{filteredGuilds === null ? (
 						<GuildItemsSkeleton />
 					) : (
 						filteredGuilds?.map((guild) => (
@@ -73,27 +51,36 @@ export function SidebarContent() {
 							/>
 						))
 					)}
-				</Flex>
-			</Stack>
-		</>
+				</div>
+			</div>
+		</Fragment>
 	);
 }
 
 export function BottomCard() {
 	const user = useSelfUserQuery().data;
+	const [colorMode, toggleColorMode] = useState();
 
 	if (user == null) return <></>;
 
 	return (
-		<Card pos="sticky" left={0} bottom={0} w="full" py={2}>
-			<CardBody as={HStack}>
-				<Avatar src={avatarUrl(user)} name={user?.username} size="sm" />
-				<Text fontWeight="600">{user?.username}</Text>
-				<Spacer />
-				<Link href="/dash/user/profile">
-					<IconButton icon={<SettingsIcon />} aria-label="settings" />
-				</Link>
-			</CardBody>
+		<Card className='sticky left-0 bottom-0 w-full py-2 bg-transparent'>
+			<CardContent className='flex'>
+				<Avatar className='mr-3'>
+					<AvatarImage src={avatarUrl(user)} alt='pfp' />
+					<AvatarFallback>{user?.username}</AvatarFallback>
+				</Avatar>
+				<h3 className='font-semibold text-white mt-1'>{user?.username}</h3>
+
+				<div className='flex-1 self-stretch' />
+
+				<Button variant='outline' size='icon' className='mr-2'>
+					{colorMode === 'light' ? <IoMdMoon /> : <IoMdSunny />}
+				</Button>
+				<Button variant='outline' size='icon' onClick={() => signOut()}>
+					<IoMdLogOut className='accent-white' />
+				</Button>
+			</CardContent>
 		</Card>
 	);
 }
@@ -103,7 +90,7 @@ function Items() {
 	const filteredItems = useMemo(() => items.filter((item) => !item.hidden), []);
 
 	return (
-		<Flex direction="column" px="10px" gap={0}>
+		<div className='flex flex-col px-3 gap-0 mb-3'>
 			{filteredItems
 				.map((route: SidebarItemInfo, index: number) => (
 					<SidebarItem
@@ -114,6 +101,6 @@ function Items() {
 						active={active === route}
 					/>
 				))}
-		</Flex>
+		</div>
 	);
 }

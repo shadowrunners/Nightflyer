@@ -56,6 +56,10 @@ export const colors = {
 	gray: {
 		100: '#FAFCFE',
 	},
+	black: {
+		0: '#181114',
+		1: '#100C0E',
+	},
 };
 
 export const light = {
@@ -68,10 +72,10 @@ export const light = {
 };
 
 export const dark = {
-	globalBg: 'navy.900',
+	globalBg: 'black.1',
 	brand: 'brand.400',
 	textColorPrimary: 'white',
 	textColorSecondary: 'gray.400',
-	cardBg: 'navy.800',
+	cardBg: 'black.0',
 	shadow: '14px 17px 40px 4px rgba(2, 4, 6, 0.06)',
 };

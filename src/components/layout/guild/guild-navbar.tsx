@@ -14,7 +14,7 @@ export default function GuildNavbar({ back }: { back?: boolean }) {
 	const { guild } = useGuildPreview(selected);
 
 	return (
-		<Flex w="full" direction="row" alignItems="center">
+		<div className='flex w-full flex-row items-center'>
 			<HorizontalCollapse in={back ?? false}>
 				<Box
 					as={Link}
@@ -36,17 +36,10 @@ export default function GuildNavbar({ back }: { back?: boolean }) {
 					mr={3}
 				/>
 			)}
-			<Text
-				fontWeight="600"
-				textOverflow="ellipsis"
-				whiteSpace="nowrap"
-				w="0"
-				flex={1}
-				overflow="hidden"
-			>
+			<h1 className='font-poppins font-semibold text-ellipsis whitespace-nowrap w-0 flex-1 overflow-hidden'>
 				{guild?.name}
-			</Text>
-		</Flex>
+			</h1>
+		</div>
 	);
 }
 

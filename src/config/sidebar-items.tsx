@@ -6,7 +6,7 @@ import { Icon } from '@chakra-ui/react';
 const items: SidebarItemInfo[] = [
 	{
 		name: <common.T text="dashboard" />,
-		path: '/dash/user/home',
+		path: '/dash/home',
 		icon: <Icon as={MdDashboard} />,
 	},
 ];

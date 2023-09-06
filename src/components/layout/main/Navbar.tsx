@@ -1,5 +1,5 @@
 import { useSession } from 'next-auth/react';
-import { Button } from '@chakra-ui/react';
+import { Button } from '@/components/ui/button';
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Router from 'next/router';
@@ -37,10 +37,16 @@ const Navbar = () => {
 				</li>
 			</ul>
 			<div className="list-none hidden sm:block ml-5">
-				<Button onClick={() => {
-					if (!session) return Router.replace('/auth/signin');
-					else return Router.replace('/dash/user/home');
-				}}>
+				<Button
+					onClick={() => {
+						if (!session) return Router.replace('/auth/signin');
+						else return Router.replace('/dash/home');
+					}}
+					variant='outline'
+					className='text-white'
+
+
+				>
 					{status === 'unauthenticated' ? 'Sign in with Discord' : 'Dashboard' }
 				</Button>
 			</div>
@@ -86,7 +92,7 @@ const Navbar = () => {
 							className="font-poppins text-white font-normal cursor-pointer text-16 mr-0 mt-3"
 							onClick={() => {
 								if (!session) return Router.replace('/auth/signin');
-								else return Router.replace('/dash/user/home');
+								else return Router.replace('/dash/home');
 							}}
 						>
 							{status === 'unauthenticated' ? 'Sign in with Discord' : 'Dashboard' }

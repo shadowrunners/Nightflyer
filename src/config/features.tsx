@@ -14,7 +14,7 @@ import { useVerifySystem } from '../features/VerifySystem';
 /** This is where the information for every feature is. */
 export const features: FeaturesConfig = {
 	antiphishing: {
-		name: 'Anti-Phishing System',
+		name: 'Anti-Phishing',
 		description: 'Protects your server against scammers.',
 		icon: <Icon as={GiTalk} />,
 		useRender: useAntiPhishFeature,
@@ -26,14 +26,14 @@ export const features: FeaturesConfig = {
 		useRender: useConfessionSystem,
 	},
 	goodbye: {
-		name: 'Goodbye System',
+		name: 'Goodbye',
 		description: 'Sends a custom message when a user joins the server.',
 		icon: <Icon as={MdMessage} />,
 		useRender: useGoodbyeSystem,
 	},
 	logs: {
 		name: 'Logs',
-		description: 'Logs every single moderation action / server change to a designated channel.',
+		description: 'Logs every single mod(s) action / server change to a designated channel.',
 		icon: <Icon as={GiTalk} />,
 		useRender: useLogsSystem,
 	},
@@ -56,7 +56,7 @@ export const features: FeaturesConfig = {
 		useRender: useVerifySystem,
 	},
 	welcome: {
-		name: 'Welcome System',
+		name: 'Welcome',
 		description: 'Sends a custom message when a user joins the server',
 		icon: <Icon as={MdMessage} />,
 		useRender: useWelcomeFeature,

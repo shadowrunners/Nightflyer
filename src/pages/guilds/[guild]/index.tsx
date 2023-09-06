@@ -1,4 +1,4 @@
-import { Center, Flex, Heading, SimpleGrid, Text, Button, Icon } from '@chakra-ui/react';
+import { Center, Flex, Heading, SimpleGrid, Text, Icon } from '@chakra-ui/react';
 import { LoadingPanel } from '@/components/panel/LoadingPanel';
 import { QueryStatus } from '@/components/panel/QueryPanel';
 import { config } from '@/config/common';
@@ -6,13 +6,14 @@ import { guild as view } from '@/config/translations/guild';
 import { BiSolidErrorAlt } from 'react-icons/bi';
 import { FaRobot } from 'react-icons/fa';
 import { useGuildInfoQuery } from '@/api/hooks';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import { getFeatures } from '@/utils/common';
 import { Banner } from '@/components/GuildBanner';
-import { FeatureItem } from '@/components/feature/FeatureItem';
 import type { CustomGuildInfo } from '@/config/types/custom-types';
 import { NextPageWithLayout } from '@/pages/_app';
 import getGuildLayout from '@/components/layout/guild/get-guild-layout';
+import {Card, CardContent, CardFooter} from "@/components/ui/card";
+import { Button } from '@/components/ui/button'
 
 const GuildPage: NextPageWithLayout = () => {
 	const t = view.useTranslations();
@@ -31,23 +32,43 @@ const GuildPage: NextPageWithLayout = () => {
 function GuildPanel({ guild: id, info }: { guild: string; info: CustomGuildInfo }) {
 	const t = view.useTranslations();
 
+	//<Banner />
+
 	return (
-		<Flex direction="column" gap={5}>
-			<Banner />
-			<Flex direction="column" gap={5} mt={3}>
-				<Heading size="md">{t.features}</Heading>
-				<SimpleGrid columns={{ base: 1, md: 2, '2xl': 3 }} gap={3}>
+		<div className='flex flex-col gap-5'>
+			BANNER HERE! REMOVE BEFORE SHIPPING!
+			<div className='flex flex-col gap-5 mt-3'>
+				<h1 className='text-[23px] font-poppins font-semibold'>{t.features}</h1>
+				<div className="flex-row grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-3">
 					{getFeatures().map((feature) => (
-						<FeatureItem
-							key={feature.id}
-							guild={id}
-							feature={feature}
-							enabled={info?.enabledFeatures?.includes(feature.id)}
-						/>
+						<Card className='black2'>
+							<CardContent className='flex flex-gap gap-3 mt-5'>
+								<div className={`flex rounded-xl w-[50px] h-[50px] text-3xl card-background justify-center items-center`}>
+									{feature.icon}
+								</div>
+								<div className="flex-1">
+									<p className="font-semibold text-base md:text-lg">
+										{feature.name}
+									</p>
+									<p className="text-sm md:text-md text-muted-foreground">
+										{feature.description}
+									</p>
+								</div>
+							</CardContent>
+							<CardFooter>
+								<Button
+									variant='outline'
+									className='rounded-2xl bg-white text-black font-poppins'
+									onClick={() => Router.push(`/guilds/${id}/features/${feature.id}`)}
+								>
+									{info?.enabledFeatures?.includes(feature.id) ? 'Configure' : 'Enable'}
+								</Button>
+							</CardFooter>
+						</Card>
 					))}
-				</SimpleGrid>
-			</Flex>
-		</Flex>
+				</div>
+			</div>
+		</div>
 	);
 }
 
@@ -55,27 +76,27 @@ function NotJoined({ guild }: { guild: string }) {
 	const t = view.useTranslations();
 
 	return (
-		<Center flexDirection="column" gap={3} h="full" p={5}>
-			<Icon as={BiSolidErrorAlt} w={50} h={50} />
-			<Text fontSize="xl" fontWeight="600">
+		<div className='flex justify-center items-center flex-col gap-3 h-full p-5'>
+			<BiSolidErrorAlt className='w-[50px] h-[50px]' />
+			<h1 className='text-xl font-semibold'>
 				{t.error['not found']}
-			</Text>
-			<Text textAlign="center" color="TextSecondary">
+			</h1>
+			<h1 className='text-center text-dimWhite'>
 				{t.error['not found description']}
-			</Text>
+			</h1>
 			<Button
-				variant="action"
-				leftIcon={<FaRobot />}
-				px={6}
-				as="a"
-				href={`${config.inviteUrl}&guild_id=${guild}`}
-				target="_blank"
+				variant='outline'
+				className='px-6'
+				onClick={() => Router.push(`${config.inviteUrl}&guild_id=${guild}`)}
 			>
+				<FaRobot className='mr-2' />
 				{t.bn.invite}
 			</Button>
-		</Center>
+		</div>
 	);
 }
 
 GuildPage.getLayout = (c) => getGuildLayout({ children: c });
 export default GuildPage;
+
+
