@@ -31,24 +31,24 @@ export function UpdateFeaturePanel({
 	};
 
 	return (
-		<Flex as="form" direction="column" gap={5} w="full" h="full">
-			<Flex direction={{ base: 'column', md: 'row' }} mx={{ '3sm': 5 }} justify="space-between">
-				<Box>
-					<Heading fontSize="2xl" fontWeight="600">
+		<div className='flex flex-col gap-5 w-full h-full mt-5'>
+			<div className='flex flex-col md:flex-row mx-3 sm:mx-5 justify-between'>
+				<div>
+					<h2 className='text-2xl font-semibold'>
 						{config.name}
-					</Heading>
+					</h2>
 					<Text color="TextSecondary">{config.description}</Text>
-				</Box>
+				</div>
 				<ButtonGroup mt={3}>
 					<Button variant="danger" isLoading={enableMutation.isLoading} onClick={onDisable}>
 						<view.T text={(e) => e.bn.disable} />
 					</Button>
 				</ButtonGroup>
-			</Flex>
+			</div>
 
 			{result.component}
 			<Savebar isLoading={mutation.isLoading} result={result} />
-		</Flex>
+		</div>
 	);
 }
 

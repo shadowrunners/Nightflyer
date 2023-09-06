@@ -1,19 +1,19 @@
 import { SelectInstance, Props as SelectProps } from 'chakra-react-select';
-import { Option, SelectField } from '@/components/forms/SelectField';
 import { BsChatLeftText as ChatIcon } from 'react-icons/bs';
-import { common } from '@/config/translations/common';
 import { useGuildChannelsQuery } from '@/api/hooks';
 import { MdRecordVoiceOver } from 'react-icons/md';
-import { useController } from 'react-hook-form';
 import { ChannelTypes, GuildChannel, Override } from '@/types/types';
 import { forwardRef, useMemo } from 'react';
 import { ControlledInput } from './types';
 import { Icon } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { FormCard } from './Form';
+
+import { Form, FormField, FormItem } from '@/components/ui/form';
+import { SelectComponent } from "@/components/test";
+import { useForm } from "react-hook-form";
 
 /** Renders the options. */
-const render = (channel: GuildChannel | undefined): Option => {
+const render = (channel: GuildChannel | undefined) => {
 	const icon = channel?.type === ChannelTypes.GUILD_STAGE_VOICE || channel?.type === ChannelTypes.GUILD_VOICE ? (
 		<Icon as={MdRecordVoiceOver} />
 	) : (<ChatIcon />);
@@ -50,14 +50,14 @@ function mapOptions(channels: GuildChannel[]) {
 }
 
 type Props = Override<
-  SelectProps<Option, false>,
+  SelectProps<any, false>,
   {
     value?: string;
     onChange: (v: string) => void;
   }
 >;
 
-export const ChannelSelect = forwardRef<SelectInstance<Option, false>, Props>(
+export const ChannelSelect = forwardRef<SelectInstance<any, false>, Props>(
 	({ value, onChange, ...rest }, ref) => {
 		const guild = useRouter().query.guild as string;
 		const channelsQuery = useGuildChannelsQuery(guild);
@@ -72,19 +72,37 @@ export const ChannelSelect = forwardRef<SelectInstance<Option, false>, Props>(
 		}, [channelsQuery.data]);
 
 		return (
-			<SelectField<Option>
-				isDisabled={isLoading}
+			<SelectComponent
+				createAble={true}
 				isLoading={isLoading}
-				placeholder={<common.T text="select channel" />}
+				isDisabled={isLoading}
+				isClearable={true}
+				// @ts-ignore
+				// Have no idea why it errors out if this is removed.
+				placeholder={'Select a channel.'}
 				value={selected !== null ? render(selected) : null}
 				options={options}
 				onChange={(e) => e !== null && onChange(e.value as string)}
 				ref={ref}
 				{...rest}
 			/>
-		);
+		)
 	},
 );
+
+/**
+ * <SelectField<Option>
+ *                isDisabled={isLoading}
+ *                isLoading={isLoading}
+ *                placeholder={<common.T text="select channel" />}
+ *                value={selected !== null ? render(selected) : null}
+ *                options={options}
+ *                onChange={(e) => e !== null && onChange(e.value as string)}
+ *                ref={ref}
+ *                {...rest}
+ *            />
+ *
+ */
 
 ChannelSelect.displayName = 'ChannelSelect';
 
@@ -93,11 +111,38 @@ export const ChannelSelectForm: ControlledInput<Omit<Props, 'value' | 'onChange'
 	controller,
 	...props
 }) => {
-	const { field, fieldState } = useController(controller);
+	const form = useForm();
 
 	return (
-		<FormCard {...control} error={fieldState.error?.message}>
-			<ChannelSelect {...field} {...props} />
-		</FormCard>
+		<div className='grid gap-3'>
+			<div className="flex flex-col width-[100%] relative border-r-3xl p-5 shadow black2 rounded-3xl">
+				<label className="block text-start mr-3 transition-all duration-300 opacity-100 text-base font-medium mb-0">
+					<h2 className="text-2xl font-semibold">{control.label}</h2>
+					<p className="text-gray-500">{control.description}</p>
+				</label>
+				<div className='flex-1 self-stretch mt-2' />
+				<Form {...form}>
+					<form>
+						<FormField
+							control={controller.control}
+							name={controller.name}
+							render={({ field }) => (
+								<FormItem>
+									<ChannelSelect {...field} {...props} />
+								</FormItem>
+							)}
+						/>
+					</form>
+				</Form>
+			</div>
+		</div>
 	);
 };
+
+/**
+ *
+ *
+ *
+ *
+ *        NEW ONE:
+ */

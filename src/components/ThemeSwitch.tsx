@@ -2,7 +2,7 @@ import { Button, Icon, useColorMode } from '@chakra-ui/react';
 import { IoMdMoon, IoMdSunny } from 'react-icons/io';
 
 export function ThemeSwitch({ secondary }: { secondary?: boolean }) {
-	const { colorMode, toggleColorMode } = useColorMode();
+
 
 	return (
 		<Button
@@ -13,7 +13,6 @@ export function ThemeSwitch({ secondary }: { secondary?: boolean }) {
 			minH="unset"
 			h="18px"
 			w="max-content"
-			onClick={toggleColorMode}
 			aria-label="Toggle color mode"
 		>
 			<Icon
@@ -24,7 +23,7 @@ export function ThemeSwitch({ secondary }: { secondary?: boolean }) {
 				_dark={{
 					color: 'TextPrimary',
 				}}
-				as={colorMode === 'light' ? IoMdMoon : IoMdSunny}
+				//as={'faf' === 'light' ? IoMdMoon : IoMdSunny}
 			/>
 		</Button>
 	);

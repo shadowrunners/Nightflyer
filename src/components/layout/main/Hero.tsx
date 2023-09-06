@@ -11,14 +11,13 @@ const Hero = () => {
 		observerHook(ref, setInView);
 	}, []);
 
-
 	return (
 		<section id="home" className={'flex md:flex-row flex-col h-screen text-center'}>
 			<Image
-				src='https://res.cloudinary.com/shadowrunners/image/upload/q_auto/evelyn/shadowlyn.webp'
+				src='https://res.cloudinary.com/shadowrunners/image/upload/q_auto/evl1_idtuxu.webp'
 				fill={true}
 				alt='coolbg'
-				className='absolute inset-0 w-full h-full object-cover opacity-40 z-0'
+				className='absolute inset-0 object-cover opacity-40 z-0'
 			/>
 			<div className="absolute bottom-0 h-[270px] w-full xl:left-[0px] bg-gradient-to-b from-transparent to-black" />
 

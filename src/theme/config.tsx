@@ -6,7 +6,6 @@ import { textareaStyles } from './components/textarea';
 import { switchStyles } from './components/switch';
 import { breakpoints } from './breakpoints';
 import { modalStyles } from './components/modal';
-import { avatarStyles } from './components/avatar';
 import { menuTheme } from './components/menu';
 import { skeletonStyles } from './components/skeleton';
 import { tabsStyles } from './components/tabs';
@@ -30,7 +29,6 @@ export const theme = extendTheme({
 		Button: buttonStyles,
 		Switch: switchStyles,
 		Modal: modalStyles,
-		Avatar: avatarStyles,
 		Menu: menuTheme,
 		RangeSlider: sliderStyles,
 		Input: inputStyles,

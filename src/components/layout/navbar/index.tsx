@@ -1,31 +1,14 @@
 import { Flex, useColorModeValue } from '@chakra-ui/react';
 import { navbarBreakpoint } from '@/theme/breakpoints';
-import { ReactNode } from 'react';
-
-import { UserMenu } from '@/components/menu/UserMenu';
-import { SidebarTrigger } from '@/components/SidebarTrigger';
-import { ThemeSwitch } from '@/components/ThemeSwitch';
+import {Fragment, ReactNode} from 'react';
+import {SidebarTrigger} from "@/components/SidebarTrigger";
 
 export function Navbar({ links, children }: { links?: ReactNode; children: ReactNode }) {
-	const navbarBg = useColorModeValue('rgba(244, 247, 254, 0.2)', 'rgba(8, 8, 28, 0.5)');
-
 	return (
-		<Flex
-			direction="row"
-			mx="auto"
-			bg={navbarBg}
-			backdropFilter="blur(20px)"
-			borderRadius={{ [navbarBreakpoint]: '16px' }}
-			lineHeight="25.6px"
-			px={{ base: '24px', [navbarBreakpoint]: 5 }}
-			py={{ base: '3px', [navbarBreakpoint]: '8px' }}
-			gap={2}
-			justify="space-between"
-			alignItems="stretch"
-		>
+		<div className='flex flex-row mx-auto black2 backdrop-blur-[20px] rounded-[16px] px-[24px] py-3 lg:py-8 gap-2 justify-between items-stretch'>
 			{children}
 			<NavbarLinksBox>{links}</NavbarLinksBox>
-		</Flex>
+		</div>
 	);
 }
 
@@ -41,11 +24,9 @@ function NavbarLinksBox({ children }: { children?: ReactNode }) {
 			boxShadow="normal"
 		>
 			{children ?? (
-				<>
+				<Fragment>
 					<SidebarTrigger />
-					<ThemeSwitch secondary />
-					<UserMenu color="TextPrimary" shadow="normal" bg="CardBackground" />
-				</>
+				</Fragment>
 			)}
 		</Flex>
 	);

@@ -16,6 +16,10 @@ const nextConfig = {
 		locales: ['en', 'cn'],
 		defaultLocale: 'en',
 	},
+	eslint: {
+		// Temporary change for preview builds so they can be previewed devices outside of my dev environment. :)
+		ignoreDuringBuilds: true,
+	}
 };
 
 module.exports = nextConfig;

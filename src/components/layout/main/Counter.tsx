@@ -24,9 +24,7 @@ export default function Counter({
 	const isInView = useInView(ref, { once: true, margin: '-100px' });
 
 	useEffect(() => {
-		if (isInView) {
-			motionValue.set(direction === 'down' ? 0 : value);
-		}
+		if (isInView) motionValue.set(direction === 'down' ? 0 : value);
 	}, [motionValue, isInView]);
 
 	useEffect(
