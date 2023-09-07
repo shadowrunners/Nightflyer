@@ -1,22 +1,21 @@
-import { Icon, Button } from '@chakra-ui/react';
-import { Center, Heading, Text } from '@chakra-ui/layout';
+import { UpdateFeaturePanel } from '@/components/feature/UpdateFeaturePanel';
+import getGuildLayout from '@/components/layout/guild/get-guild-layout';
+
+import { Button } from '@/components/ui/button';
 import { LoadingPanel } from '@/components/panel/LoadingPanel';
 import { features } from '@/config/features';
 import { CustomFeatures, FeatureConfig } from '@/config/types';
 import { BsSearch } from 'react-icons/bs';
 import { useEnableFeatureMutation, useFeatureQuery } from '@/api/hooks';
-import { UpdateFeaturePanel } from '@/components/feature/UpdateFeaturePanel';
 import { feature as view } from '@/config/translations/feature';
 import { useRouter } from 'next/router';
 import { NextPageWithLayout } from '@/pages/_app';
-import getGuildLayout from '@/components/layout/guild/get-guild-layout';
+import { Fragment } from 'react';
 
 export type Params = {
   guild: string;
   feature: keyof CustomFeatures;
 };
-
-export type UpdateFeatureValue<K extends keyof CustomFeatures> = Partial<CustomFeatures[K]>;
 
 const FeaturePage: NextPageWithLayout = () => {
 	const { feature, guild } = useRouter().query as Params;
@@ -27,7 +26,7 @@ const FeaturePage: NextPageWithLayout = () => {
 
 	if (featureConfig == null) return <NotFound />;
 	if (query.isError) return <NotEnabled />;
-	if (query.isLoading) return skeleton != null ? <>{skeleton}</> : <LoadingPanel />;
+	if (query.isLoading) return skeleton != null ? <Fragment>{skeleton}</Fragment> : <LoadingPanel />;
 	return <UpdateFeaturePanel key={feature} feature={query.data} config={featureConfig} />;
 };
 
@@ -37,21 +36,18 @@ function NotEnabled() {
 	const enable = useEnableFeatureMutation();
 
 	return (
-		<Center flexDirection="column" h="full" gap={1}>
-			<Text fontSize="xl" fontWeight="600">
+		<div className='flex justify-center items-center flex-col h-full gap-1'>
+			<h1 className='text-xl text-semibold'>
 				{t.error['not enabled']}
-			</Text>
-			<Text color="TextSecondary">{t.error['not enabled description']}</Text>
+			</h1>
+			<p className='text-dimWhite'>{t.error['not enabled description']}</p>
 			<Button
-				mt={3}
-				isLoading={enable.isLoading}
+				className='mt-3 px-6'
 				onClick={() => enable.mutate({ enabled: true, guild, feature })}
-				variant="action"
-				px={6}
 			>
 				{t.bn.enable}
 			</Button>
-		</Center>
+		</div>
 	);
 }
 
@@ -59,11 +55,11 @@ function NotFound() {
 	const t = view.useTranslations();
 
 	return (
-		<Center flexDirection="column" gap={2} h="full">
-			<Icon as={BsSearch} w="50px" h="50px" />
-			<Heading size="lg">{t.error['not found']}</Heading>
-			<Text color="TextSecondary">{t.error['not found description']}</Text>
-		</Center>
+		<div className='flex justify-center items-center flex-col h-full gap-2'>
+			<BsSearch className='w-[50px] h-[50px]' />
+			<h2 className='text-xl xl:text-lg'>{t.error['not found']}</h2>
+			<p className='text-dimWhite'>{t.error['not found description']}</p>
+		</div>
 	);
 }
 
