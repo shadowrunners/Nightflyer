@@ -1,10 +1,9 @@
 import { ChannelSelectForm } from '@/components/forms/ChannelSelect';
-import { GoodbyeFeature, UseFormRender } from '@/config/types';
-import { SimpleGrid } from '@chakra-ui/layout';
-import { useForm } from 'react-hook-form';
-import Embed from '@/components/forms/Embed';
 import { TextAreaForm } from '@/components/forms/TextAreaForm';
-import React from 'react';
+import { GoodbyeFeature, UseFormRender } from '@/config/types';
+import Embed from '@/components/forms/Embed';
+import { useForm } from 'react-hook-form';
+import { Fragment } from 'react';
 
 export const useGoodbyeSystem: UseFormRender<GoodbyeFeature> = (data, onSubmit) => {
 	const { register, reset, handleSubmit, formState, control, watch } = useForm<GoodbyeFeature>({
@@ -19,8 +18,8 @@ export const useGoodbyeSystem: UseFormRender<GoodbyeFeature> = (data, onSubmit) 
 
 	return {
 		component: (
-			<>
-				<SimpleGrid columns={{ base: 1, lg: 2 }} gap={3}>
+			<Fragment>
+				<div className='grid grid-cols-1 lg:grid-cols-2 gap-3'>
 					<ChannelSelectForm
 						control={{
 							label: 'Channel',
@@ -33,17 +32,12 @@ export const useGoodbyeSystem: UseFormRender<GoodbyeFeature> = (data, onSubmit) 
 							label: 'Message',
 							description: 'The message that will be sent alongside the embed.',
 						}}
-						placeholder="Type some text here..."
-						{...register('embed.content')}
+						controller={{ control, name: 'embed.content' }}
 					/>
-				</SimpleGrid>
-
-				<div>
-					<div>
-						<Embed fullData={fullData} register={register} control={control} />
-					</div>
 				</div>
-			</>
+
+				<Embed fullData={fullData} register={register} control={control} />
+			</Fragment>
 		),
 		onSubmit: handleSubmit(async (e) => {
 			await onSubmit(

@@ -1,9 +1,9 @@
 import { ChannelSelectForm } from '@/components/forms/ChannelSelect';
 import { RoleSelectForm } from '@/components/forms/RoleSelect';
 import { TicketsFeature, UseFormRender } from '@/config/types';
-import { SimpleGrid } from '@chakra-ui/layout';
 import Embed from '@/components/forms/Embed';
 import { useForm } from 'react-hook-form';
+import { Fragment } from 'react';
 
 export const useTicketSystem: UseFormRender<TicketsFeature> = (data, onSubmit) => {
 	const { reset, handleSubmit, register, watch, formState, control } = useForm<TicketsFeature>({
@@ -19,28 +19,26 @@ export const useTicketSystem: UseFormRender<TicketsFeature> = (data, onSubmit) =
 
 	return {
 		component: (
-			<><SimpleGrid columns={{ base: 1, lg: 2 }} gap={3}>
-				<ChannelSelectForm
-					control={{
-						label: 'Transcripts Channel',
-						description: 'The channel where transcripts will be sent in.',
-					}}
-					controller={{ control, name: 'transcriptChannel' }} />
-				<RoleSelectForm
-					control={{
-						label: 'Assistant Role',
-						description: 'The role that will be pinged when new tickets come in.',
-					}}
-					controller={{ control, name: 'assistantRole' }}
-				/>
-			</SimpleGrid>
-
-			<div>
-				<div>
-					<Embed fullData={fullData} register={register} control={control}/>
+			<Fragment>
+				<div className='grid grid-cols-1 lg:grid-cols-2 gap-3'>
+					<ChannelSelectForm
+						control={{
+							label: 'Transcripts Channel',
+							description: 'The channel where transcripts will be sent in.',
+						}}
+						controller={{ control, name: 'transcriptChannel' }}
+					/>
+					<RoleSelectForm
+						control={{
+							label: 'Assistant Role',
+							description: 'The role that will be pinged when new tickets come in.',
+						}}
+						controller={{ control, name: 'assistantRole' }}
+					/>
 				</div>
-			</div>
-			</>
+
+				<Embed fullData={fullData} register={register} control={control}/>
+			</Fragment>
 		),
 		onSubmit: handleSubmit(async (e) => {
 			await onSubmit(
