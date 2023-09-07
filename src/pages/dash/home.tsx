@@ -1,70 +1,68 @@
-import {
-	Button,
-	Card,
-	CardHeader,
-	Avatar,
-	Flex,
-	SimpleGrid,
-	Skeleton,
-	Text,
-	Heading,
-} from '@chakra-ui/react';
 import { config } from '@/config/common';
 import { useGuilds } from '@/api/hooks';
 import { NextPageWithLayout } from '@/pages/_app';
 import AppLayout from '@/components/layout/app';
 import { iconUrl } from '@/api/discord';
-import Link from 'next/link';
 import { dashboard } from '@/config/translations/dashboard';
+
+import { Skeleton } from '@/components/ui/skeleton';
+import { Button } from '@/components/ui/button';
+import { Card, CardHeader } from '@/components/ui/card';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 const HomePage: NextPageWithLayout = () => {
 	const t = dashboard.useTranslations();
 
 	return (
-		<Flex direction="column" gap={5} ml={5} justify={'center'}>
-			<Flex direction="column" gap={1} mt={3} >
-				<Heading size="lg">{t.servers.title}</Heading>
-				<Text color="TextSecondary" size={'12'}>{t.servers.description}</Text>
-			</Flex>
+		<div className='flex flex-col gap-5 ml-5 justify-center'>
+			<div className='flex flex-col gap-1 mt-3'>
+				<h2 className='text-2xl text-semibold font-poppins'>{t.servers.title}</h2>
+				<h1 className='text-dimWhite text-sm'>{t.servers.description}</h1>
+			</div>
 			<GuildSelect />
-		</Flex>
+		</div>
 	);
 };
 
 export function GuildSelect() {
-	const guilds = useGuilds();
+	const { status, data, refetch } = useGuilds();
 
-	switch (guilds.status) {
+	switch (status) {
 	case 'success':
 		return (
-			<SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} gap={3}>
-				{guilds.data
+			<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+				{data
 					?.filter((guild) => config.guild.filter(guild))
 					.map((guild) => (
-						<Card key={guild.id} variant="primary" as={Link} href={`/guilds/${guild.id}`}>
-							<CardHeader as={Flex} flexDirection="row" gap={3}>
-								<Avatar src={iconUrl(guild)} name={guild.name} size="md" />
-								<Text>{guild.name}</Text>
-							</CardHeader>
+						<Card key={guild.id} className='black2 font-oppins font-semibold' >
+							<a href={`/guilds/${guild.id}`}>
+								<CardHeader className='flex flex-row gap-3'>
+									<Avatar>
+										<AvatarImage src={iconUrl(guild)} />
+										<AvatarFallback>SW</AvatarFallback>
+									</Avatar>
+									<h1>{guild.name}</h1>
+								</CardHeader>
+							</a>
 						</Card>
 					))}
-			</SimpleGrid>
+			</div>
 		);
 	case 'error':
 		return (
-			<Button w="fit-content" variant="danger" onClick={() => guilds.refetch()}>
-          Try Again
+			<Button className='w-fit' variant="destructive" onClick={() => refetch()}>
+				Try Again
 			</Button>
 		);
 	case 'loading':
 		return (
-			<SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} gap={3}>
-				<Skeleton minH="88px" rounded="2xl" />
-				<Skeleton minH="88px" rounded="2xl" />
-				<Skeleton minH="88px" rounded="2xl" />
-				<Skeleton minH="88px" rounded="2xl" />
-				<Skeleton minH="88px" rounded="2xl" />
-			</SimpleGrid>
+			<div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3'>
+				<Skeleton className='min-h-[88px] rounded-2xl' />
+				<Skeleton className='min-h-[88px] rounded-2xl' />
+				<Skeleton className='min-h-[88px] rounded-2xl' />
+				<Skeleton className='min-h-[88px] rounded-2xl' />
+				<Skeleton className='min-h-[88px] rounded-2xl' />
+			</div>
 		);
 	}
 }
