@@ -1,28 +1,27 @@
-import { SelectInstance, Props as SelectProps } from 'chakra-react-select';
-import { Option, SelectField } from '@/components/forms/SelectField';
-import { common } from '@/config/translations/common';
+import { SelectComponent } from '@/components/ui/selectmenu';
+import { Props as SelectProps } from 'react-select';
 import { useGuildRolesQuery } from '@/api/hooks';
-import { useController } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { Icon, Image } from '@chakra-ui/react';
 import { BsPeopleFill } from 'react-icons/bs';
-import { forwardRef, useMemo } from 'react';
 import { ControlledInput } from './types';
 import { Override } from '@/types/types';
 import { useRouter } from 'next/router';
 import { toRGB } from '@/utils/common';
-import { FormCard } from './Form';
 import { Role } from '@/types/types';
-import React from 'react';
+import { useMemo } from 'react';
+import { Form, FormField, FormItem } from '@/components/ui/form';
+
 
 type Props = Override<
-  SelectProps<Option, false>,
+  SelectProps<never, false>,
   {
     value?: string;
     onChange: (role: string) => void;
   }
 >;
 
-function render(role: Role): Option {
+function render(role: Role) {
 	const iconColor = toRGB(role.color);
 	const icon =
     role.icon?.iconUrl ? (<Image alt="icon" src={role.icon.iconUrl} bg={iconColor} w="25px" h="25px" />) : (<Icon as={BsPeopleFill} color={iconColor} w="20px" h="20px" />);
@@ -34,7 +33,7 @@ function render(role: Role): Option {
 	};
 }
 
-export const RoleSelect = forwardRef<SelectInstance<Option>, Props>((props, ref) => {
+export const RoleSelect = (props: Props) => {
 	const { value, onChange, ...rest } = props;
 	const guild = useRouter().query.guild as string;
 
@@ -49,18 +48,21 @@ export const RoleSelect = forwardRef<SelectInstance<Option>, Props>((props, ref)
 	const options = useMemo(() => rolesQuery.data?.map(render) ?? [], [rolesQuery.data]);
 
 	return (
-		<SelectField<Option>
-			isDisabled={isLoading}
+		<SelectComponent
+			createAble={true}
 			isLoading={isLoading}
-			placeholder={<common.T text="select role" />}
+			isDisabled={isLoading}
+			isClearable={true}
+			/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
+			// @ts-ignore
+			placeholder='Select a role.'
 			value={selected !== null ? render(selected) : null}
-			onChange={(e) => e?.value !== null && onChange(e?.value as string)}
 			options={options}
-			ref={ref}
+			onChange={(e) => e !== null && onChange((e as { value: string }).value)}
 			{...rest}
 		/>
 	);
-});
+};
 
 RoleSelect.displayName = 'RolesSelect';
 
@@ -69,11 +71,30 @@ export const RoleSelectForm: ControlledInput<Omit<Props, 'value' | 'onChange'>> 
 	controller,
 	...props
 }) => {
-	const { fieldState, field } = useController(controller);
+	const form = useForm();
 
 	return (
-		<FormCard {...control} error={fieldState?.error?.message}>
-			<RoleSelect {...field} {...props} />
-		</FormCard>
+		<div className='grid gap-3'>
+			<div className="flex flex-col width-[100%] relative border-r-3xl p-5 shadow black2 rounded-3xl">
+				<label className="block text-start mr-3 transition-all duration-300 opacity-100 text-base font-medium mb-0">
+					<h2 className="text-2xl font-semibold">{control.label}</h2>
+					<p className="text-gray-500">{control.description}</p>
+				</label>
+				<div className='flex-1 self-stretch mt-2' />
+				<Form {...form}>
+					<form>
+						<FormField
+							control={controller.control}
+							name={controller.name}
+							render={({ field }) => (
+								<FormItem>
+									<RoleSelect {...field} {...props} />
+								</FormItem>
+							)}
+						/>
+					</form>
+				</Form>
+			</div>
+		</div>
 	);
 };

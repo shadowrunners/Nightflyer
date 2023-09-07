@@ -1,13 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { DiscordMessages, DiscordMessage, DiscordEmbed, DiscordEmbedDescription, DiscordEmbedFooter } from '@skyra/discord-components-react';
-import { Textarea, Box, Text } from '@chakra-ui/react';
 import { UseFormRegister, Control } from 'react-hook-form';
-import { GradientPicker } from '@/components/ui/colorpicker';
 import { Features } from '@/types/types';
-import React from 'react';
-
-import { Input } from "@/components/ui/input";
-import { SmallColorPickerForm } from "@/components/forms/ColorPicker";
+import { Input } from '@/components/ui/input';
+import { SmallColorPickerForm } from '@/components/forms/ColorPicker';
+import { Textarea } from '@/components/ui/textarea';
+import { Fragment } from 'react';
 
 interface IEmbed<T extends Features> {
 	fullData: any;
@@ -47,10 +45,10 @@ interface IEmbedData {
 const Embed = ({ fullData, register, control }: IEmbed<any>) => {
 	const embed = fullData.embed as IEmbedData;
 	return (
-		<React.Fragment>
+		<Fragment>
 			<div className='flex-1 black2 p-5 rounded-3xl'>
 				<h1 className='text-xl font-semibold mb-2'>
-          			Embed Settings
+					Embed Settings
 				</h1>
 
 				<h1 className='mt-2 ml-1 mb-1 font-semibold'>Author Name</h1>
@@ -146,7 +144,7 @@ const Embed = ({ fullData, register, control }: IEmbed<any>) => {
 					</DiscordMessage>
 				</DiscordMessages>
 			</div>
-		</React.Fragment>
+		</Fragment>
 	);
 };
 

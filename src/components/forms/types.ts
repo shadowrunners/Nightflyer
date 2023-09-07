@@ -1,7 +1,15 @@
 import type { Override } from '@/types/types';
 import type { ReactElement } from 'react';
 import type { FieldValues, Path, UseControllerProps, FieldPathByValue } from 'react-hook-form';
-import type { FormCardProps } from './Form';
+import { ReactNode } from 'react';
+
+type FormProps = {
+    required?: boolean;
+    error?: string;
+    label?: string | ReactNode;
+    description?: string | ReactNode;
+    children: ReactNode;
+};
 
 type ControlledInputProps<
   T,
@@ -10,7 +18,7 @@ type ControlledInputProps<
 > = Override<
   T,
   {
-    control: Omit<FormCardProps, 'error' | 'children'>;
+    control: Omit<FormProps, 'error' | 'children'>;
     controller: UseControllerProps<TFieldValue, TName>;
   }
 >;
@@ -23,5 +31,5 @@ export type ControlledInput<Props, V = unknown> = <
 ) => ReactElement;
 
 export type WithControl<T> = T & {
-  control: Omit<FormCardProps, 'children'>;
+  control: Omit<FormProps, 'children'>;
 };

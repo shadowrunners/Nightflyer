@@ -1,16 +1,16 @@
-import { SelectInstance, Props as SelectProps } from 'chakra-react-select';
+import { Props as SelectProps } from 'react-select';
 import { BsChatLeftText as ChatIcon } from 'react-icons/bs';
 import { useGuildChannelsQuery } from '@/api/hooks';
 import { MdRecordVoiceOver } from 'react-icons/md';
 import { ChannelTypes, GuildChannel, Override } from '@/types/types';
-import { forwardRef, useMemo } from 'react';
+import { useMemo } from 'react';
 import { ControlledInput } from './types';
 import { Icon } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
 import { Form, FormField, FormItem } from '@/components/ui/form';
-import { SelectComponent } from "@/components/test";
-import { useForm } from "react-hook-form";
+import { SelectComponent } from '@/components/ui/selectmenu';
+import { useForm } from 'react-hook-form';
 
 /** Renders the options. */
 const render = (channel: GuildChannel | undefined) => {
@@ -50,59 +50,45 @@ function mapOptions(channels: GuildChannel[]) {
 }
 
 type Props = Override<
-  SelectProps<any, false>,
+  SelectProps<never, false>,
   {
     value?: string;
     onChange: (v: string) => void;
   }
 >;
 
-export const ChannelSelect = forwardRef<SelectInstance<any, false>, Props>(
-	({ value, onChange, ...rest }, ref) => {
-		const guild = useRouter().query.guild as string;
-		const channelsQuery = useGuildChannelsQuery(guild);
-		const isLoading = channelsQuery.isLoading;
+export const ChannelSelect = ({
+	value, onChange, ...rest
+}: {
+		value: string;
+		onChange: (v: string) => void;
+	}) => {
+	const guild = useRouter().query.guild as string;
+	const channelsQuery = useGuildChannelsQuery(guild);
+	const isLoading = channelsQuery.isLoading;
 
-		const selected = useMemo(() => {
-			return value !== undefined ? channelsQuery.data?.find((c) => c.id === value) : null;
-		}, [value, channelsQuery.data]);
+	const selected = useMemo(() => {
+		return value !== undefined ? channelsQuery.data?.find((c) => c.id === value) : null;
+	}, [value, channelsQuery.data]);
 
-		const options = useMemo(() => {
-			return channelsQuery?.data !== undefined ? mapOptions(channelsQuery.data) : [];
-		}, [channelsQuery.data]);
+	const options = useMemo(() => {
+		return channelsQuery?.data !== undefined ? mapOptions(channelsQuery.data) : [];
+	}, [channelsQuery.data]);
 
-		return (
-			<SelectComponent
-				createAble={true}
-				isLoading={isLoading}
-				isDisabled={isLoading}
-				isClearable={true}
-				// @ts-ignore
-				// Have no idea why it errors out if this is removed.
-				placeholder={'Select a channel.'}
-				value={selected !== null ? render(selected) : null}
-				options={options}
-				onChange={(e) => e !== null && onChange(e.value as string)}
-				ref={ref}
-				{...rest}
-			/>
-		)
-	},
-);
-
-/**
- * <SelectField<Option>
- *                isDisabled={isLoading}
- *                isLoading={isLoading}
- *                placeholder={<common.T text="select channel" />}
- *                value={selected !== null ? render(selected) : null}
- *                options={options}
- *                onChange={(e) => e !== null && onChange(e.value as string)}
- *                ref={ref}
- *                {...rest}
- *            />
- *
- */
+	return (
+		<SelectComponent
+			createAble={true}
+			isLoading={isLoading}
+			isDisabled={isLoading}
+			isClearable={true}
+			placeholder='Select a channel.'
+			value={selected !== null ? render(selected) : null}
+			options={options}
+			onChange={(e) => e !== null && onChange((e as { value: string }).value)}
+			{...rest}
+		/>
+	);
+};
 
 ChannelSelect.displayName = 'ChannelSelect';
 
@@ -138,11 +124,3 @@ export const ChannelSelectForm: ControlledInput<Omit<Props, 'value' | 'onChange'
 		</div>
 	);
 };
-
-/**
- *
- *
- *
- *
- *        NEW ONE:
- */
