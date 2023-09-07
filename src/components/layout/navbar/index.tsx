@@ -1,7 +1,7 @@
 import { Flex, useColorModeValue } from '@chakra-ui/react';
 import { navbarBreakpoint } from '@/theme/breakpoints';
-import {Fragment, ReactNode} from 'react';
-import {SidebarTrigger} from "@/components/SidebarTrigger";
+import { Fragment, ReactNode } from 'react';
+import { SidebarTrigger } from '@/components/SidebarTrigger';
 
 export function Navbar({ links, children }: { links?: ReactNode; children: ReactNode }) {
 	return (

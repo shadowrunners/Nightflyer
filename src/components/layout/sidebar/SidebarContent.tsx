@@ -1,19 +1,19 @@
-import { Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useActiveSidebarItem, SidebarItemInfo } from '@/utils/router';
-import { IoMdMoon, IoMdSunny, IoMdLogOut } from "react-icons/io";
+import { IoMdMoon, IoMdSunny, IoMdLogOut } from 'react-icons/io';
 import { GuildItem, GuildItemsSkeleton } from './GuildItem';
 import { useGuilds, useSelfUserQuery } from '@/api/hooks';
 import { Card, CardContent } from '@/components/ui/card';
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import { SidebarItem } from './SidebarItem';
 import type { Guild } from '@/types/types';
 import items from '@/config/sidebar-items';
 import { avatarUrl } from '@/api/discord';
-import {Fragment, useMemo, useState} from 'react';
+import { Fragment, useMemo, useState } from 'react';
 import { config } from '@/config/common';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import { signOut } from "next-auth/react";
+import { signOut } from 'next-auth/react';
 
 export function SidebarContent() {
 	const [filter] = useState('');

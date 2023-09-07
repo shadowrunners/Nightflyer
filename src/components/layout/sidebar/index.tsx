@@ -2,12 +2,12 @@ import { BottomCard, SidebarContent } from './SidebarContent';
 import { AnimatePresence, motion } from 'framer-motion';
 import { usePageStore } from '@/utils/pageStore';
 import { ReactNode } from 'react';
-import {Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 
 export function Sidebar({ sidebar }: { sidebar?: ReactNode }) {
 	return (
 		<div
-			className={`flex-col xl:flex hidden flex-shrink-0 black2 w-[300px] h-screen overflow-x-hidden overflow-y-auto`}>
+			className={'flex-col xl:flex hidden flex-shrink-0 black2 w-[300px] h-screen overflow-x-hidden overflow-y-auto'}>
 			<AnimatePresence mode='wait' initial={false}>
 				<motion.div
 					key={sidebar === null ? 'default' : 'new'}

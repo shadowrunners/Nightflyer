@@ -1,4 +1,3 @@
-import { Center, Flex, Heading, SimpleGrid, Text, Icon } from '@chakra-ui/react';
 import { LoadingPanel } from '@/components/panel/LoadingPanel';
 import { QueryStatus } from '@/components/panel/QueryPanel';
 import { config } from '@/config/common';
@@ -12,8 +11,8 @@ import { Banner } from '@/components/GuildBanner';
 import type { CustomGuildInfo } from '@/config/types/custom-types';
 import { NextPageWithLayout } from '@/pages/_app';
 import getGuildLayout from '@/components/layout/guild/get-guild-layout';
-import {Card, CardContent, CardFooter} from "@/components/ui/card";
-import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 
 const GuildPage: NextPageWithLayout = () => {
 	const t = view.useTranslations();
@@ -32,7 +31,7 @@ const GuildPage: NextPageWithLayout = () => {
 function GuildPanel({ guild: id, info }: { guild: string; info: CustomGuildInfo }) {
 	const t = view.useTranslations();
 
-	//<Banner />
+	// <Banner />
 
 	return (
 		<div className='flex flex-col gap-5'>
@@ -43,7 +42,7 @@ function GuildPanel({ guild: id, info }: { guild: string; info: CustomGuildInfo 
 					{getFeatures().map((feature) => (
 						<Card className='black2'>
 							<CardContent className='flex flex-gap gap-3 mt-5'>
-								<div className={`flex rounded-xl w-[50px] h-[50px] text-3xl card-background justify-center items-center`}>
+								<div className={'flex rounded-xl w-[50px] h-[50px] text-3xl card-background justify-center items-center'}>
 									{feature.icon}
 								</div>
 								<div className="flex-1">
@@ -98,5 +97,4 @@ function NotJoined({ guild }: { guild: string }) {
 
 GuildPage.getLayout = (c) => getGuildLayout({ children: c });
 export default GuildPage;
-
 

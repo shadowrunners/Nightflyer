@@ -23,7 +23,7 @@ export function ThemeSwitch({ secondary }: { secondary?: boolean }) {
 				_dark={{
 					color: 'TextPrimary',
 				}}
-				//as={'faf' === 'light' ? IoMdMoon : IoMdSunny}
+				// as={'faf' === 'light' ? IoMdMoon : IoMdSunny}
 			/>
 		</Button>
 	);

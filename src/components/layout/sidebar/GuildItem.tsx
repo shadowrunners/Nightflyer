@@ -1,10 +1,10 @@
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Card, CardContent } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { Card, CardContent } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
 import { iconUrl } from '@/api/discord';
 import { Guild } from '@/types/types';
-import Router from "next/router";
-import { Fragment } from "react";
+import Router from 'next/router';
+import { Fragment } from 'react';
 
 export function GuildItem({
 	guild,
