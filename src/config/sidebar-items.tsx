@@ -1,13 +1,11 @@
-import { common } from '@/config/translations/common';
 import { SidebarItemInfo } from '@/utils/router';
 import { MdDashboard } from 'react-icons/md';
-import { Icon } from '@chakra-ui/react';
 
 const items: SidebarItemInfo[] = [
 	{
-		name: <common.T text="dashboard" />,
+		name: <h1>Home</h1>,
 		path: '/dash/home',
-		icon: <Icon as={MdDashboard} />,
+		icon: <MdDashboard />,
 	},
 ];
 

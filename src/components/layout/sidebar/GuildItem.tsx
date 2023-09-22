@@ -1,9 +1,9 @@
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-import { Card, CardContent } from '@/components/ui/card';
-import { Skeleton } from '@/components/ui/skeleton';
+'use client';
+
+import { Avatar, AvatarImage, AvatarFallback, Card, CardContent, Skeleton } from '@/components/ui';
 import { iconUrl } from '@/api/discord';
 import { Guild } from '@/types/types';
-import Router from 'next/router';
+import { useRouter } from 'next/navigation';
 import { Fragment } from 'react';
 
 export function GuildItem({
@@ -15,6 +15,7 @@ export function GuildItem({
   active: boolean;
   href: string;
 }) {
+	const Router = useRouter();
 	return (
 		<Card
 			className={`${ active ? 'card-background-selected text-black' : 'card-background text-white' } cursor-pointer rounded-xl`}
@@ -23,7 +24,7 @@ export function GuildItem({
 			<CardContent className='flex flex-col gap-0'>
 				<Avatar className='mt-3.5'>
 					<AvatarImage src={iconUrl(guild)} />
-					<AvatarFallback className='bg-white font-semibold'>SWS</AvatarFallback>
+					<AvatarFallback className='bg-white text-black font-semibold'>SW</AvatarFallback>
 				</Avatar>
 				<h3 className='font-semibold'>{guild.name}</h3>
 			</CardContent>

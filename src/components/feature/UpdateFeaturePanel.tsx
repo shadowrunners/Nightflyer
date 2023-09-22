@@ -1,21 +1,25 @@
+'use client';
+
 import { FeatureConfig, UseFormRenderResult, CustomFeatures } from '@/config/types';
 import { useEnableFeatureMutation, useUpdateFeatureMutation } from '@/api/hooks';
-import { ButtonGroup, Button, Icon, SlideFade } from '@chakra-ui/react';
-import { Box, Flex, Heading, Spacer, Text } from '@chakra-ui/layout';
-import { Params } from '@/pages/guilds/[guild]/features/[feature]';
 import { RiErrorWarningFill as WarningIcon } from 'react-icons/ri';
-import { feature as view } from '@/config/translations/feature';
 import { IoSave } from 'react-icons/io5';
-import { useRouter } from 'next/router';
+import { Button, Spacer } from '@/components/ui';
+import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 
 export function UpdateFeaturePanel({
+	guild,
+	featureId,
 	feature,
 	config,
 }: {
+  guild: string,
+  featureId: keyof CustomFeatures,
   feature: CustomFeatures[keyof CustomFeatures];
   config: FeatureConfig<keyof CustomFeatures>;
 }) {
-	const { guild, feature: featureId } = useRouter().query as Params;
+	console.log(`Feature: ${feature}, Config: ${config}`);
 	const mutation = useUpdateFeatureMutation();
 	const enableMutation = useEnableFeatureMutation();
 	const result = config.useRender(feature, async (data) => {
@@ -25,25 +29,26 @@ export function UpdateFeaturePanel({
 			options: data,
 		});
 	});
+	const t = useTranslations('dash');
 
 	const onDisable = () => {
 		enableMutation.mutate({ enabled: false, guild, feature: featureId });
 	};
 
 	return (
-		<div className='flex flex-col gap-5 w-full h-full mt-5'>
+		<div className='flex flex-col gap-5 w-full h-full mt-5 text-white'>
 			<div className='flex flex-col md:flex-row mx-3 sm:mx-5 justify-between'>
 				<div>
 					<h2 className='text-2xl font-semibold'>
 						{config.name}
 					</h2>
-					<Text color="TextSecondary">{config.description}</Text>
+					<p className='text-dimWhite'>{config.description}</p>
 				</div>
-				<ButtonGroup mt={3}>
-					<Button variant="danger" isLoading={enableMutation.isLoading} onClick={onDisable}>
-						<view.T text={(e) => e.bn.disable} />
+				<div className='inline-flex mt-3'>
+					<Button variant="destructive" onClick={onDisable}>
+						{t('button.disablefeature')}
 					</Button>
-				</ButtonGroup>
+				</div>
 			</div>
 
 			{result.component}
@@ -59,42 +64,39 @@ function Savebar({
   result: UseFormRenderResult;
   isLoading: boolean;
 }) {
-	const t = view.useTranslations();
-	const breakpoint = '3sm';
+	const t = useTranslations();
+	const t2 = useTranslations('dash');
+
+	const variants = {
+		hidden: { opacity: 0, y: 20 },
+		visible: { opacity: 1, y: 0 },
+	};
 
 	return (
-		<Flex
-			as={SlideFade}
-			in={canSave}
-			className='bg-CardBackground rounded-3xl sticky bottom-2 md:bottom-10 w-full p-1 md:p-15px shadow-normal items-center flex-col md:flex-row gap-1 md:gap-2 mt-auto'
-			zIndex="sticky"
-			pos="sticky"
+		<motion.div
+			initial='hidden'
+			animate={canSave ? 'visible' : 'hidden'}
+			exit='hidden'
+			variants={variants}
+			className='flex card-background rounded-3xl sticky bottom-2 md:bottom-10 w-full p-1 md:p-[15px] shadow-normal items-center flex-col md:flex-row gap-1 md:gap-2 mt-auto'
 		>
-			<Icon
-				display={{ base: 'none', [breakpoint]: 'block' }}
-				as={WarningIcon}
-				_light={{ color: 'orange.400' }}
-				_dark={{ color: 'orange.300' }}
-				w="30px"
-				h="30px"
-			/>
-			<Text className="font-semibold text-md md:text-lg">{t.unsaved}</Text>
+			<WarningIcon className='hidden sm:block w-[30px] h-[30px]' />
+			<h1 className="font-semibold text-md md:text-lg">{t('unsaved')}</h1>
 			<Spacer />
-			<ButtonGroup isDisabled={isLoading} size={{ base: 'sm', [breakpoint]: 'md' }}>
+			<div className='inline-flex'>
 				<Button
+					className='rounded-full'
 					type="submit"
-					variant="action"
-					rounded="full"
-					leftIcon={<IoSave />}
-					isLoading={isLoading}
+					variant="default"
 					onClick={onSubmit}
 				>
-					{t.bn.save}
+					<IoSave className='mr-1' />
+					{t2('button.save')}
 				</Button>
-				<Button rounded="full" onClick={reset}>
-					{t.bn.discard}
+				<Button className='rounded-full' onClick={reset}>
+					{t2('button.discard')}
 				</Button>
-			</ButtonGroup>
-		</Flex>
+			</div>
+		</motion.div>
 	);
 }

@@ -1,3 +1,5 @@
+'use client';
+
 import { observerHook, styles, variants } from '@/utils/utils';
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';

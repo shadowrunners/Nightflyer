@@ -1,0 +1,58 @@
+{
+    "auth": {
+        "login_header": "All adventures",
+        "login_header2": "start somewhere",
+        "login_punchline": "It just happens",
+        "login_punchline2": "that yours starts here",
+        "login_btn": "Sign in with Discord"
+    },
+    "main": {
+        "nav_home": "Home",
+        "nav_features": "Features",
+        "nav_devs": "Developers",
+        "nav_dash_btn_notlogged": "Sign in with Discord",
+        "nav_dash_btn": "Dashboard",
+        "hero_main1": "Unleash the",
+        "hero_main2": "full potential",
+        "hero_main3": "of your server.",
+        "hero_punchline": "With Evelyn, the possibilities you've always dreamed of are instantly unlocked. Completely free of charge.",
+        "footer_punchline": "Unleash the full potential of your server.",
+        "footer_links": "Links",
+        "footer_link1": "Privacy Policy",
+        "footer_link2": "Terms of Service",
+        "footer_copyright": "© 2023 Shadowrunners, all rights reserved. Made with 💝 by scrappie."
+    },
+    "dash": {
+        "servers": {
+            "title": "Your journey starts here",
+            "description": "Select a server to continue your journey."
+        },
+        "button": {
+            "enablefeature": "Enable",
+            "disablefeature": "Disable",
+            "configfeature": "Config",
+            "invite": "Invite Evelyn",
+            "save": "Save",
+            "discard": "Discard"
+        },
+        "features": {
+
+        },
+        "banner": {
+            "title": "Welcome back, runner.",
+            "description": "What would you like to configure?"
+        }
+    },
+    "breadcrumbs": {
+        "home": "Home"
+    },
+    "error": {
+        "load": "Failed to load this cyberspace. Perhaps the backend has gone haywire?",
+        "not_found": "System Failure",
+        "not_found_desc": "Uh oh, Evelyn couldn't access this cyberspace as she isn't a member of it.",
+        "not_enabled": "This feature is not enabled",
+        "not_enabled_desc": "Enable this feature in order to customize its aspects."
+    },
+    "loading": "Loading",
+    "unsaved": "Save Changes?"
+}

@@ -1,20 +1,16 @@
-import { Button, Center, Icon, Text, VStack } from '@chakra-ui/react';
 import { MdOutlineError } from 'react-icons/md';
+import { Button } from '@/components/ui';
 
 export function ErrorPanel({ children, retry }: { children: string; retry: () => void }) {
-	const red = 'red.400';
-
 	return (
-		<Center w="full" h="full">
-			<VStack>
-				<Icon color={red} as={MdOutlineError} w="100px" h="100px" />
-				<Text color={red} fontWeight="bold">
-					{children}
-				</Text>
-				<Button variant="danger" onClick={retry}>
-          			Try Again
+		<div className='flex w-full h-full items-center justify-center'>
+			<div className='flex items-center flex-col gap-2.5'>
+				<MdOutlineError className='text-red-400 w-[100px] h-[100px]' />
+				<h1 className='font-bold text-red-400'>{children}</h1>
+				<Button variant="destructive" onClick={retry}>
+					Try Again
 				</Button>
-			</VStack>
-		</Center>
+			</div>
+		</div>
 	);
 }

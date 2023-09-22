@@ -1,24 +1,24 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+'use client';
+
+import { Avatar, AvatarFallback, AvatarImage, Button, Card, CardContent, Spacer } from '@/components/ui';
 import { useActiveSidebarItem, SidebarItemInfo } from '@/utils/router';
-import { IoMdMoon, IoMdSunny, IoMdLogOut } from 'react-icons/io';
+import { IoMdLogOut } from 'react-icons/io';
 import { GuildItem, GuildItemsSkeleton } from './GuildItem';
 import { useGuilds, useSelfUserQuery } from '@/api/hooks';
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { useMemo, useState } from 'react';
 import { SidebarItem } from './SidebarItem';
 import type { Guild } from '@/types/types';
 import items from '@/config/sidebar-items';
 import { avatarUrl } from '@/api/discord';
-import { Fragment, useMemo, useState } from 'react';
-import { config } from '@/config/common';
-import { useRouter } from 'next/router';
-import Image from 'next/image';
 import { signOut } from 'next-auth/react';
+import { config } from '@/config/common';
+import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 
 export function SidebarContent() {
-	const [filter] = useState('');
 	const guilds = useGuilds();
-	const { guild: selectedGroup } = useRouter().query as { guild: string };
+	const [filter] = useState('');
+	const selectedGroup = usePathname().replace('/dash/guilds/', '');
 
 	const filterGuilds = (guildsData: Guild[] | undefined) => {
 		return guildsData?.filter((guild) => {
@@ -30,12 +30,12 @@ export function SidebarContent() {
 	const filteredGuilds = useMemo(() => filterGuilds(guilds?.data), [guilds?.data, filter]);
 
 	return (
-		<Fragment>
-			<section className='flex flex-col gap-16 py-2 m-3 rounded-xl p-10 mt-5 mb-5'>
+		<div>
+			<div className='flex items-center flex-col gap-2 py-2 m-3 rounded-xl p-10 pt-8 pb-8'>
 				<Image alt='logo' src='https://i.imgur.com/pahJQQm.png' width={200} height={200} />
-			</section>
+			</div>
 
-			<div className='flex flex-col mb-auto'>
+			<div className='flex flex-col mb-auto text-white'>
 				<Items />
 
 				<div className='flex flex-col px-[10px] gap-3'>
@@ -47,24 +47,22 @@ export function SidebarContent() {
 								key={guild.id}
 								guild={guild}
 								active={selectedGroup === guild.id}
-								href={`/guilds/${guild.id}`}
+								href={`/dash/guilds/${guild.id}`}
 							/>
 						))
 					)}
 				</div>
 			</div>
-		</Fragment>
+		</div>
 	);
 }
 
 export function BottomCard() {
 	const user = useSelfUserQuery().data;
-	const [colorMode, toggleColorMode] = useState();
-
 	if (user == null) return <></>;
 
 	return (
-		<Card className='sticky left-0 bottom-0 w-full py-2 bg-transparent'>
+		<Card className='sticky mr-0 mb-0 ml-0 flex flex-col bg-transparent'>
 			<CardContent className='flex'>
 				<Avatar className='mr-3'>
 					<AvatarImage src={avatarUrl(user)} alt='pfp' />
@@ -72,13 +70,10 @@ export function BottomCard() {
 				</Avatar>
 				<h3 className='font-semibold text-white mt-1'>{user?.username}</h3>
 
-				<div className='flex-1 self-stretch' />
+				<Spacer />
 
-				<Button variant='outline' size='icon' className='mr-2'>
-					{colorMode === 'light' ? <IoMdMoon /> : <IoMdSunny />}
-				</Button>
-				<Button variant='outline' size='icon' onClick={() => signOut()}>
-					<IoMdLogOut className='accent-white' />
+				<Button className='text-white hover:text-black' variant='outline' size='icon' onClick={() => signOut()}>
+					<IoMdLogOut />
 				</Button>
 			</CardContent>
 		</Card>

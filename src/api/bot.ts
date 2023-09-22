@@ -15,7 +15,7 @@ export async function fetchGuildInfo(
 	guild: string,
 ): Promise<CustomGuildInfo | null> {
 	return await callReturn<CustomGuildInfo | null>(
-		`/guilds/${guild}`,
+		`/dash/guilds/${guild}`,
 		botRequest(<Session>session, {
 			request: {
 				method: 'GET',
@@ -29,7 +29,7 @@ export async function fetchGuildInfo(
 
 export async function enableFeature(session: Session | null, guild: string, feature: string) {
 	return await callDefault(
-		`/guilds/${guild}/features/${feature}`,
+		`/dash/guilds/${guild}/features/${feature}`,
 		botRequest(<Session>session, {
 			request: {
 				method: 'POST',
@@ -40,7 +40,7 @@ export async function enableFeature(session: Session | null, guild: string, feat
 
 export async function disableFeature(session: Session | null, guild: string, feature: string) {
 	return await callDefault(
-		`/guilds/${guild}/features/${feature}`,
+		`/dash/guilds/${guild}/features/${feature}`,
 		botRequest(<Session>session, {
 			request: {
 				method: 'DELETE',
@@ -55,7 +55,7 @@ export async function getFeature<K extends keyof CustomFeatures>(
 	feature: K,
 ): Promise<CustomFeatures[K]> {
 	return await callReturn<CustomFeatures[K]>(
-		`/guilds/${guild}/features/${feature}`,
+		`/dash/guilds/${guild}/features/${feature}`,
 		botRequest(<Session>session, {
 			request: {
 				method: 'GET',
@@ -73,7 +73,7 @@ export async function updateFeature<K extends keyof CustomFeatures>(
 	const isForm = options instanceof FormData;
 
 	return await callReturn<CustomFeatures[K]>(
-		`/guilds/${guild}/features/${feature}`,
+		`/dash/guilds/${guild}/features/${feature}`,
 		botRequest(<Session>session, {
 			request: {
 				method: 'PATCH',
@@ -96,7 +96,7 @@ export async function updateFeature<K extends keyof CustomFeatures>(
  */
 export async function fetchGuildRoles(session: Session, guild: string) {
 	return await callReturn<Role[]>(
-		`/guilds/${guild}/roles`,
+		`/dash/guilds/${guild}/roles`,
 		botRequest(session, {
 			request: {
 				method: 'GET',
@@ -110,7 +110,7 @@ export async function fetchGuildRoles(session: Session, guild: string) {
  */
 export async function fetchGuildChannels(session: Session, guild: string) {
 	return await callReturn<GuildChannel[]>(
-		`/guilds/${guild}/channels`,
+		`/dash/guilds/${guild}/channels`,
 		botRequest(session, {
 			request: {
 				method: 'GET',

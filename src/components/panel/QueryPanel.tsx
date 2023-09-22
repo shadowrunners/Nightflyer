@@ -1,6 +1,6 @@
 import { UseQueryResult } from '@tanstack/react-query';
-import { ReactNode } from 'react';
 import { ErrorPanel } from './ErrorPanel';
+import { Fragment, ReactNode } from 'react';
 
 export function QueryStatus({
 	query,
@@ -17,8 +17,8 @@ export function QueryStatus({
   children: ReactNode;
 }) {
 	if (query.isError) return <ErrorPanel retry={() => query.refetch()}>{error}</ErrorPanel>;
-	if (query.isLoading) return <>{loading}</>;
-	if (query.isSuccess) return <>{children}</>;
+	if (query.isLoading) return <Fragment>{loading}</Fragment>;
+	if (query.isSuccess) return <Fragment>{children}</Fragment>;
 
 	return <></>;
 }

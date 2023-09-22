@@ -1,17 +1,17 @@
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import items from '@/config/sidebar-items';
 import { ReactNode, useMemo } from 'react';
 
 export function useActiveSidebarItem(): SidebarItemInfo | null {
-	const route = useRouter().route;
+	const pathname = usePathname();
 
 	return useMemo(() => {
 		for (const item of items) {
-			if (item.path === route) return item;
+			if (item.path === pathname) return item;
 		}
 
 		return null;
-	}, [route]);
+	}, [pathname]);
 }
 
 export interface SidebarItemInfo {

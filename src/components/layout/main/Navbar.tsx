@@ -1,11 +1,16 @@
+'use client';
+
 import { useSession } from 'next-auth/react';
-import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui';
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import Router from 'next/router';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
-const Navbar = () => {
+export default function Navbar() {
+	const translation = useTranslations('main');
+	const Router = useRouter();
 	const [toggle, setToggle] = useState(false);
 	const { data: session, status } = useSession();
 
@@ -22,7 +27,7 @@ const Navbar = () => {
 			<ul className="list-none sm:flex hidden justify-end flex-1">
 				<li className={'font-poppins font-normal cursor-pointer text-16 text-white'}>
 					<motion.a className="mr-5" href={'#home'}>
-            Home
+						{translation('nav_home')}
 					</motion.a>
 				</li>
 				<li className={'font-poppins font-normal cursor-pointer text-16 text-white'}>
@@ -102,6 +107,4 @@ const Navbar = () => {
 			</div>
 		</nav>
 	);
-};
-
-export default Navbar;
+}

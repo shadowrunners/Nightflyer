@@ -1,40 +1,31 @@
+'use client';
+
+import { Avatar, AvatarFallback, AvatarImage, Skeleton } from '@/components/ui';
 import { FaChevronLeft as ChevronLeftIcon } from 'react-icons/fa';
-import { Avatar, Icon, SkeletonCircle } from '@chakra-ui/react';
-import { sidebarBreakpoint } from '@/theme/breakpoints';
-import { Box, Flex, Text } from '@chakra-ui/layout';
 import { useGuildPreview } from '@/api/hooks';
 import { useRouter } from 'next/router';
 import { iconUrl } from '@/api/discord';
 import { motion } from 'framer-motion';
 import { ReactElement } from 'react';
-import Link from 'next/link';
 
 export default function GuildNavbar({ back }: { back?: boolean }) {
 	const { guild: selected } = useRouter().query as { guild: string };
 	const { guild } = useGuildPreview(selected);
 
 	return (
-		<div className='flex w-full flex-row items-center'>
+		<div className='flex w-full flex-row items-center text-white'>
 			<HorizontalCollapse in={back ?? false}>
-				<Box
-					as={Link}
-					href={`/guilds/${selected}`}
-					display={{ base: 'flex', [sidebarBreakpoint]: 'none' }}
-					pr={3}
-					py={3}
-				>
-					<Icon aria-label="back" as={ChevronLeftIcon} my="auto" fontSize="lg" />
-				</Box>
+				<a className='flex xl:hidden pr-3 py-3' href={`/dash/guilds/${selected}`}>
+					<ChevronLeftIcon className='my-auto font-semibold' />
+				</a>
 			</HorizontalCollapse>
 			{guild == null ? (
-				<SkeletonCircle mr={3} />
+				<Skeleton className='mr-3 rounded-full' />
 			) : (
-				<Avatar
-					name={guild?.name}
-					src={iconUrl(guild)}
-					display={{ base: 'none', [sidebarBreakpoint]: 'block' }}
-					mr={3}
-				/>
+				<Avatar className='none xl:block mr-3'>
+					<AvatarImage src={iconUrl(guild)} />
+					<AvatarFallback>SW</AvatarFallback>
+				</Avatar>
 			)}
 			<h1 className='font-poppins font-semibold text-ellipsis whitespace-nowrap w-0 flex-1 overflow-hidden'>
 				{guild?.name}

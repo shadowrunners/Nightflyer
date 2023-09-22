@@ -1,7 +1,7 @@
+import { Form, FormField, FormItem } from '@/components/ui/form';
+import { Textarea } from '@/components/ui/textarea';
 import { ControlledInput } from './types';
 import type { Props } from 'react-select';
-import { Textarea } from '@/components/ui/textarea';
-import { Form, FormField, FormItem } from '@/components/ui/form';
 import { useForm } from 'react-hook-form';
 
 export const TextAreaForm: ControlledInput<Omit<Props, 'value' | 'onChange'>> = ({

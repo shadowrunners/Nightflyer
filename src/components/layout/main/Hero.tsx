@@ -1,11 +1,15 @@
+'use client';
+
 import { observerHook, styles, variants } from '@/utils/utils';
-import React, { useState, useRef, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useState, useRef, useEffect } from 'react';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
 const Hero = () => {
 	const [isElementInView, setInView] = useState(false);
 	const ref = useRef<HTMLDivElement | null>(null);
+	const translation = useTranslations('main');
 
 	useEffect(() => {
 		observerHook(ref, setInView);
@@ -33,7 +37,7 @@ const Hero = () => {
 						transition={{ delay: 1.0 }}
 						className={`${styles.heading2} text-center`}
 					>
-            Unleash the <span className='text-gradient'>full potential</span> of your server.
+						{translation('hero_main1')} <span className='text-gradient'>{translation('hero_main2')}</span> {translation('hero_main3')}
 					</motion.h1>
 					<motion.p
 						ref={ref}
@@ -43,7 +47,7 @@ const Hero = () => {
 						transition={{ delay: 1.3 }}
 						className={`${styles.paragraph} max-w-[470px] mt-5`}
 					>
-            With Evelyn, the possibilities you've always dreamed of are instantly unlocked. Completely free of charge.
+						{translation('hero_punchline')}
 					</motion.p>
 				</AnimatePresence>
 			</div>

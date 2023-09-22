@@ -1,8 +1,10 @@
+'use client';
+
+import { Sheet, SheetContent, Spacer } from '@/components/ui';
 import { BottomCard, SidebarContent } from './SidebarContent';
 import { AnimatePresence, motion } from 'framer-motion';
 import { usePageStore } from '@/utils/pageStore';
 import { ReactNode } from 'react';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 
 export function Sidebar({ sidebar }: { sidebar?: ReactNode }) {
 	return (
@@ -19,9 +21,7 @@ export function Sidebar({ sidebar }: { sidebar?: ReactNode }) {
 					{sidebar ?? <SidebarContent />}
 				</motion.div>
 			</AnimatePresence>
-
-			<div className='flex-1 self-stretch' />
-
+			<Spacer />
 			<BottomCard />
 		</div>
 	);
@@ -32,9 +32,9 @@ export function SidebarResponsive({ sidebar }: { sidebar?: ReactNode }) {
 
 	return (
 		<Sheet open={isOpen} onOpenChange={(state) => setOpen(state)}>
-			<SheetContent>
+			<SheetContent className='fixed mr-0 mb-0 ml-0 w-[100%] black2 h-screen flex flex-col'>
 				{sidebar ?? <SidebarContent />}
-				<div className='flex-1 self-stretch mt-[50px]' />
+				<Spacer />
 				<BottomCard />
 			</SheetContent>
 		</Sheet>

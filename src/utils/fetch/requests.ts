@@ -5,7 +5,7 @@ import { Session } from 'next-auth';
 export function botRequest<T extends Options>(session: Session, options: T): T {
 	return {
 		...options,
-		origin: process.env.NEXT_PUBLIC_API_ENDPOINT ?? 'http://localhost:8080/api',
+		origin: process.env.NEXT_PUBLIC_API_ENDPOINT ?? 'http://localhost:3000/api',
 		request: deepmerge(
 			{
 				headers: {

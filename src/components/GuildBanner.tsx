@@ -1,23 +1,14 @@
-import { Flex, Heading, Text } from '@chakra-ui/layout';
-import { guild as view } from '@/config/translations/guild';
+import { useTranslations } from 'next-intl';
 
 export function Banner() {
-	const t = view.useTranslations();
+	const t = useTranslations('dash');
 
 	return (
-		<Flex
-			direction="column"
-			px={{ base: 5, lg: 8 }}
-			py={{ base: 5, lg: 7 }}
-			rounded="2xl"
-			bgColor="Brand"
-			bgSize="cover"
-			gap={1}
-		>
-			<Heading color="white" fontSize={{ base: '2xl' }} fontWeight="bold">
-				{t.banner.title}
-			</Heading>
-			<Text color="whiteAlpha.800">{t.banner.description}</Text>
-		</Flex>
+		<div className='flex flex-col px-5 lg:px-8 py-5 lg:py-7 black2 rounded-2xl bg-cover gap-1'>
+			<h1 className='text-white text-2xl font-bold'>
+				{t('banner.title')}
+			</h1>
+			<h1 color="whiteAlpha.800">{t('banner.description')}</h1>
+		</div>
 	);
 }

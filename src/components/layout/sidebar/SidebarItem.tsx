@@ -1,5 +1,7 @@
+'use client';
+
 import { ReactNode } from 'react';
-import Router from 'next/router';
+import { useRouter } from 'next/navigation';
 
 export function SidebarItem({
 	name,
@@ -12,15 +14,17 @@ export function SidebarItem({
   active: boolean;
   href: string;
 }) {
+	const Router = useRouter();
+
 	return (
 		<div
-			className={`flex ${ active ? 'bg-white' : 'card-background' } rounded-xl p-2 text-${ active ? 'black' : 'bg-white' } cursor-pointer`}
+			className={`flex ${ active ? 'bg-white' : 'card-background' } rounded-xl p-2 mb-1 text-${ active ? 'black' : 'bg-white' } cursor-pointer`}
 			onClick={() => Router.replace(href)}
 		>
 			<div className='flex p-2 rounded mr-1'>
 				{icon}
 			</div>
-			<h2 className='font-semibold mt-0.5'>{name}</h2>
+			<span className='font-semibold mt-0.5'>{name}</span>
 		</div>
 	);
 }

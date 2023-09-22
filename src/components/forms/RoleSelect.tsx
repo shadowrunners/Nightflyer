@@ -1,4 +1,4 @@
-import { SelectComponent } from '@/components/ui/selectmenu';
+import { Form, FormField, FormItem, SelectMenu } from '@/components/ui';
 import { Props as SelectProps } from 'react-select';
 import { useGuildRolesQuery } from '@/api/hooks';
 import { useForm } from 'react-hook-form';
@@ -10,7 +10,6 @@ import { useRouter } from 'next/router';
 import { toRGB } from '@/utils/common';
 import { Role } from '@/types/types';
 import { useMemo } from 'react';
-import { Form, FormField, FormItem } from '@/components/ui/form';
 
 
 type Props = Override<
@@ -48,7 +47,7 @@ export const RoleSelect = (props: Props) => {
 	const options = useMemo(() => rolesQuery.data?.map(render) ?? [], [rolesQuery.data]);
 
 	return (
-		<SelectComponent
+		<SelectMenu
 			createAble={true}
 			isLoading={isLoading}
 			isDisabled={isLoading}

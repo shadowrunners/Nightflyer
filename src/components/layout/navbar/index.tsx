@@ -1,11 +1,9 @@
-import { Flex, useColorModeValue } from '@chakra-ui/react';
-import { navbarBreakpoint } from '@/theme/breakpoints';
-import { Fragment, ReactNode } from 'react';
 import { SidebarTrigger } from '@/components/SidebarTrigger';
+import { Fragment, ReactNode } from 'react';
 
 export function Navbar({ links, children }: { links?: ReactNode; children: ReactNode }) {
 	return (
-		<div className='flex flex-row mx-auto black2 backdrop-blur-[20px] rounded-[16px] px-[24px] py-3 lg:py-8 gap-2 justify-between items-stretch'>
+		<div className='flex flex-row mx-auto backdrop-blur-[20px] rounded-[16px] px-[24px] py-3 lg:py-8 gap-2 justify-between items-stretch'>
 			{children}
 			<NavbarLinksBox>{links}</NavbarLinksBox>
 		</div>
@@ -14,20 +12,12 @@ export function Navbar({ links, children }: { links?: ReactNode; children: React
 
 function NavbarLinksBox({ children }: { children?: ReactNode }) {
 	return (
-		<Flex
-			justify="end"
-			align="center"
-			direction="row"
-			bg="CardBackground"
-			p="10px"
-			borderRadius="30px"
-			boxShadow="normal"
-		>
+		<div className='flex justify-end items-center flex-row p-[10px]'>
 			{children ?? (
 				<Fragment>
 					<SidebarTrigger />
 				</Fragment>
 			)}
-		</Flex>
+		</div>
 	);
 }

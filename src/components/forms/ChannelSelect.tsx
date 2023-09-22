@@ -9,8 +9,9 @@ import { Icon } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
 import { Form, FormField, FormItem } from '@/components/ui/form';
-import { SelectComponent } from '@/components/ui/selectmenu';
+import { SelectMenu } from '@/components/ui/selectmenu';
 import { useForm } from 'react-hook-form';
+import { Spacer } from '@/components/ui';
 
 /** Renders the options. */
 const render = (channel: GuildChannel | undefined) => {
@@ -76,11 +77,10 @@ export const ChannelSelect = ({
 	}, [channelsQuery.data]);
 
 	return (
-		<SelectComponent
+		<SelectMenu
 			createAble={true}
 			isLoading={isLoading}
 			isDisabled={isLoading}
-			isClearable={true}
 			placeholder='Select a channel.'
 			value={selected !== null ? render(selected) : null}
 			options={options}
@@ -106,14 +106,14 @@ export const ChannelSelectForm: ControlledInput<Omit<Props, 'value' | 'onChange'
 					<h2 className="text-2xl font-semibold">{control.label}</h2>
 					<p className="text-gray-500">{control.description}</p>
 				</label>
-				<div className='flex-1 self-stretch mt-2' />
+				<Spacer />
 				<Form {...form}>
-					<form>
+					<form className='text-white'>
 						<FormField
 							control={controller.control}
 							name={controller.name}
 							render={({ field }) => (
-								<FormItem>
+								<FormItem className='text-white'>
 									<ChannelSelect {...field} {...props} />
 								</FormItem>
 							)}
