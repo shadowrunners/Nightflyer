@@ -1,6 +1,5 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import prisma from '@/lib/prisma';
 import { NextResponse } from 'next/server';
+import prisma from '@/lib/prisma';
 
 export async function GET(req: Request) {
 	const url = new URL(req.url);
@@ -9,13 +8,13 @@ export async function GET(req: Request) {
 	const data = await prisma.guilds.findFirst({
 		where: {
 			guildId: id as string,
-			antiphishing: {
+			levels: {
 				enabled: true,
 			},
 		},
 	});
 
-	if (!data) return NextResponse.json({ enabled: null });
+	if (!data) return new NextResponse('null', { status: 404 });
 
 	return NextResponse.json({ enabled: data?.antiphishing?.enabled });
 }
