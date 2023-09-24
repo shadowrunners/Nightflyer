@@ -1,6 +1,5 @@
-import { NextResponse } from 'next/server'
+import { NextResponse } from 'next/server';
 
-export async function GET(request: Request) {
-	console.log('Route pinged.')
-	return new Response('Response');
+export async function GET() {
+	return NextResponse.redirect('https://www.youtube.com/watch?v=SXRteMSSZ14');
 }
