@@ -1,5 +1,6 @@
 'use client';
 
+import { Card, CardContent, CardFooter, Button } from '@/components/ui';
 import { LoadingPanel } from '@/components/panel/LoadingPanel';
 import { QueryStatus } from '@/components/panel/QueryPanel';
 import { config } from '@/config/common';
@@ -11,10 +12,6 @@ import { useRouter } from 'next/navigation';
 import { getFeatures } from '@/utils/common';
 import { Banner } from '@/components/GuildBanner';
 import type { CustomGuildInfo } from '@/config/types/custom-types';
-import getGuildLayout from '@/components/layout/guild/get-guild-layout';
-import { Card, CardContent, CardFooter } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { ReactNode } from 'react';
 
 const GuildPage = ({ params }: { params: { guild: string }}) => {
 	const guild = params.guild;
@@ -32,7 +29,6 @@ const GuildPage = ({ params }: { params: { guild: string }}) => {
 
 function GuildPanel({ guild: id, data }: { guild: string; data: CustomGuildInfo }) {
 	const Router = useRouter();
-	const t = useTranslations('error');
 
 	return (
 		<div className='flex flex-col gap-5 text-white'>
@@ -59,7 +55,7 @@ function GuildPanel({ guild: id, data }: { guild: string; data: CustomGuildInfo 
 								<Button
 									variant='outline'
 									className='rounded-2xl bg-white text-black font-poppins transition-transform hover:scale-105 hover:shadow-lg'
-									onClick={() => Router.push(`/dash/guilds/${id}/features/${feature.id}`)}
+									onClick={() => Router.push(`/guilds/${id}/features/${feature.id}`)}
 								>
 									{data?.enabledFeatures?.includes(feature.id) ? 'Configure' : 'Enable'}
 								</Button>
@@ -97,6 +93,4 @@ function NotJoined({ guild }: { guild: string }) {
 	);
 }
 
-GuildPage.getLayout = (c: ReactNode) => getGuildLayout({ children: c });
 export default GuildPage;
-

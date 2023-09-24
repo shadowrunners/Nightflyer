@@ -1,12 +1,10 @@
 'use client';
 
 import { Avatar, AvatarImage, AvatarFallback, Button, Card, CardHeader, Skeleton } from '@/components/ui';
-import AppLayout from '@/app/[locale]/dash/layout';
 import { useTranslations } from 'next-intl';
 import { config } from '@/config/common';
 import { useGuilds } from '@/api/hooks';
 import { iconUrl } from '@/api/discord';
-import { ReactNode } from 'react';
 
 const HomePage = () => {
 	const t = useTranslations('dash');
@@ -33,11 +31,11 @@ export function GuildSelect() {
 					?.filter((guild) => config.guild.filter(guild))
 					.map((guild) => (
 						<Card key={guild.id} className='black2 font-oppins font-semibold' >
-							<a href={`/dash/guilds/${guild.id}`}>
+							<a href={`/guilds/${guild.id}`}>
 								<CardHeader className='flex flex-row gap-3'>
 									<Avatar>
 										<AvatarImage src={iconUrl(guild)} />
-										<AvatarFallback>SW</AvatarFallback>
+										<AvatarFallback className='text-black'>SW</AvatarFallback>
 									</Avatar>
 									<h1>{guild.name}</h1>
 								</CardHeader>
@@ -65,5 +63,4 @@ export function GuildSelect() {
 	}
 }
 
-HomePage.getLayout = (c: ReactNode) => <AppLayout>{c}</AppLayout>;
 export default HomePage;

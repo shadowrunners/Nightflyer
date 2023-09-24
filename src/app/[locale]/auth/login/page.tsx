@@ -7,7 +7,7 @@ import { RedirectType, redirect } from 'next/navigation';
 
 export default function SignIn() {
 	const { data: session } = useSession();
-	if (session) return redirect('/dash/home', RedirectType.replace);
+	if (session) return redirect('/home', RedirectType.replace);
 
 	return <LoginPage />;
 }

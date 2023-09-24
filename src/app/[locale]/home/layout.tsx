@@ -20,7 +20,7 @@ export default function AppLayout({
 	const query = useSelfUserQuery();
 
 	return (
-		<div className='flex flex-row h-full' suppressHydrationWarning>
+		<div className='flex flex-row h-full'>
 			<Sidebar sidebar={sidebar} />
 			<div className='hidden lg:block'>
 				<SidebarResponsive sidebar={sidebar} />
