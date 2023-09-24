@@ -6,7 +6,7 @@ import {
 	Hero,
 	Navbar,
 	Stats,
-} from '../../../components/layout/main/index';
+} from '../../components/layout/main/index';
 import React from 'react';
 
 export default function MainPage() {
