@@ -18,7 +18,7 @@ import Image from 'next/image';
 export function SidebarContent() {
 	const guilds = useGuilds();
 	const [filter] = useState('');
-	const selectedGroup = usePathname().replace('/dash/guilds/', '');
+	const selectedGroup = usePathname().replace('/guilds/', '');
 
 	const filterGuilds = (guildsData: Guild[] | undefined) => {
 		return guildsData?.filter((guild) => {
@@ -47,7 +47,7 @@ export function SidebarContent() {
 								key={guild.id}
 								guild={guild}
 								active={selectedGroup === guild.id}
-								href={`/dash/guilds/${guild.id}`}
+								href={`/guilds/${guild.id}`}
 							/>
 						))
 					)}

@@ -44,8 +44,8 @@ export default function Navbar() {
 			<div className="list-none hidden sm:block ml-5">
 				<Button
 					onClick={() => {
-						if (!session) return Router.replace('/auth/signin');
-						else return Router.replace('/dash/home');
+						if (!session) return Router.replace('/auth/login');
+						else return Router.replace('/home');
 					}}
 					variant='outline'
 					className='text-white'
@@ -96,8 +96,8 @@ export default function Navbar() {
 						<li
 							className="font-poppins text-white font-normal cursor-pointer text-16 mr-0 mt-3"
 							onClick={() => {
-								if (!session) return Router.replace('/auth/signin');
-								else return Router.replace('/dash/home');
+								if (!session) return Router.replace('/auth/login');
+								else return Router.replace('/home');
 							}}
 						>
 							{status === 'unauthenticated' ? 'Sign in with Discord' : 'Dashboard' }
