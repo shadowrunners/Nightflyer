@@ -12,11 +12,6 @@ type GuildsAntiphishing {
   enabled Boolean
 }
 
-type GuildsAntiscam {
-  /// Could not determine type: the field only had null or empty values in the sample set.
-  channels Json?
-}
-
 type GuildsBlacklist {
   isBlacklisted Boolean
   reason        String
@@ -24,9 +19,9 @@ type GuildsBlacklist {
 }
 
 type GuildsConfessions {
-  channel String
   enabled Boolean
-  webhook GuildsConfessionsWebhook
+  channel String?
+  webhook GuildsConfessionsWebhook?
 }
 
 type GuildsConfessionsWebhook {
@@ -63,9 +58,9 @@ type GuildsGoodbyeEmbedFooter {
 }
 
 type GuildsLevels {
-  channel String
   enabled Boolean
-  message String
+  channel String?
+  message String?
 }
 
 type GuildsLogs {
@@ -155,28 +150,10 @@ type GuildsWelcomeEmbedFooter {
   text    String
 }
 
-type PlaylistsPlaylistData {
-  author   String
-  duration Int
-  title    String
-  uri      String
-}
-
-type RolesRoleArray {
-  description String
-  emoji       String
-  roleId      String
-}
-
-model guilddbs {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-}
-
 model guilds {
   id           String              @id @default(auto()) @map("_id") @db.ObjectId
   v            Int                 @map("__v")
   antiphishing GuildsAntiphishing?
-  antiscam     GuildsAntiscam?
   blacklist    GuildsBlacklist?
   confessions  GuildsConfessions?
   goodbye      GuildsGoodbye?
@@ -187,86 +164,4 @@ model guilds {
   tickets      GuildsTickets?
   verification GuildsVerification?
   welcome      GuildsWelcome?
-}
-
-model levels {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  v           Int      @map("__v")
-  guildID     String
-  lastUpdated DateTime @db.Date
-  level       Int
-  userID      String
-  xp          Int
-}
-
-model lockdowns {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-}
-
-model playlists {
-  id           String                  @id @default(auto()) @map("_id") @db.ObjectId
-  v            Int                     @map("__v")
-  created      Int
-  name         String
-  playlistData PlaylistsPlaylistData[]
-  playlistName String
-  userID       String
-}
-
-model reminders {
-  id              String  @id @default(auto()) @map("_id") @db.ObjectId
-  v               Int     @map("__v")
-  channelId       String
-  guildId         String
-  hasBeenReminded Boolean
-  messageId       String
-  reminder        String
-  /// Multiple data types found: Float: 80%, Int: 20% out of 5 sampled entries
-  scheduledTime   Json
-  userId          String
-}
-
-model rewards {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-}
-
-model roles {
-  id        String           @id @default(auto()) @map("_id") @db.ObjectId
-  v         Int              @map("__v")
-  id_       String           @map("id")
-  panelName String
-  roleArray RolesRoleArray[]
-}
-
-model stats {
-  id     String @id @default(auto()) @map("_id") @db.ObjectId
-  v      Int    @map("__v")
-  guilds String
-  id_    String @map("id")
-  users  String
-}
-
-model tickets {
-  id        String  @id @default(auto()) @map("_id") @db.ObjectId
-  v         Int     @map("__v")
-  closed    Boolean
-  closer    String
-  creatorId String
-  id_       String  @map("id")
-  ticketId  String
-}
-
-model ublacklists {
-  id     String @id @default(auto()) @map("_id") @db.ObjectId
-  v      Int    @map("__v")
-  reason String
-  time   Float
-}
-
-model users {
-  id           String @id @default(auto()) @map("_id") @db.ObjectId
-  v            Int    @map("__v")
-  accessToken  String
-  refreshToken String
-  userId       String @unique(map: "userId_1")
 }
