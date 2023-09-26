@@ -1,3 +1,5 @@
+'use client';
+
 import { IoMenuOutline } from 'react-icons/io5';
 import { usePageStore } from '@/utils/pageStore';
 
