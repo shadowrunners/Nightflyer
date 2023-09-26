@@ -8,25 +8,31 @@ export async function GET(req: Request) {
 		const id = url.pathname.split('/').pop();
 		const data = await fetchGuild(id as string);
 
-		const features: Feature[] = [];
-		const getFeatures = await prisma.guilds.count({
+		const guild = await prisma.guilds.findFirst({
 			where: {
 				guildId: id,
 			},
 		});
 
-		if (getFeatures !== 0) features.push('confessions', 'antiphishing', 'goodbye', 'logs', 'levelling', 'tickets', 'verification', 'welcome');
+		const features = [
+			{ name: 'antiphishing', enabled: () => guild?.antiphishing?.enabled },
+			{ name: 'confessions', enabled: () => guild?.confessions?.enabled },
+			{ name: 'goodbye', enabled: () => guild?.goodbye?.enabled },
+			{ name: 'logs', enabled: () => guild?.logs?.enabled },
+			{ name: 'levelling', enabled: () => guild?.levels?.enabled },
+			{ name: 'tickets', enabled: () => guild?.tickets?.enabled },
+			{ name: 'verification', enabled: () => guild?.verification?.enabled },
+			{ name: 'welcome', enabled: () => guild?.welcome?.enabled },
+		];
 
 		return NextResponse.json({
 			id: data?.id,
 			name: data?.name,
 			icon: data?.icon,
-			enabledFeatures: features,
+			enabledFeatures: features.filter((feature) => feature.enabled()).map((feature) => feature.name),
 		});
 	}
 	catch (_err) {
 		console.log(_err);
 	}
 }
-
-type Feature = 'confessions' | 'antiphishing' | 'goodbye' | 'logs' | 'levelling' | 'tickets' | 'verification' | 'welcome';
