@@ -40,3 +40,11 @@ export const variants = {
 	hidden: { opacity: 0 },
 	visible: { opacity: 1 },
 };
+
+/** Gets the server ID from the request URL. */
+export function getGuildId(req: Request) {
+	const url = new URL(req.url);
+	const id = url.pathname.split('/')[4];
+
+	return id;
+}
