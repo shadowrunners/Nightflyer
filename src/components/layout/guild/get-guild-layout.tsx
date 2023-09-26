@@ -1,7 +1,7 @@
 import { InGuildSidebar } from './guild-sidebar';
 import GuildNavbar from './guild-navbar';
 import { ReactNode } from 'react';
-import AppLayout from '../../../app/[locale]/dash/layout';
+import AppLayout from '../../../app/[locale]/home/layout';
 
 export default function getGuildLayout({
 	back,
