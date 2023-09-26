@@ -153,11 +153,9 @@ export function useSelfUser(): UserInfo {
 	return useSelfUserQuery().data!;
 }
 
-export function useGuildPreview(guild: string) {
-	const query = useGuilds();
+export function useGuildPreview(guildId: string) {
+	const { data } = useGuilds();
+	const guild = data?.find((g) => g.id === guildId);
 
-	return {
-		guild: query.data?.find((g) => g.id === guild),
-		query,
-	};
+	return { guild, data };
 }
