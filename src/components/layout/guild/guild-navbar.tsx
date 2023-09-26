@@ -3,19 +3,19 @@
 import { Avatar, AvatarFallback, AvatarImage, Skeleton } from '@/components/ui';
 import { FaChevronLeft as ChevronLeftIcon } from 'react-icons/fa';
 import { useGuildPreview } from '@/api/hooks';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import { iconUrl } from '@/api/discord';
 import { motion } from 'framer-motion';
 import { ReactElement } from 'react';
 
 export default function GuildNavbar({ back }: { back?: boolean }) {
-	const { guild: selected } = useRouter().query as { guild: string };
+	const selected = usePathname().split('/')[2];
 	const { guild } = useGuildPreview(selected);
 
 	return (
 		<div className='flex w-full flex-row items-center text-white'>
 			<HorizontalCollapse in={back ?? false}>
-				<a className='flex xl:hidden pr-3 py-3' href={`/dash/guilds/${selected}`}>
+				<a className='flex xl:hidden pr-3 py-3' href={`/guilds/${selected}`}>
 					<ChevronLeftIcon className='my-auto font-semibold' />
 				</a>
 			</HorizontalCollapse>
