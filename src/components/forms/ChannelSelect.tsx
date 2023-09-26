@@ -5,18 +5,16 @@ import { MdRecordVoiceOver } from 'react-icons/md';
 import { ChannelTypes, GuildChannel, Override } from '@/types/types';
 import { useMemo } from 'react';
 import { ControlledInput } from './types';
-import { Icon } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-
 import { Form, FormField, FormItem } from '@/components/ui/form';
 import { SelectMenu } from '@/components/ui/selectmenu';
 import { useForm } from 'react-hook-form';
 import { Spacer } from '@/components/ui';
+import { usePathname } from 'next/navigation';
 
 /** Renders the options. */
 const render = (channel: GuildChannel | undefined) => {
 	const icon = channel?.type === ChannelTypes.GUILD_STAGE_VOICE || channel?.type === ChannelTypes.GUILD_VOICE ? (
-		<Icon as={MdRecordVoiceOver} />
+		<MdRecordVoiceOver />
 	) : (<ChatIcon />);
 
 	return {
@@ -61,10 +59,10 @@ type Props = Override<
 export const ChannelSelect = ({
 	value, onChange, ...rest
 }: {
-		value: string;
-		onChange: (v: string) => void;
-	}) => {
-	const guild = useRouter().query.guild as string;
+	value: string;
+	onChange: (v: string) => void;
+}) => {
+	const guild = usePathname().split('/')[2];
 	const channelsQuery = useGuildChannelsQuery(guild);
 	const isLoading = channelsQuery.isLoading;
 
