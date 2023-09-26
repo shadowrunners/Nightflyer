@@ -1,5 +1,3 @@
-'use client';
-
 import { useActiveSidebarItem } from '@/utils/router';
 import { useTranslations } from 'next-intl';
 import { IoHome } from 'react-icons/io5';
@@ -11,8 +9,8 @@ export function DefaultNavbar() {
 	const breadcrumb = [
 		{
 			icon: (<IoHome />) as ReactNode,
-			text: (<h1>{t('home')}</h1>) as ReactNode,
-			href: '/dash/home',
+			text: (<>{t('home')}</>) as ReactNode,
+			href: '/home',
 		},
 	];
 
@@ -46,14 +44,8 @@ export function DefaultNavbar() {
 			</nav>
 
 			<p className='font-bold text-base sm:text-3xl mb-2'>
-				SKELETON HERE
+				{activeItem?.name}
 			</p>
 		</div>
 	);
 }
-
-/**
- * 			<p className='font-bold text-base sm:text-3xl mb-2'>
-				// {activeItem?.name ?? <SkeletonText w="full" noOfLines={2} />}
-			</p>
- */
