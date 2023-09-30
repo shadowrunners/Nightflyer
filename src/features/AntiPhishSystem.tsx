@@ -1,8 +1,8 @@
+'use client';
+
 import { ChannelSelectForm } from '@/components/forms/ChannelSelect';
 import { AntiPhishingFeature, UseFormRender } from '@/config/types';
-import { SimpleGrid } from '@chakra-ui/layout';
 import { useForm } from 'react-hook-form';
-import { Fragment } from 'react';
 
 export const useAntiPhishFeature: UseFormRender<AntiPhishingFeature> = (data, onSubmit) => {
 	const { reset, handleSubmit, formState, control } = useForm<AntiPhishingFeature>({

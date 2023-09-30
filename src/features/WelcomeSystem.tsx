@@ -1,3 +1,5 @@
+'use client';
+
 import { ChannelSelectForm } from '@/components/forms/ChannelSelect';
 import { TextAreaForm } from '@/components/forms/TextAreaForm';
 import { UseFormRender, WelcomeFeature } from '@/config/types';

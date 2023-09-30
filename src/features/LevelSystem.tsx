@@ -1,3 +1,5 @@
+'use client';
+
 import { ChannelSelectForm } from '@/components/forms/ChannelSelect';
 import { LevellingFeature, UseFormRender } from '@/config/types';
 import { TextAreaForm } from '@/components/forms/TextAreaForm';

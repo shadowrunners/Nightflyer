@@ -1,3 +1,5 @@
+'use client';
+
 import { ChannelSelectForm } from '@/components/forms/ChannelSelect';
 import { RoleSelectForm } from '@/components/forms/RoleSelect';
 import { TicketsFeature, UseFormRender } from '@/config/types';

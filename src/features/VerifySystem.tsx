@@ -1,3 +1,5 @@
+'use client';
+
 import { RoleSelectForm } from '@/components/forms/RoleSelect';
 import { UseFormRender, VerifyFeature } from '@/config/types';
 import { useForm } from 'react-hook-form';

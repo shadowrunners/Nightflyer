@@ -1,3 +1,5 @@
+'use client';
+
 import { ChannelSelectForm } from '@/components/forms/ChannelSelect';
 import { LogsFeature, UseFormRender } from '@/config/types';
 import { useForm } from 'react-hook-form';
