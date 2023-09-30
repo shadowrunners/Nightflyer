@@ -1,7 +1,7 @@
 'use client';
 
 import { observerHook, styles, variants } from '@/utils/utils';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
@@ -32,8 +32,8 @@ const Features = () => {
 				</p>
 			</div>
 
-			<div className="flex flex-col md:flex-row px-10 py-12 rounded-[20px] md:mr-5">
-				<div className={'md:w-[33.33%] px-10 py-12 rounded-[20px] md:mr-5 my-5 feedback-card'}>
+			<div className="grid gap-3 lg:grid-cols-3 flex-col md:flex-row px-10 py-12 rounded-[20px] md:mr-5">
+				<div className="px-10 py-12 rounded-[20px] md:mr-5 my-5 feedback-card">
 					<div className={`w-[64px] h-[64px] rounded-full ${styles.flexCenter} bg-dimBlue`}>
 						<Image
 							width={32}
@@ -55,12 +55,12 @@ const Features = () => {
 					</div>
 				</div>
 
-				<div className={'md:w-[33.3%] px-10 py-12 rounded-[20px] md:mr-5 my-5 feedback-card'}>
+				<div className={'px-10 py-12 rounded-[20px] md:mr-5 my-5 feedback-card'}>
 					<div className={`w-[64px] h-[64px] rounded-full ${styles.flexCenter} bg-dimBlue`}>
 						<Image
 							width={32}
 							height={32}
-							src="https://res.cloudinary.com/shadowrunners/image/upload/v1683319996/evelyn/shield.webp"
+							src="https://res.cloudinary.com/shadowrunners/image/upload/q_auto/evelyn/shield.webp"
 							className="w-[50%] h-[50%] object-contain"
 							alt="Overwatch Feature"
 						/>
@@ -76,13 +76,13 @@ const Features = () => {
 				</div>
 
 
-				<div className={'md:w-[33.3%] px-10 py-12 rounded-[20px] md:mr-5 my-5 feedback-card'}>
+				<div className={'px-10 py-12 rounded-[20px] md:mr-5 my-5 feedback-card'}>
 					<div className={`w-[64px] h-[64px] rounded-full ${styles.flexCenter} bg-dimBlue`}>
 						<Image
-							width={32}
-							height={32}
-							src="https://res.cloudinary.com/shadowrunners/image/upload/v1683319996/evelyn/send.webp"
-							className="w-[45%] h-[50%] object-contain"
+							width={64}
+							height={64}
+							src="./send.svg"
+							className="object-contain w-auto h-auto"
 							alt="WL_FW Feature"
 						/>
 					</div>
@@ -97,6 +97,7 @@ const Features = () => {
 				</div>
 			</div>
 		</motion.section>
+		// </Fragment>
 	);
 };
 
