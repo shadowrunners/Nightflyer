@@ -25,16 +25,14 @@ function LoginPage() {
 	return (
 		<section id='signin' className={`flex md:flex-row flex-col h-screen text-center bg-black ${inter.className} text-white`}>
 			<div className='flex-1 flex justify-center flex-col relative text-center'>
-				<h1
-					className={'text-[50px]'}
-				>
+				<h1 className='text-[50px]'>
 					{t('login_header')} <span className='text-gradient'>{t('login_header2')}</span>.
 				</h1>
 				<div>
 					<Button
 						size='lg'
 						variant='outline'
-						className='mt-2'
+						className='mt-2 button-glow'
 						onClick={() => signIn('discord', {
 							redirect: true,
 						})}
