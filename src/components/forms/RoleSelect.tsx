@@ -1,12 +1,13 @@
+'use client';
+
 import { Form, FormField, FormItem, SelectMenu } from '@/components/ui';
 import { Props as SelectProps } from 'react-select';
 import { useGuildRolesQuery } from '@/api/hooks';
 import { useForm } from 'react-hook-form';
-import { Icon, Image } from '@chakra-ui/react';
 import { BsPeopleFill } from 'react-icons/bs';
 import { ControlledInput } from './types';
 import { Override } from '@/types/types';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import { toRGB } from '@/utils/common';
 import { Role } from '@/types/types';
 import { useMemo } from 'react';
@@ -22,8 +23,7 @@ type Props = Override<
 
 function render(role: Role) {
 	const iconColor = toRGB(role.color);
-	const icon =
-    role.icon?.iconUrl ? (<Image alt="icon" src={role.icon.iconUrl} bg={iconColor} w="25px" h="25px" />) : (<Icon as={BsPeopleFill} color={iconColor} w="20px" h="20px" />);
+	const icon = role.icon?.iconUrl ? (<img alt="icon" src={role.icon.iconUrl} className={`bg-${iconColor} w-[25px] h-[25px]`} />) : (<BsPeopleFill color={iconColor} className='w-[20px] h-[20px]' />);
 
 	return {
 		value: role.id,
@@ -34,7 +34,7 @@ function render(role: Role) {
 
 export const RoleSelect = (props: Props) => {
 	const { value, onChange, ...rest } = props;
-	const guild = useRouter().query.guild as string;
+	const guild = usePathname().split('/')[2];
 
 	const rolesQuery = useGuildRolesQuery(guild);
 	const isLoading = rolesQuery.isLoading;
