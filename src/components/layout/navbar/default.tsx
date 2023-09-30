@@ -43,9 +43,9 @@ export function DefaultNavbar() {
 				</ol>
 			</nav>
 
-			<p className='font-bold text-base sm:text-3xl mb-2'>
+			<div className='font-bold text-base sm:text-3xl mb-2'>
 				{activeItem?.name}
-			</p>
+			</div>
 		</div>
 	);
 }
