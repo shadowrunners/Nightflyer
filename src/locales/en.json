@@ -67,5 +67,6 @@
         "not_enabled_desc": "Enable this feature in order to customize its aspects."
     },
     "loading": "Loading",
-    "unsaved": "Save Changes?"
+    "unsaved": "Save Changes?",
+    "features": "Features"
 }
