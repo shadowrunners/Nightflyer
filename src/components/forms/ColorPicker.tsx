@@ -1,3 +1,5 @@
+'use client';
+
 import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
 import type { ColorPickerBaseProps } from 'react-colorful/dist/types';
 import { HexAlphaColorPicker, HexColorPicker } from 'react-colorful';

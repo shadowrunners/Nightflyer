@@ -1,10 +1,11 @@
+'use client';
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { DiscordMessages, DiscordMessage, DiscordEmbed, DiscordEmbedDescription, DiscordEmbedFooter } from '@skyra/discord-components-react';
-import { UseFormRegister, Control } from 'react-hook-form';
-import { Features } from '@/types/types';
-import { Input } from '@/components/ui/input';
 import { SmallColorPickerForm } from '@/components/forms/ColorPicker';
-import { Textarea } from '@/components/ui/textarea';
+import { Input, Textarea } from '@/components/ui';
+import { UseFormRegister, Control } from 'react-hook-form';
+import type { Features } from '@/types/types';
 import { Fragment } from 'react';
 
 interface IEmbed<T extends Features> {

@@ -1,3 +1,5 @@
+'use client';
+
 import { Props as SelectProps } from 'react-select';
 import { BsChatLeftText as ChatIcon } from 'react-icons/bs';
 import { useGuildChannelsQuery } from '@/api/hooks';
