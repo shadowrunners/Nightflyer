@@ -29,12 +29,13 @@ const GuildPage = ({ params }: { params: { guild: string }}) => {
 
 function GuildPanel({ guild: id, data }: { guild: string; data: CustomGuildInfo }) {
 	const Router = useRouter();
+	const t = useTranslations();
 
 	return (
 		<div className='flex flex-col gap-5 text-white'>
 			<Banner />
 			<div className='flex flex-col gap-5 mt-3'>
-				<h1 className='text-[23px] font-poppins font-semibold'>FFFFFFFFFFFF</h1>
+				<h1 className='text-[23px] font-poppins font-semibold'>{t('features')}</h1>
 				<div className="flex-row grid grid-cols-1 md:grid-cols-3 2xl:grid-cols-3 gap-3">
 					{getFeatures().map((feature) => (
 						<Card className='black2 text-white'>
@@ -54,7 +55,7 @@ function GuildPanel({ guild: id, data }: { guild: string; data: CustomGuildInfo 
 							<CardFooter>
 								<Button
 									variant='outline'
-									className='rounded-2xl bg-white text-black font-poppins transition-transform hover:scale-105 hover:shadow-lg'
+									className='rounded-2xl bg-white text-black font-poppins font-semibold transition-transform hover:scale-105 hover:shadow-lg'
 									onClick={() => Router.push(`/guilds/${id}/features/${feature.id}`)}
 								>
 									{data?.enabledFeatures?.includes(feature.id) ? 'Configure' : 'Enable'}
