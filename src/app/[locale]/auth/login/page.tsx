@@ -4,6 +4,13 @@ import { signIn, useSession } from 'next-auth/react';
 import { Button } from '@/components/ui';
 import { useTranslations } from 'next-intl';
 import { RedirectType, redirect } from 'next/navigation';
+import { Poppins } from 'next/font/google';
+
+const inter = Poppins({
+	subsets: ['latin'],
+	display: 'swap',
+	weight: '600',
+});
 
 export default function SignIn() {
 	const { data: session } = useSession();
@@ -16,12 +23,10 @@ function LoginPage() {
 	const t = useTranslations('auth');
 
 	return (
-		<section id='signin' className='flex md:flex-row flex-col h-screen text-center bg-black text-white'>
-			<div
-				className='flex-1 flex justify-center flex-col relative text-center'
-			>
+		<section id='signin' className={`flex md:flex-row flex-col h-screen text-center bg-black ${inter.className} text-white`}>
+			<div className='flex-1 flex justify-center flex-col relative text-center'>
 				<h1
-					className={'font-poppins font-semibold text-[50px]'}
+					className={'text-[50px]'}
 				>
 					{t('login_header')} <span className='text-gradient'>{t('login_header2')}</span>.
 				</h1>
@@ -39,7 +44,7 @@ function LoginPage() {
 						{t('login_btn')}
 					</Button>
 					<p
-						className='font-poppins font-normal text-dimWhite text-[15px] leading-[30.8px] mt-2'
+						className='text-dimWhite text-[15px] leading-[30.8px] mt-2'
 					>
 						{t('login_punchline')} <span className='text-gradient'>{t('login_punchline2')}</span>.
 					</p>
