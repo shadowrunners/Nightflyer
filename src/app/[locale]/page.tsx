@@ -7,11 +7,18 @@ import {
 	Navbar,
 	Stats,
 } from '../../components/layout/main/index';
+import { Poppins } from 'next/font/google';
 import React from 'react';
+
+const inter = Poppins({
+	subsets: ['latin'],
+	display: 'swap',
+	weight: '600',
+});
 
 export default function MainPage() {
 	return (
-		<div className="bg-black w-full overflow-hidden font-poppins font-semibold">
+		<div className={`bg-black w-full overflow-hidden ${inter.className}`}>
 			<div className={`${styles.paddingX} ${styles.flexCenter}`}>
 				<div className={`${styles.boxNav}`}>
 					<Navbar />
