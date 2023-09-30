@@ -3,7 +3,7 @@ import createIntlMiddleware from 'next-intl/middleware';
 import { NextRequest } from 'next/server';
 
 const locales = ['en'];
-const publicPages = ['/landing', '/auth/login'];
+const publicPages = ['/', '/privacy', '/tos', '/auth/login'];
 
 const intlMiddleware = createIntlMiddleware({
 	locales,
@@ -38,6 +38,7 @@ export default function middleware(req: NextRequest) {
 		return intlMiddleware(req);
 	}
 	else {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		return (authMiddleware as any)(req);
 	}
 }
