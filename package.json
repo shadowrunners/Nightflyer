@@ -9,7 +9,7 @@
   },
   "private": true,
   "dependencies": {
-    "@chakra-ui/anatomy": "^2.2.0",
+    "@chakra-ui/anatomy": "^2.2.1",
     "@chakra-ui/form-control": "^2.1.0",
     "@chakra-ui/layout": "^2.3.0",
     "@chakra-ui/react": "^2.8.0",
