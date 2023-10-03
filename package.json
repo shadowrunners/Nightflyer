@@ -11,7 +11,7 @@
   "dependencies": {
     "@chakra-ui/anatomy": "^2.2.0",
     "@chakra-ui/form-control": "^2.1.0",
-    "@chakra-ui/layout": "^2.3.0",
+    "@chakra-ui/layout": "^2.3.1",
     "@chakra-ui/react": "^2.8.0",
     "@chakra-ui/styled-system": "^2.9.1",
     "@chakra-ui/theme-tools": "^2.1.0",
