@@ -1,4 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
 import { styles } from '@/utils/util';
 import { motion } from 'framer-motion';
 
