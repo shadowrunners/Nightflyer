@@ -1,10 +1,17 @@
-import { Navbar, Footer } from '@/components/layout/main/index';
-import { styles } from '@/utils/utils';
+import { Navbar, Footer } from '@/components/homepage';
+import { Poppins } from 'next/font/google';
+import { styles } from '@/utils/util';
 import { ReactNode } from 'react';
+
+const inter = Poppins({
+	subsets: ['latin'],
+	display: 'swap',
+	weight: '500',
+});
 
 export default function PrivacyLayout({ children }: { children: ReactNode }) {
 	return (
-		<div className='bg-black w-full overflow-hidden font-poppins'>
+		<div className={`bg-black w-full overflow-hidden ${inter.className}`}>
 			<div className={`${styles.paddingX} ${styles.flexCenter}`}>
 				<div className={`${styles.boxNav}`}>
 					<Navbar />

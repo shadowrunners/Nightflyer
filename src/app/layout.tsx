@@ -1,18 +1,17 @@
-import '@/styles/global.css';
-import NextAuthProvider from '@/components/layout/NextAuthProvider';
-import QueryProvider from '@/components/layout/QueryProvider';
+import { NextAuthProvider, QueryProvider } from '@/components/providers';
+import type { ReactNode } from 'react';
 import { Metadata } from 'next';
+import '@/styles/global.css';
 
 export const metadata: Metadata = {
-	title: 'Evelyn | Nightflyerz',
-	description: 'I\'m making a note here. HUGE SUCCESS.',
+	title: 'Evelyn | Shadowrunners',
+	description: 'PLACEHOLDER',
 };
-
 
 export default function RootLayout({
 	children,
 }: {
-    children: React.ReactNode,
+    children: ReactNode,
   }) {
 	return (
 		<html lang='en'>

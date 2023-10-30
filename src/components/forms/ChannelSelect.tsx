@@ -1,20 +1,20 @@
 'use client';
 
-import { Props as SelectProps } from 'react-select';
+import type { APIChannel, Override } from '@/types/types';
+import type { ControlledInput } from '@/types/formTypes';
+import { ChannelTypes } from '@/types/types';
+
+import { Form, FormField, FormItem, SelectMenu, Spacer } from '@/components/ui';
 import { BsChatLeftText as ChatIcon } from 'react-icons/bs';
-import { useGuildChannelsQuery } from '@/api/hooks';
+import { useGuildChannelsQuery } from '@/utils/API/hooks';
+import { Props as SelectProps } from 'react-select';
 import { MdRecordVoiceOver } from 'react-icons/md';
-import { ChannelTypes, GuildChannel, Override } from '@/types/types';
-import { useMemo } from 'react';
-import { ControlledInput } from './types';
-import { Form, FormField, FormItem } from '@/components/ui/form';
-import { SelectMenu } from '@/components/ui/selectmenu';
-import { useForm } from 'react-hook-form';
-import { Spacer } from '@/components/ui';
 import { usePathname } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { useMemo } from 'react';
 
 /** Renders the options. */
-const render = (channel: GuildChannel | undefined) => {
+const render = (channel: APIChannel | undefined) => {
 	const icon = channel?.type === ChannelTypes.GUILD_STAGE_VOICE || channel?.type === ChannelTypes.GUILD_VOICE ? (
 		<MdRecordVoiceOver />
 	) : (<ChatIcon />);
@@ -27,9 +27,9 @@ const render = (channel: GuildChannel | undefined) => {
 };
 
 /** Maps the channels. */
-function mapOptions(channels: GuildChannel[]) {
-	const categories: { [key: string]: GuildChannel[] } = {};
-	const roots: GuildChannel[] = [];
+function mapOptions(channels: APIChannel[]) {
+	const categories: { [key: string]: APIChannel[] } = {};
+	const roots: APIChannel[] = [];
 
 	for (const channel of channels) {
 		if (channel.category == null) roots.push(channel);
@@ -64,7 +64,7 @@ export const ChannelSelect = ({
 	value: string;
 	onChange: (v: string) => void;
 }) => {
-	const guild = usePathname().split('/')[2];
+	const guild = usePathname().split('/')[3];
 	const channelsQuery = useGuildChannelsQuery(guild);
 	const isLoading = channelsQuery.isLoading;
 
@@ -104,7 +104,7 @@ export const ChannelSelectForm: ControlledInput<Omit<Props, 'value' | 'onChange'
 			<div className="flex flex-col width-[100%] relative border-r-3xl p-5 shadow black2 rounded-3xl">
 				<label className="block text-start mr-3 transition-all duration-300 opacity-100 text-base font-medium mb-0">
 					<h2 className="text-2xl font-semibold">{control.label}</h2>
-					<p className="text-gray-500">{control.description}</p>
+					<p className="text-gray-500 mb-3">{control.description}</p>
 				</label>
 				<Spacer />
 				<Form {...form}>

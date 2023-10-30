@@ -2,13 +2,13 @@
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { DiscordMessages, DiscordMessage, DiscordEmbed, DiscordEmbedDescription, DiscordEmbedFooter } from '@skyra/discord-components-react';
-import { SmallColorPickerForm } from '@/components/forms/ColorPicker';
+import { SmallColorPickerForm } from '@/components/forms';
 import { Input, Textarea } from '@/components/ui';
 import { UseFormRegister, Control } from 'react-hook-form';
-import type { Features } from '@/types/types';
+import type { CustomFeatures } from '@/types/features';
 import { Fragment } from 'react';
 
-interface IEmbed<T extends Features> {
+interface IEmbed<T extends CustomFeatures> {
 	fullData: any;
 	register: UseFormRegister<T>;
 	control: Control<T>;
@@ -43,7 +43,7 @@ interface IEmbedData {
 		}
 }
 
-const Embed = ({ fullData, register, control }: IEmbed<any>) => {
+export const Embed = ({ fullData, register, control }: IEmbed<any>) => {
 	const embed = fullData.embed as IEmbedData;
 	return (
 		<Fragment>
@@ -148,5 +148,3 @@ const Embed = ({ fullData, register, control }: IEmbed<any>) => {
 		</Fragment>
 	);
 };
-
-export default Embed;

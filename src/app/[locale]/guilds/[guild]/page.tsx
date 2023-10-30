@@ -1,17 +1,15 @@
 'use client';
 
-import { Card, CardContent, CardFooter, Button } from '@/components/ui';
-import { LoadingPanel } from '@/components/panel/LoadingPanel';
-import { QueryStatus } from '@/components/panel/QueryPanel';
+import { Card, CardContent, CardFooter, Button, Banner } from '@/components/ui';
+import { LoadingPanel, QueryStatus } from '@/components/panels';
 import { config } from '@/config/common';
 import { useTranslations } from 'next-intl';
 import { BiSolidErrorAlt } from 'react-icons/bi';
 import { FaRobot } from 'react-icons/fa';
-import { useGuildInfoQuery } from '@/api/hooks';
+import { useGuildInfoQuery } from '@/utils/API/hooks';
 import { useRouter } from 'next/navigation';
-import { getFeatures } from '@/utils/common';
-import { Banner } from '@/components/GuildBanner';
-import type { CustomGuildInfo } from '@/config/types/custom-types';
+import { getFeatures } from '@/utils/util';
+import type { HVGuild } from '@/types/types';
 
 const GuildPage = ({ params }: { params: { guild: string }}) => {
 	const guild = params.guild;
@@ -27,7 +25,7 @@ const GuildPage = ({ params }: { params: { guild: string }}) => {
 	);
 };
 
-function GuildPanel({ guild: id, data }: { guild: string; data: CustomGuildInfo }) {
+function GuildPanel({ guild: id, data }: { guild: string; data: HVGuild }) {
 	const Router = useRouter();
 	const t = useTranslations();
 
@@ -55,7 +53,7 @@ function GuildPanel({ guild: id, data }: { guild: string; data: CustomGuildInfo 
 							<CardFooter>
 								<Button
 									variant='outline'
-									className='rounded-2xl bg-white text-black font-poppins font-semibold transition-transform hover:scale-105 hover:shadow-lg'
+									className='rounded-2xl bg-white text-black font-poppins font-semibold transition-transform button-glow'
 									onClick={() => Router.push(`/guilds/${id}/features/${feature.id}`)}
 								>
 									{data?.enabledFeatures?.includes(feature.id) ? 'Configure' : 'Enable'}
@@ -70,7 +68,7 @@ function GuildPanel({ guild: id, data }: { guild: string; data: CustomGuildInfo 
 }
 
 function NotJoined({ guild }: { guild: string }) {
-	const t = useTranslations('dash');
+	const t = useTranslations('error');
 	const Router = useRouter();
 
 	return (

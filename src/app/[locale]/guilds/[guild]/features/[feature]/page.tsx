@@ -1,16 +1,13 @@
 'use client';
 
-import { UpdateFeaturePanel } from '@/components/feature/UpdateFeaturePanel';
-import getGuildLayout from '@/components/layout/guild/get-guild-layout';
-import { LoadingPanel } from '@/components/panel/LoadingPanel';
-import { CustomFeatures, FeatureConfig } from '@/config/types';
-import { Button } from '@/components/ui';
-import { features } from '@/config/features';
-import { BsSearch } from 'react-icons/bs';
-import { useEnableFeatureMutation, useFeatureQuery } from '@/api/hooks';
+import { type CustomFeatures, type FeatureConfig, Features } from '@/types/features';
+import { useEnableFeatureMutation, useFeatureQuery } from '@/utils/API/hooks';
+import { UpdateFeaturePanel, LoadingPanel } from '@/components/panels';
+import GuildLayout from '@/app/[locale]/guilds/layout';
 import { Fragment, ReactNode } from 'react';
-import React from 'react';
 import { useTranslations } from 'next-intl';
+import { BsSearch } from 'react-icons/bs';
+import { Button } from '@/components/ui';
 
 export type Params = {
   guild: string;
@@ -19,10 +16,9 @@ export type Params = {
 
 const FeaturePage = ({ params }: { params: { feature: keyof CustomFeatures, guild: string } }) => {
 	const { feature, guild } = params;
-	console.log(`Feature page params: ${JSON.stringify(params)}`);
 
 	const query = useFeatureQuery(guild, feature);
-	const featureConfig = features[feature] as FeatureConfig<typeof feature>;
+	const featureConfig = Features[feature] as FeatureConfig<typeof feature>;
 	const skeleton = featureConfig?.useSkeleton?.();
 
 	if (featureConfig == null) return <NotFound />;
@@ -37,13 +33,13 @@ function NotEnabled({ guild, feature }: Params) {
 	const enable = useEnableFeatureMutation();
 
 	return (
-		<div className='flex justify-center items-center flex-col h-full gap-1'>
+		<div className='flex justify-center items-center flex-col h-full gap-1 text-white'>
 			<h1 className='text-xl text-semibold text-white'>
 				{t('not_enabled')}
 			</h1>
 			<p className='text-dimWhite'>{t('not_enabled_desc')}</p>
 			<Button
-				className='mt-3 px-6'
+				className='mt-3 px-6 text-white'
 				onClick={() => enable.mutate({ enabled: true, guild, feature })}
 			>
 				{t2('button.enablefeature')}
@@ -64,5 +60,5 @@ function NotFound() {
 	);
 }
 
-FeaturePage.getLayout = (c: ReactNode) => getGuildLayout({ children: c, back: true });
+FeaturePage.getLayout = (c: ReactNode) => GuildLayout({ children: c });
 export default FeaturePage;
