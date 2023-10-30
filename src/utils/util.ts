@@ -1,6 +1,10 @@
-import { MutableRefObject, Dispatch, SetStateAction } from 'react';
-import { Styles } from '@/types/types';
+import { MutableRefObject, Dispatch, SetStateAction, ReactNode, ReactElement } from 'react';
+import { APIGuild, PermissionFlags, Styles } from '@/types/types';
+import { usePathname } from 'next/navigation';
+import { type ClassValue, clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
+/** The styles used by the homepage. */
 export const styles: Styles = {
 	boxWidth: 'xl:max-w-[1280px] w-full',
 	boxNav: 'xl:max-w-[1920px] w-full',
@@ -41,10 +45,23 @@ export const variants = {
 	visible: { opacity: 1 },
 };
 
-/** Gets the server ID from the request URL. */
-export function getGuildId(req: Request) {
-	const url = new URL(req.url);
-	const id = url.pathname.split('/')[4];
+/** Shows the correct navigation / side bars based on the current URL. Used for different navs and sides on feature / guild pages. */
+export function showCorrectShit({ thing }: { thing: ReactElement }) {
+	const path = usePathname().split('/')[4];
+	let renderedThing: ReactNode;
 
-	return id;
+	if (path) renderedThing = thing;
+	else renderedThing = null;
+
+	return renderedThing;
+}
+
+/** Filters the guilds where the user doesn't have the Administrator permission. */
+export function filterGuilds(guild: APIGuild) {
+	return (Number(guild.permissions) & PermissionFlags.ADMINISTRATOR) !== 0;
+}
+
+/** The function used by all @shadcn/ui elements. */
+export function cn(...inputs: ClassValue[]) {
+	return twMerge(clsx(inputs));
 }
