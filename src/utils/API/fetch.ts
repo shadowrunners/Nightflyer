@@ -1,5 +1,5 @@
-import { CustomFeatures, CustomGuildInfo } from '@/config/types/custom-types';
-import type { APIRole, APIGuild, APIChannel, APIUser } from '@/types/types';
+import type { APIRole, APIGuild, APIChannel, APIUser, HVGuild } from '@/types/types';
+import type { CustomFeatures } from '@/types/features';
 import { signOut } from 'next-auth/react';
 
 /**
@@ -8,7 +8,7 @@ import { signOut } from 'next-auth/react';
  * @param accessToken The user's access token.
  * @returns The information if the user is in the guild otherwise null.
  */
-export async function fetchGuildInfo(id: string, accessToken: string): Promise<CustomGuildInfo | null> {
+export async function fetchGuildInfo(id: string, accessToken: string): Promise<HVGuild | null> {
 	const data = await fetch(`${process.env['NEXT_PUBLIC_API_URL']}/guilds/${id}`, {
 		method: 'GET',
 		headers: {
@@ -43,7 +43,7 @@ export async function enableFeature(id: string, feature: string, accessToken: st
  * @returns A 200 response to indicate that the feature was disabled.
  */
 export async function disableFeature(id: string, feature: string, accessToken: string) {
-	return await fetch(`${process.env.NEXT_PUBLIC_API_URL}/guilds/${id}/features/${feature}`, {
+	return await fetch(`${process.env['NEXT_PUBLIC_API_URL']}/guilds/${id}/features/${feature}`, {
 		method: 'DELETE',
 		headers: {
 			Authorization: `Bearer ${accessToken}`,
@@ -191,5 +191,7 @@ export function getGuildImg(id: string, icon: string) {
 }
 
 export function avatarUrl(user: APIUser) {
+	// TODO: Replace this with the placeholder image.
+	if (!user) return './send.svg';
 	return `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.webp?size=256`;
 }

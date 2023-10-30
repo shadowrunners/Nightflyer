@@ -1,4 +1,5 @@
-import { CustomFeatures, CustomGuildInfo, GuildInfo } from '@/config/types';
+import type { CustomFeatures } from '@/types/features';
+import type { HVGuild } from '@/types/types';
 import { QueryClient, useMutation, useQuery } from '@tanstack/react-query';
 import {
 	disableFeature,
@@ -62,7 +63,7 @@ export function useSelfUserQuery() {
 export function useGuildInfoQuery(guild: string) {
 	const { data: session, status } = useSession();
 
-	return useQuery<CustomGuildInfo | null>({
+	return useQuery<HVGuild | null>({
 		queryFn: async () => await fetchGuildInfo(guild, session?.accessToken as string),
 		queryKey: Keys.guild_info(guild),
 		enabled: status === 'authenticated',
@@ -90,7 +91,7 @@ export function useEnableFeatureMutation() {
 		},
 		onSuccess: async (_, { guild, feature, enabled }) => {
 			await client.invalidateQueries({ queryKey: Keys.features(guild, feature) });
-			client.setQueryData<GuildInfo | null>(Keys.guild_info(guild), (prev) => {
+			client.setQueryData<HVGuild | null>(Keys.guild_info(guild), (prev) => {
 				if (prev === null) return null;
 
 				if (enabled) return {
