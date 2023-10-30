@@ -1,6 +1,6 @@
 'use client';
 
-import { GuildSelect } from '@/components/guild/GuildSelect';
+import { GuildSelect } from '@/components/guild';
 import { useTranslations } from 'next-intl';
 
 const HomePage = () => {

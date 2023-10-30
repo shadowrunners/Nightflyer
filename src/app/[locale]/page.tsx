@@ -7,7 +7,6 @@ import {
 	Navbar,
 	Stats,
 } from '../../components/homepage';
-import React from 'react';
 import { unstable_setRequestLocale } from 'next-intl/server';
 
 export default function MainPage({ params: { locale } }: { params: { locale: string } }) {

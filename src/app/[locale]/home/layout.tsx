@@ -1,12 +1,12 @@
 'use client';
 
-import { QueryStatus } from '@/components/panels/QueryPanel';
+import { Sidebar, SidebarResponsive } from '@/components/sidebar';
+import { LoadingPanel, QueryStatus } from '@/components/panels';
 import { useSelfUserQuery } from '@/utils/API/hooks';
-import { LoadingPanel } from '@/components/panels/LoadingPanel';
 import { Navbar } from '@/components/navbar';
-import { Sidebar, SidebarResponsive } from '@/components/sidebar/Sidebar';
+import type { ReactNode } from 'react';
 
-export default function HomeLayout({ children }: { children: React.ReactNode }) {
+export default function HomeLayout({ children }: { children: ReactNode }) {
 	const query = useSelfUserQuery();
 
 	return (
