@@ -1,16 +1,17 @@
-import { SelectComponent } from '@/components/ui/selectmenu';
+'use client';
+
+import { Form, FormField, FormItem, SelectMenu } from '@/components/ui';
 import { Props as SelectProps } from 'react-select';
-import { useGuildRolesQuery } from '@/api/hooks';
+import { useGuildRolesQuery } from '@/utils/API/hooks';
 import { useForm } from 'react-hook-form';
-import { Icon, Image } from '@chakra-ui/react';
 import { BsPeopleFill } from 'react-icons/bs';
-import { ControlledInput } from './types';
+import { ControlledInput } from '@/types/formTypes';
 import { Override } from '@/types/types';
-import { useRouter } from 'next/router';
-import { toRGB } from '@/utils/common';
-import { Role } from '@/types/types';
+import { usePathname } from 'next/navigation';
+import { toRGB } from '@/utils/util';
+import { APIRole } from '@/types/types';
 import { useMemo } from 'react';
-import { Form, FormField, FormItem } from '@/components/ui/form';
+import Image from 'next/image';
 
 
 type Props = Override<
@@ -21,10 +22,9 @@ type Props = Override<
   }
 >;
 
-function render(role: Role) {
+function render(role: APIRole) {
 	const iconColor = toRGB(role.color);
-	const icon =
-    role.icon?.iconUrl ? (<Image alt="icon" src={role.icon.iconUrl} bg={iconColor} w="25px" h="25px" />) : (<Icon as={BsPeopleFill} color={iconColor} w="20px" h="20px" />);
+	const icon = role.icon?.iconUrl ? (<Image alt="icon" src={role.icon.iconUrl} className={`bg-${iconColor} w-[25px] h-[25px]`} />) : (<BsPeopleFill color={iconColor} className='w-[20px] h-[20px]' />);
 
 	return {
 		value: role.id,
@@ -35,7 +35,7 @@ function render(role: Role) {
 
 export const RoleSelect = (props: Props) => {
 	const { value, onChange, ...rest } = props;
-	const guild = useRouter().query.guild as string;
+	const guild = usePathname().split('/')[3];
 
 	const rolesQuery = useGuildRolesQuery(guild);
 	const isLoading = rolesQuery.isLoading;
@@ -48,7 +48,7 @@ export const RoleSelect = (props: Props) => {
 	const options = useMemo(() => rolesQuery.data?.map(render) ?? [], [rolesQuery.data]);
 
 	return (
-		<SelectComponent
+		<SelectMenu
 			createAble={true}
 			isLoading={isLoading}
 			isDisabled={isLoading}
@@ -78,7 +78,7 @@ export const RoleSelectForm: ControlledInput<Omit<Props, 'value' | 'onChange'>> 
 			<div className="flex flex-col width-[100%] relative border-r-3xl p-5 shadow black2 rounded-3xl">
 				<label className="block text-start mr-3 transition-all duration-300 opacity-100 text-base font-medium mb-0">
 					<h2 className="text-2xl font-semibold">{control.label}</h2>
-					<p className="text-gray-500">{control.description}</p>
+					<p className="text-gray-500 mb-3">{control.description}</p>
 				</label>
 				<div className='flex-1 self-stretch mt-2' />
 				<Form {...form}>

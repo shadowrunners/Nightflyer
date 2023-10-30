@@ -1,5 +1,8 @@
-import { ChannelSelectForm } from '@/components/forms/ChannelSelect';
-import { LogsFeature, UseFormRender } from '@/config/types';
+'use client';
+
+import type { UseFormRender } from '@/types/formTypes';
+import { ChannelSelectForm } from '@/components/forms';
+import type { LogsFeature } from '@/types/features';
 import { useForm } from 'react-hook-form';
 
 export const useLogsSystem: UseFormRender<LogsFeature> = (data, onSubmit) => {

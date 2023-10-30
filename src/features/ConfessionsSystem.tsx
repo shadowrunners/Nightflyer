@@ -1,5 +1,8 @@
-import { ChannelSelectForm } from '@/components/forms/ChannelSelect';
-import { ConfessionsFeature, UseFormRender } from '@/config/types';
+'use client';
+
+import type { ConfessionsFeature } from '@/types/features';
+import type { UseFormRender } from '@/types/formTypes';
+import { ChannelSelectForm } from '@/components/forms';
 import { useForm } from 'react-hook-form';
 
 export const useConfessionSystem: UseFormRender<ConfessionsFeature> = (data, onSubmit) => {

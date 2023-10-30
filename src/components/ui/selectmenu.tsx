@@ -15,7 +15,7 @@ const controlStyles = {
 };
 const placeholderStyles = 'text-muted-foreground text-sm ml-1';
 const selectInputStyles = 'text-foreground text-sm ml-3';
-const valueContainerStyles = 'text-foreground text-sm ml-3';
+const valueContainerStyles = 'text-foreground text-white text-sm ml-3';
 const singleValueStyles = 'ml-1';
 const multiValueStyles =
     'ml-1 bg-background border border-border rounded items-center py-0.5 pl-2 pr-1 gap-1.5';
@@ -36,19 +36,17 @@ interface SelectComponentProps extends Props {
     isMulti?: boolean;
     isDisabled?: boolean;
     isLoading?: boolean;
-    isClearable?: boolean;
     createAble: boolean;
     placeholder?: string;
 }
 
-export const SelectComponent = ({
+export const SelectMenu = ({
 	options,
 	value,
 	onChange,
 	isMulti,
 	isDisabled,
 	isLoading,
-	isClearable,
 	createAble,
 	placeholder,
 	...props
@@ -64,7 +62,7 @@ export const SelectComponent = ({
 				isDisabled={isDisabled}
 				isMulti={isMulti}
 				isLoading={isLoading}
-				isClearable={isClearable}
+				isClearable={false}
 				placeholder={placeholder}
 				components={animatedComponents}
 				// defaultInputValue={defaultValue}

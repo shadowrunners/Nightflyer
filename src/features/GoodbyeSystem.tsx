@@ -1,7 +1,8 @@
-import { ChannelSelectForm } from '@/components/forms/ChannelSelect';
-import { TextAreaForm } from '@/components/forms/TextAreaForm';
-import { GoodbyeFeature, UseFormRender } from '@/config/types';
-import Embed from '@/components/forms/Embed';
+'use client';
+
+import { ChannelSelectForm, TextAreaForm, Embed } from '@/components/forms';
+import type { GoodbyeFeature } from '@/types/features';
+import type { UseFormRender } from '@/types/formTypes';
 import { useForm } from 'react-hook-form';
 import { Fragment } from 'react';
 

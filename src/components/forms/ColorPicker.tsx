@@ -1,12 +1,13 @@
-import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
+'use client';
+
+import { Popover, PopoverTrigger, PopoverContent, Input } from '@/components/ui';
 import type { ColorPickerBaseProps } from 'react-colorful/dist/types';
 import { HexAlphaColorPicker, HexColorPicker } from 'react-colorful';
+import { ControlledInput } from '@/types/formTypes';
 import { useController } from 'react-hook-form';
-import { Input } from '@/components/ui/input';
-import { ControlledInput } from './types';
 import { useMemo } from 'react';
 
-export type ColorPickerFormProps = Omit<ColorPickerProps, 'value' | 'onChange'>;
+type ColorPickerFormProps = Omit<ColorPickerProps, 'value' | 'onChange'>;
 
 export const SmallColorPickerForm: ControlledInput<
     ColorPickerFormProps,
@@ -38,13 +39,13 @@ export const SmallColorPickerForm: ControlledInput<
 	);
 };
 
-export type ColorPickerProps = {
+type ColorPickerProps = {
     value?: string | null;
     onChange?: (color: string) => void;
     supportAlpha?: boolean;
 };
 
-export function ColorPicker({ value, onChange, supportAlpha, ...rest }: ColorPickerProps) {
+function ColorPicker({ value, onChange, supportAlpha, ...rest }: ColorPickerProps) {
 	const props: Partial<ColorPickerBaseProps<string>> = {
 		color: value ?? undefined,
 		onChange,
