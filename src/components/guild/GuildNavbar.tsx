@@ -2,14 +2,14 @@
 
 import { Avatar, AvatarFallback, AvatarImage, Skeleton } from '@/components/ui';
 import { FaChevronLeft as ChevronLeftIcon } from 'react-icons/fa';
-import { useGuildPreview } from '@/api/hooks';
+import { useGuildPreview } from '@/utils/API/hooks';
+import { getGuildImg } from '@/utils/API/fetch';
 import { usePathname } from 'next/navigation';
-import { iconUrl } from '@/api/discord';
 import { motion } from 'framer-motion';
 import { ReactElement } from 'react';
 
-export default function GuildNavbar({ back }: { back?: boolean }) {
-	const selected = usePathname().split('/')[2];
+export const GuildNavbar = ({ back }: { back?: boolean }) => {
+	const selected = usePathname().split('/')[3];
 	const { guild } = useGuildPreview(selected);
 
 	return (
@@ -23,7 +23,7 @@ export default function GuildNavbar({ back }: { back?: boolean }) {
 				<Skeleton className='mr-3 rounded-full' />
 			) : (
 				<Avatar className='none xl:block mr-3'>
-					<AvatarImage src={iconUrl(guild)} />
+					<AvatarImage src={getGuildImg(guild.id, guild.icon)} />
 					<AvatarFallback>SW</AvatarFallback>
 				</Avatar>
 			)}
@@ -32,7 +32,7 @@ export default function GuildNavbar({ back }: { back?: boolean }) {
 			</h1>
 		</div>
 	);
-}
+};
 
 function HorizontalCollapse({ in: isOpen, children }: { in: boolean; children: ReactElement }) {
 	return (
