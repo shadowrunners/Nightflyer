@@ -1,7 +1,7 @@
-import NextAuth, { NextAuthOptions } from 'next-auth';
 import DiscordProvider from 'next-auth/providers/discord';
+import NextAuth from 'next-auth';
 
-export const authOptions: NextAuthOptions = {
+const handler = NextAuth({
 	providers: [
 		DiscordProvider({
 			clientId: process.env.CLIENT_ID,
@@ -21,12 +21,13 @@ export const authOptions: NextAuthOptions = {
 			return token;
 		},
 		async session({ session, token }) {
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-ignore
 			session.accessToken = token.accessToken;
 
 			return session;
 		},
 	},
-};
+});
 
-const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
