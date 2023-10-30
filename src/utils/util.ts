@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { MutableRefObject, Dispatch, SetStateAction, ReactNode, ReactElement } from 'react';
-import { APIGuild, PermissionFlags, Styles } from '@/types/types';
+import { type APIGuild, PermissionFlags, type Styles } from '@/types/types';
+import { Features, type IdFeature } from '@/types/features';
 import { usePathname } from 'next/navigation';
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -45,7 +47,7 @@ export const variants = {
 	visible: { opacity: 1 },
 };
 
-/** Shows the correct navigation / side bars based on the current URL. Used for different navs and sides on feature / guild pages. */
+/** Shows the correct navigation / sidebars based on the current URL. Used for different navs and sides on feature / guild pages. */
 export function showCorrectShit({ thing }: { thing: ReactElement }) {
 	const path = usePathname().split('/')[4];
 	let renderedThing: ReactNode;
@@ -64,4 +66,22 @@ export function filterGuilds(guild: APIGuild) {
 /** The function used by all @shadcn/ui elements. */
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
+}
+
+/** Converts the given number to a Hex value. */
+export function toRGB(num: number) {
+	num >>>= 0;
+	const b = num & 0xff,
+		g = (num & 0xff00) >>> 8,
+		r = (num & 0xff0000) >>> 16;
+	return 'rgb(' + [r, g, b].join(',') + ')';
+}
+
+export function getFeatures(): IdFeature<any>[] {
+	return Object.entries(Features).map(([k, v]) => {
+		return {
+			id: k,
+			...v,
+		};
+	});
 }
