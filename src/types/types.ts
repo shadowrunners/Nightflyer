@@ -1,65 +1,62 @@
-import {
-	WelcomeFeature,
-	AntiPhishingFeature,
-	ConfessionsFeature,
-	GoodbyeFeature,
-	LogsFeature,
-	LevellingFeature,
-	TicketsFeature,
-	VerifyFeature,
-} from '@/config/types';
+// noinspection ShiftOutOfRangeJS,JSUnusedGlobalSymbols
 
-export type Features =
-  WelcomeFeature |
-  AntiPhishingFeature |
-  ConfessionsFeature |
-  GoodbyeFeature |
-  LogsFeature |
-  LevellingFeature |
-  TicketsFeature |
-  VerifyFeature;
-
+/** The override type. */
 export type Override<T, R> = Omit<T, keyof R> & R;
 
-export type Role = {
+/** The role data coming from the API. */
+export type APIRole = {
+    /** The role's ID. */
     id: string;
+    /** The role's name. */
     name: string;
+    /** The role's color. */
     color: number;
+    /** The role's position. */
     position: number;
+    /** The icon object of the role. */
     icon?: {
+      /** The role's icon URL. */
       iconUrl?: string;
+      /** The role's emoji. */
       emoji?: string;
     };
 };
 
-export type GuildChannel = {
+/** The channel data coming from the API. */
+export type APIChannel = {
+    /** The channel's ID. */
     id: string;
+    /** The channel's name. */
     name: string;
+    /** The channel's type. */
     type: ChannelTypes;
-    /**
-     * parent category of the channel
-     */
+    /** The parent category of the channel. */
     category?: string;
 };
 
-export type UserInfo = {
+/** The user data coming from the API. */
+export type APIUser = {
+    /** The user's ID. */
     id: string;
+    /** The user's username. */
     username: string;
-    discriminator: string;
+    /** The user's avatar URL (probably hash, don't remember). */
     avatar: string;
-    mfa_enabled?: boolean;
-    banner?: string;
-    accent_color?: number;
+    /** The user's locale. */
     locale?: string;
+    /** The user's flags. */
     flags?: number;
-    premium_type?: number;
-    public_flags?: number;
 };
 
-export type Guild = {
+/** The guild data coming from the API. */
+export type APIGuild = {
+    /** The guild's ID. */
     id: string;
+    /** The guild's name. */
     name: string;
+    /** The guild's icon hash. */
     icon: string;
+    /** The user's permission in the specific guild. */
     permissions: string;
 };
 
@@ -122,7 +119,6 @@ export enum ChannelTypes {
     PRIVATE_THREAD = 12,
     GUILD_STAGE_VOICE = 13,
     GUILD_DIRECTORY = 14,
-    GUILD_FORUM = 15,
 }
 
 export type Styles = {
@@ -138,3 +134,15 @@ export type Styles = {
     marginX: string;
     marginY: string;
 };
+
+/** The guild information retrieved from the Hivemind API. */
+export type HVGuild = {
+    /** The guild's ID. */
+    id?: string;
+    /** The guild's name. */
+    name?: string;
+    /** The guild's icon hash. */
+    icon?: string;
+    /** The guild's enabled features. */
+    enabledFeatures?: string[];
+}

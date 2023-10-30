@@ -1,21 +1,22 @@
-import { SelectInstance, Props as SelectProps } from 'chakra-react-select';
-import { Option, SelectField } from '@/components/forms/SelectField';
+'use client';
+
+import type { APIChannel, Override } from '@/types/types';
+import type { ControlledInput } from '@/types/formTypes';
+import { ChannelTypes } from '@/types/types';
+
+import { Form, FormField, FormItem, SelectMenu, Spacer } from '@/components/ui';
 import { BsChatLeftText as ChatIcon } from 'react-icons/bs';
-import { common } from '@/config/translations/common';
-import { useGuildChannelsQuery } from '@/api/hooks';
+import { useGuildChannelsQuery } from '@/utils/API/hooks';
+import { Props as SelectProps } from 'react-select';
 import { MdRecordVoiceOver } from 'react-icons/md';
-import { useController } from 'react-hook-form';
-import { ChannelTypes, GuildChannel, Override } from '@/types/types';
-import { forwardRef, useMemo } from 'react';
-import { ControlledInput } from './types';
-import { Icon } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-import { FormCard } from './Form';
+import { usePathname } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { useMemo } from 'react';
 
 /** Renders the options. */
-const render = (channel: GuildChannel | undefined): Option => {
+const render = (channel: APIChannel | undefined) => {
 	const icon = channel?.type === ChannelTypes.GUILD_STAGE_VOICE || channel?.type === ChannelTypes.GUILD_VOICE ? (
-		<Icon as={MdRecordVoiceOver} />
+		<MdRecordVoiceOver />
 	) : (<ChatIcon />);
 
 	return {
@@ -26,9 +27,9 @@ const render = (channel: GuildChannel | undefined): Option => {
 };
 
 /** Maps the channels. */
-function mapOptions(channels: GuildChannel[]) {
-	const categories: { [key: string]: GuildChannel[] } = {};
-	const roots: GuildChannel[] = [];
+function mapOptions(channels: APIChannel[]) {
+	const categories: { [key: string]: APIChannel[] } = {};
+	const roots: APIChannel[] = [];
 
 	for (const channel of channels) {
 		if (channel.category == null) roots.push(channel);
@@ -50,41 +51,44 @@ function mapOptions(channels: GuildChannel[]) {
 }
 
 type Props = Override<
-  SelectProps<Option, false>,
+  SelectProps<never, false>,
   {
     value?: string;
     onChange: (v: string) => void;
   }
 >;
 
-export const ChannelSelect = forwardRef<SelectInstance<Option, false>, Props>(
-	({ value, onChange, ...rest }, ref) => {
-		const guild = useRouter().query.guild as string;
-		const channelsQuery = useGuildChannelsQuery(guild);
-		const isLoading = channelsQuery.isLoading;
+export const ChannelSelect = ({
+	value, onChange, ...rest
+}: {
+	value: string;
+	onChange: (v: string) => void;
+}) => {
+	const guild = usePathname().split('/')[3];
+	const channelsQuery = useGuildChannelsQuery(guild);
+	const isLoading = channelsQuery.isLoading;
 
-		const selected = useMemo(() => {
-			return value !== undefined ? channelsQuery.data?.find((c) => c.id === value) : null;
-		}, [value, channelsQuery.data]);
+	const selected = useMemo(() => {
+		return value !== undefined ? channelsQuery.data?.find((c) => c.id === value) : null;
+	}, [value, channelsQuery.data]);
 
-		const options = useMemo(() => {
-			return channelsQuery?.data !== undefined ? mapOptions(channelsQuery.data) : [];
-		}, [channelsQuery.data]);
+	const options = useMemo(() => {
+		return channelsQuery?.data !== undefined ? mapOptions(channelsQuery.data) : [];
+	}, [channelsQuery.data]);
 
-		return (
-			<SelectField<Option>
-				isDisabled={isLoading}
-				isLoading={isLoading}
-				placeholder={<common.T text="select channel" />}
-				value={selected !== null ? render(selected) : null}
-				options={options}
-				onChange={(e) => e !== null && onChange(e.value as string)}
-				ref={ref}
-				{...rest}
-			/>
-		);
-	},
-);
+	return (
+		<SelectMenu
+			createAble={true}
+			isLoading={isLoading}
+			isDisabled={isLoading}
+			placeholder='Select a channel.'
+			value={selected !== null ? render(selected) : null}
+			options={options}
+			onChange={(e) => e !== null && onChange((e as { value: string }).value)}
+			{...rest}
+		/>
+	);
+};
 
 ChannelSelect.displayName = 'ChannelSelect';
 
@@ -93,11 +97,30 @@ export const ChannelSelectForm: ControlledInput<Omit<Props, 'value' | 'onChange'
 	controller,
 	...props
 }) => {
-	const { field, fieldState } = useController(controller);
+	const form = useForm();
 
 	return (
-		<FormCard {...control} error={fieldState.error?.message}>
-			<ChannelSelect {...field} {...props} />
-		</FormCard>
+		<div className='grid gap-3'>
+			<div className="flex flex-col width-[100%] relative border-r-3xl p-5 shadow black2 rounded-3xl">
+				<label className="block text-start mr-3 transition-all duration-300 opacity-100 text-base font-medium mb-0">
+					<h2 className="text-2xl font-semibold">{control.label}</h2>
+					<p className="text-gray-500 mb-3">{control.description}</p>
+				</label>
+				<Spacer />
+				<Form {...form}>
+					<form className='text-white'>
+						<FormField
+							control={controller.control}
+							name={controller.name}
+							render={({ field }) => (
+								<FormItem className='text-white'>
+									<ChannelSelect {...field} {...props} />
+								</FormItem>
+							)}
+						/>
+					</form>
+				</Form>
+			</div>
+		</div>
 	);
 };

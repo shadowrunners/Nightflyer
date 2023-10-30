@@ -1,6 +1,8 @@
-import { ChannelSelectForm } from '@/components/forms/ChannelSelect';
-import { AntiPhishingFeature, UseFormRender } from '@/config/types';
-import { SimpleGrid } from '@chakra-ui/layout';
+'use client';
+
+import type { AntiPhishingFeature } from '@/types/features';
+import type { UseFormRender } from '@/types/formTypes';
+import { ChannelSelectForm } from '@/components/forms';
 import { useForm } from 'react-hook-form';
 
 export const useAntiPhishFeature: UseFormRender<AntiPhishingFeature> = (data, onSubmit) => {
@@ -13,19 +15,17 @@ export const useAntiPhishFeature: UseFormRender<AntiPhishingFeature> = (data, on
 
 	return {
 		component: (
-			<><SimpleGrid columns={{ base: 1, lg: 2 }} gap={3}>
+			<div className='grid grid-cols-1 lg:grid-cols-2 gap-3'>
 				<ChannelSelectForm
 					control={{
 						label: 'Channel',
 						description: 'The channel where the anti-phishing module will send alerts.',
 					}}
 					controller={{ control, name: 'channel' }} />
-			</SimpleGrid>
-			</>
+			</div>
 		),
 		onSubmit: handleSubmit(async (e) => {
-			// eslint-disable-next-line no-shadow
-			const data = await onSubmit(
+			await onSubmit(
 				JSON.stringify({
 					channel: e.channel,
 				}),

@@ -1,6 +1,8 @@
-import { RoleSelectForm } from '@/components/forms/RoleSelect';
-import { UseFormRender, VerifyFeature } from '@/config/types';
-import { SimpleGrid } from '@chakra-ui/layout';
+'use client';
+
+import type { UseFormRender } from '@/types/formTypes';
+import type { VerifyFeature } from '@/types/features';
+import { RoleSelectForm } from '@/components/forms';
 import { useForm } from 'react-hook-form';
 
 export const useVerifySystem: UseFormRender<VerifyFeature> = (data, onSubmit) => {
@@ -13,7 +15,7 @@ export const useVerifySystem: UseFormRender<VerifyFeature> = (data, onSubmit) =>
 
 	return {
 		component: (
-			<><SimpleGrid columns={{ base: 1, lg: 2 }} gap={3}>
+			<div className='grid grid-cols-1 lg:grid-cols-2 gap-3'>
 				<RoleSelectForm
 					control={{
 						label: 'Verified Role',
@@ -21,8 +23,7 @@ export const useVerifySystem: UseFormRender<VerifyFeature> = (data, onSubmit) =>
 					}}
 					controller={{ control, name: 'role' }}
 				/>
-			</SimpleGrid>
-			</>
+			</div>
 		),
 		onSubmit: handleSubmit(async (e) => {
 			await onSubmit(

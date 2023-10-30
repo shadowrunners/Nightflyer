@@ -1,11 +1,12 @@
-import { ChannelSelectForm } from '@/components/forms/ChannelSelect';
-import { LevellingFeature, UseFormRender } from '@/config/types';
-import { TextAreaForm } from '@/components/forms/TextAreaForm';
-import { SimpleGrid } from '@chakra-ui/layout';
+'use client';
+
+import { ChannelSelectForm, TextAreaForm } from '@/components/forms';
+import type { LevellingFeature } from '@/types/features';
+import type { UseFormRender } from '@/types/formTypes';
 import { useForm } from 'react-hook-form';
 
 export const useLevellingSystem: UseFormRender<LevellingFeature> = (data, onSubmit) => {
-	const { reset, handleSubmit, formState, control, register } = useForm<LevellingFeature>({
+	const { reset, handleSubmit, formState, control } = useForm<LevellingFeature>({
 		shouldUnregister: false,
 		defaultValues: {
 			channel: data.channel,
@@ -15,22 +16,25 @@ export const useLevellingSystem: UseFormRender<LevellingFeature> = (data, onSubm
 
 	return {
 		component: (
-			<><SimpleGrid columns={{ base: 1, lg: 2 }} gap={3}>
+			<div className='grid grid-cols-1 lg:grid-cols-2 gap-3'>
 				<ChannelSelectForm
 					control={{
 						label: 'Channel',
 						description: 'The channel where level up messages will sent in.',
 					}}
-					controller={{ control, name: 'channel' }} />
+					controller={{ control, name: 'channel' }}
+				/>
 				<TextAreaForm
 					control={{
 						label: 'Message',
 						description: 'The message that will be sent when a user levels up.',
 					}}
-					{...register('message')}
+					controller={{
+						control,
+						name: 'message',
+					}}
 				/>
-			</SimpleGrid>
-			</>
+			</div>
 		),
 		onSubmit: handleSubmit(async (e) => {
 			await onSubmit(

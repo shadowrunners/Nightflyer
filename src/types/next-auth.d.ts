@@ -3,6 +3,6 @@ import NextAuth from 'next-auth';
 
 declare module 'next-auth' {
 	interface Session {
-		accessToken: string | unknown;
+		accessToken: string | undefined;
 	}
 }
