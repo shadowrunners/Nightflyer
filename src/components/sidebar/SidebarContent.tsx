@@ -4,30 +4,30 @@ import { Avatar, AvatarFallback, AvatarImage, Button, Card, CardContent, Spacer 
 import { useActiveSidebarItem, SidebarItemInfo } from '@/utils/router';
 import { IoMdLogOut } from 'react-icons/io';
 import { GuildItem, GuildItemsSkeleton } from './GuildItem';
-import { useGuilds, useSelfUserQuery } from '@/api/hooks';
-import { useMemo, useState } from 'react';
-import { SidebarItem } from './SidebarItem';
-import type { Guild } from '@/types/types';
-import items from '@/config/sidebar-items';
-import { avatarUrl } from '@/api/discord';
-import { signOut } from 'next-auth/react';
-import { config } from '@/config/common';
+import { useGuilds, useSelfUserQuery } from '@/utils/API/hooks';
+import type { APIGuild } from '@/types/types';
+import { avatarUrl } from '@/utils/API/fetch';
 import { usePathname } from 'next/navigation';
+import { filterGuilds } from '@/utils/util';
+import { SidebarItem } from './SidebarItem';
+import { signOut } from 'next-auth/react';
+import { useMemo, useState } from 'react';
+import items from '@/utils/sidebar';
 import Image from 'next/image';
 
 export function SidebarContent() {
 	const guilds = useGuilds();
 	const [filter] = useState('');
-	const selectedGroup = usePathname().replace('/guilds/', '');
+	const selectedGroup = usePathname().replace('/en/guilds/', '');
 
-	const filterGuilds = (guildsData: Guild[] | undefined) => {
+	const filterGuildData = (guildsData: APIGuild[] | undefined) => {
 		return guildsData?.filter((guild) => {
 			const contains = guild.name.toLowerCase().includes(filter.toLowerCase());
-			return config.guild.filter(guild) && contains;
+			return filterGuilds(guild) && contains;
 		});
 	};
 
-	const filteredGuilds = useMemo(() => filterGuilds(guilds?.data), [guilds?.data, filter]);
+	const filteredGuilds = useMemo(() => filterGuildData(guilds?.data), [guilds?.data, filter]);
 
 	return (
 		<div>
@@ -59,13 +59,13 @@ export function SidebarContent() {
 
 export function BottomCard() {
 	const user = useSelfUserQuery().data;
-	if (user == null) return <></>;
+	if (user === null) return <></>;
 
 	return (
 		<Card className='sticky mr-0 mb-0 ml-0 flex flex-col bg-transparent'>
 			<CardContent className='flex'>
 				<Avatar className='mr-3'>
-					<AvatarImage src={avatarUrl(user)} alt='pfp' />
+					<AvatarImage src={avatarUrl(user!)} alt='pfp' />
 					<AvatarFallback>{user?.username}</AvatarFallback>
 				</Avatar>
 				<h3 className='font-semibold text-white mt-1'>{user?.username}</h3>

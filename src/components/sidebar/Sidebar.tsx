@@ -4,9 +4,12 @@ import { Sheet, SheetContent, Spacer } from '@/components/ui';
 import { BottomCard, SidebarContent } from './SidebarContent';
 import { AnimatePresence, motion } from 'framer-motion';
 import { usePageStore } from '@/utils/pageStore';
-import { ReactNode } from 'react';
+import { showCorrectShit } from '@/utils/util';
+import { InGuildSidebar } from '@/components/guild/GuildSidebar';
 
-export function Sidebar({ sidebar }: { sidebar?: ReactNode }) {
+export function Sidebar() {
+	const sidebar = showCorrectShit({ thing: <InGuildSidebar /> });
+
 	return (
 		<div
 			className={'flex-col xl:flex hidden flex-shrink-0 black2 w-[300px] h-screen overflow-x-hidden overflow-y-auto'}>
@@ -27,8 +30,9 @@ export function Sidebar({ sidebar }: { sidebar?: ReactNode }) {
 	);
 }
 
-export function SidebarResponsive({ sidebar }: { sidebar?: ReactNode }) {
+export function SidebarResponsive() {
 	const [isOpen, setOpen] = usePageStore((s) => [s.sidebarIsOpen, s.setSidebarIsOpen]);
+	const sidebar = showCorrectShit({ thing: <InGuildSidebar /> });
 
 	return (
 		<Sheet open={isOpen} onOpenChange={(state) => setOpen(state)}>
