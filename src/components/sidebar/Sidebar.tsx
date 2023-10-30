@@ -32,7 +32,7 @@ export function Sidebar() {
 
 export function SidebarResponsive() {
 	const [isOpen, setOpen] = usePageStore((s) => [s.sidebarIsOpen, s.setSidebarIsOpen]);
-	const sidebar = showCorrectShit({ thing: <InGuildSidebar /> });
+	const sidebar = showCorrectShit({ thing: <InGuildSidebar />, type: 'sidebar' });
 
 	return (
 		<Sheet open={isOpen} onOpenChange={(state) => setOpen(state)}>
