@@ -76,14 +76,14 @@ function Savebar({
 			animate={canSave ? 'visible' : 'hidden'}
 			exit='hidden'
 			variants={variants}
-			className='flex card-background rounded-3xl sticky bottom-2 md:bottom-10 w-full p-1 md:p-[15px] shadow-normal items-center flex-col md:flex-row gap-1 md:gap-2 mt-auto'
+			className='flex black2 rounded-3xl sticky bottom-2 md:bottom-10 w-full p-1 md:p-[15px] shadow-normal items-center flex-col md:flex-row gap-1 md:gap-2 mt-auto'
 		>
 			<WarningIcon className='hidden sm:block w-[30px] h-[30px]' />
 			<h1 className="font-semibold text-md md:text-lg">{t('unsaved')}</h1>
 			<Spacer />
 			<div className='inline-flex'>
 				<Button
-					className='rounded-full'
+					className='rounded-full mr-2'
 					type="submit"
 					variant="default"
 					onClick={onSubmit}
