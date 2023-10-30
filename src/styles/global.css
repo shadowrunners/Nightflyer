@@ -71,10 +71,6 @@ body {
   );
 }
 
-.bg-brand {
-  color: #7551FF;
-}
-
 .bg-gray-gradient {
   background: linear-gradient(
           153.47deg,
