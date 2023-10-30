@@ -9,7 +9,7 @@ import { signOut } from 'next-auth/react';
  * @returns The information if the user is in the guild otherwise null.
  */
 export async function fetchGuildInfo(id: string, accessToken: string): Promise<HVGuild | null> {
-	const data = await fetch(`${process.env['NEXT_PUBLIC_API_URL']}/guilds/${id}`, {
+	const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/guilds/${id}`, {
 		method: 'GET',
 		headers: {
 			Authorization: `Bearer ${accessToken}`,
@@ -27,7 +27,7 @@ export async function fetchGuildInfo(id: string, accessToken: string): Promise<H
  * @returns A 200 response to indicate that the feature was enabled.
  */
 export async function enableFeature(id: string, feature: string, accessToken: string) {
-	return await fetch(`${process.env['NEXT_PUBLIC_API_URL']}/guilds/${id}/features/${feature}`, {
+	return await fetch(`${process.env.NEXT_PUBLIC_API_URL}/guilds/${id}/features/${feature}`, {
 		method: 'POST',
 		headers: {
 			Authorization: `Bearer ${accessToken}`,
@@ -43,7 +43,7 @@ export async function enableFeature(id: string, feature: string, accessToken: st
  * @returns A 200 response to indicate that the feature was disabled.
  */
 export async function disableFeature(id: string, feature: string, accessToken: string) {
-	return await fetch(`${process.env['NEXT_PUBLIC_API_URL']}/guilds/${id}/features/${feature}`, {
+	return await fetch(`${process.env.NEXT_PUBLIC_API_URL}/guilds/${id}/features/${feature}`, {
 		method: 'DELETE',
 		headers: {
 			Authorization: `Bearer ${accessToken}`,
@@ -63,7 +63,7 @@ export async function getFeature<K extends keyof CustomFeatures>(
 	feature: K,
 	accessToken: string,
 ): Promise<CustomFeatures[K]> {
-	const data = await fetch(`${process.env['NEXT_PUBLIC_API_URL']}/guilds/${id}/features/${feature}`, {
+	const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/guilds/${id}/features/${feature}`, {
 		method: 'GET',
 		headers: {
 			Authorization: `Bearer ${accessToken}`,
@@ -87,7 +87,7 @@ export async function updateFeature<K extends keyof CustomFeatures>(
 	options: FormData | string,
 	accessToken: string,
 ): Promise<CustomFeatures[K]> {
-	const data = await fetch(`${process.env['NEXT_PUBLIC_API_URL']}/guilds/${id}/features/${feature}`, {
+	const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/guilds/${id}/features/${feature}`, {
 		method: 'PATCH',
 		headers: {
 			Authorization: `Bearer ${accessToken}`,
@@ -106,7 +106,7 @@ export async function updateFeature<K extends keyof CustomFeatures>(
  * @returns The guild's roles.
  */
 export async function fetchGuildRoles(id: string, accessToken: string) {
-	const res = await fetch(`${process.env['NEXT_PUBLIC_API_URL']}/guilds/${id}/roles`, {
+	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/guilds/${id}/roles`, {
 		method: 'GET',
 		headers: {
 			Authorization: `Bearer ${accessToken}`,
@@ -123,7 +123,7 @@ export async function fetchGuildRoles(id: string, accessToken: string) {
  * @returns The guild's channels.
  */
 export async function fetchGuildChannels(id: string, accessToken: string) {
-	const res = await fetch(`${process.env['NEXT_PUBLIC_API_URL']}/guilds/${id}/channels`, {
+	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/guilds/${id}/channels`, {
 		method: 'GET',
 		headers: {
 			Authorization: `Bearer ${accessToken}`,
