@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { styles } from '@/utils/utils';
+import { styles } from '@/utils/util';
 import { motion } from 'framer-motion';
 
 const Features = () => {
