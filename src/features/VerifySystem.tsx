@@ -1,7 +1,8 @@
 'use client';
 
-import { RoleSelectForm } from '@/components/forms/RoleSelect';
-import { UseFormRender, VerifyFeature } from '@/config/types';
+import type { UseFormRender } from '@/types/formTypes';
+import type { VerifyFeature } from '@/types/features';
+import { RoleSelectForm } from '@/components/forms';
 import { useForm } from 'react-hook-form';
 
 export const useVerifySystem: UseFormRender<VerifyFeature> = (data, onSubmit) => {

@@ -1,8 +1,8 @@
 'use client';
 
-import { ChannelSelectForm } from '@/components/forms/ChannelSelect';
-import { LevellingFeature, UseFormRender } from '@/config/types';
-import { TextAreaForm } from '@/components/forms/TextAreaForm';
+import { ChannelSelectForm, TextAreaForm } from '@/components/forms';
+import type { LevellingFeature } from '@/types/features';
+import type { UseFormRender } from '@/types/formTypes';
 import { useForm } from 'react-hook-form';
 
 export const useLevellingSystem: UseFormRender<LevellingFeature> = (data, onSubmit) => {
