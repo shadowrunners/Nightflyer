@@ -3,7 +3,7 @@ import items from '@/config/sidebar-items';
 import { ReactNode, useMemo } from 'react';
 
 export function useActiveSidebarItem(): SidebarItemInfo | null {
-	const pathname = usePathname();
+	const pathname = usePathname().replace('/en', '');
 
 	return useMemo(() => {
 		for (const item of items) {
