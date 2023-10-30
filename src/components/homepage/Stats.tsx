@@ -1,6 +1,6 @@
 'use client';
 
-import { observerHook, styles, variants } from '@/utils/utils';
+import { observerHook, styles, variants } from '@/utils/util';
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import Counter from './Counter';

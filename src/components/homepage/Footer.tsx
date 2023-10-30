@@ -1,5 +1,5 @@
 import { useTranslations } from 'next-intl';
-import { styles } from '@/utils/utils';
+import { styles } from '@/utils/util';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -48,8 +48,6 @@ const Footer = () => {
 
 				<ul>
 					<Image src="https://res.cloudinary.com/shadowrunners/image/upload/v1687549856/pwrdbyvercel.svg" width={212} height={44} alt="vercel" className="mb-2" />
-					<Image src="https://res.cloudinary.com/shadowrunners/image/upload/v1687690774/pwrdbycfworkers.webp" width={256} height={54} alt="cfworkers" className="mb-2" />
-					<Image src="https://res.cloudinary.com/shadowrunners/image/upload/v1687690764/pwrdbycldnry.webp" width={256} height={54} alt="cldnry" />
 				</ul>
 			</div>
 

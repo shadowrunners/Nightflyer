@@ -1,6 +1,6 @@
 'use client';
 
-import { observerHook, styles, variants } from '@/utils/utils';
+import { observerHook, styles, variants } from '@/utils/util';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState, useRef, useEffect } from 'react';
 import { useTranslations } from 'next-intl';

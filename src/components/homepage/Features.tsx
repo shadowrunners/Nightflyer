@@ -1,6 +1,6 @@
 'use client';
 
-import { observerHook, styles, variants } from '@/utils/utils';
+import { observerHook, styles, variants } from '@/utils/util';
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
@@ -97,7 +97,6 @@ const Features = () => {
 				</div>
 			</div>
 		</motion.section>
-		// </Fragment>
 	);
 };
 

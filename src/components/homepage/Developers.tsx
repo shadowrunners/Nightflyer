@@ -1,7 +1,7 @@
-import { styles } from '@/utils/utils';
+import { styles } from '@/utils/util';
 import Image from 'next/image';
 
-const Developers = () => (
+export const Developers = () => (
 	<section
 		id="developers"
 		className={`${styles.paddingY} ${styles.flexCenter} flex-col relative`}
@@ -43,11 +43,8 @@ const Developers = () => (
 			</div>
 
 			<p className="font-poppins font-normal text-[18px] leading-[32.4px] text-white my-10">
-					I lost my sanity and started working on Discord Bots. Best decision I've
-					done in my entire life. 👍
+				I've put more effort into this project than I've put in my exams.
 			</p>
 		</div>
 	</section>
 );
-
-export default Developers;

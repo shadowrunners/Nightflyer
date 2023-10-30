@@ -20,6 +20,7 @@ export default function Navbar() {
 				<Image
 					width={500}
 					height={200}
+					priority={true}
 					src="https://res.cloudinary.com/shadowrunners/image/upload/v1687690764/evl_logo.webp"
 					alt="evelyn"
 					className="w-[128px] h-[128px] object-contain" />
@@ -48,9 +49,7 @@ export default function Navbar() {
 						else return Router.replace('/home');
 					}}
 					variant='outline'
-					className='text-white'
-
-
+					className='text-white button-glow'
 				>
 					{status === 'unauthenticated' ? 'Sign in with Discord' : 'Dashboard' }
 				</Button>
@@ -94,7 +93,7 @@ export default function Navbar() {
 							</motion.a>
 						</li>
 						<li
-							className="font-poppins text-white font-normal cursor-pointer text-16 mr-0 mt-3"
+							className="font-poppins text-white font-normal cursor-pointer text-16 mr-0 mt-3 button-glow"
 							onClick={() => {
 								if (!session) return Router.replace('/auth/login');
 								else return Router.replace('/home');
