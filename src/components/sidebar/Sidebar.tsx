@@ -8,7 +8,7 @@ import { showCorrectShit } from '@/utils/util';
 import { InGuildSidebar } from '@/components/guild/GuildSidebar';
 
 export function Sidebar() {
-	const sidebar = showCorrectShit({ thing: <InGuildSidebar /> });
+	const sidebar = showCorrectShit({ thing: <InGuildSidebar />, type: 'sidebar' });
 
 	return (
 		<div

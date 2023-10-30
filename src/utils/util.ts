@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { MutableRefObject, Dispatch, SetStateAction, ReactNode, ReactElement } from 'react';
+import { MutableRefObject, Dispatch, SetStateAction, ReactElement } from 'react';
 import { type APIGuild, PermissionFlags, type Styles } from '@/types/types';
 import { Features, type IdFeature } from '@/types/features';
 import { usePathname } from 'next/navigation';
@@ -48,14 +48,22 @@ export const variants = {
 };
 
 /** Shows the correct navigation / sidebars based on the current URL. Used for different navs and sides on feature / guild pages. */
-export function showCorrectShit({ thing }: { thing: ReactElement }) {
-	const path = usePathname().split('/')[4];
-	let renderedThing: ReactNode;
+// Is this totally unnecessary? Probably. Is it useful? Extremely.
+export function showCorrectShit({ thing, type }: { thing: ReactElement, type: string }) {
+	let path;
 
-	if (path) renderedThing = thing;
-	else renderedThing = null;
-
-	return renderedThing;
+	switch (type) {
+	case 'navbar':
+		path = usePathname().split('/')[3];
+		if (path) return thing;
+		else return null;
+	case 'sidebar':
+		path = usePathname().split('/')[4];
+		if (path) return thing;
+		else return null;
+	default:
+		return null;
+	}
 }
 
 /** Filters the guilds where the user doesn't have the Administrator permission. */
