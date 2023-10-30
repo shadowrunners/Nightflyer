@@ -66,6 +66,10 @@
         "not_enabled": "This feature is not enabled",
         "not_enabled_desc": "Enable this feature in order to customize its aspects."
     },
+    "buttons": {
+        "invite": "Invite Evelyn",
+        "tryagain": "Try Again"
+    },
     "loading": "Loading",
     "unsaved": "Save Changes?",
     "features": "Features"

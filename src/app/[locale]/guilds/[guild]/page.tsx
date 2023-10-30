@@ -69,12 +69,13 @@ function GuildPanel({ guild: id, data }: { guild: string; data: HVGuild }) {
 
 function NotJoined({ guild }: { guild: string }) {
 	const t = useTranslations('error');
+	const t2 = useTranslations('buttons');
 	const Router = useRouter();
 
 	return (
 		<div className='flex justify-center items-center flex-col gap-3 h-full p-5'>
-			<BiSolidErrorAlt className='w-[50px] h-[50px]' />
-			<h1 className='text-xl font-semibold'>
+			<BiSolidErrorAlt className='w-[50px] h-[50px] text-white' />
+			<h1 className='text-xl font-semibold text-white'>
 				{t('not_found')}
 			</h1>
 			<h1 className='text-center text-dimWhite'>
@@ -82,11 +83,11 @@ function NotJoined({ guild }: { guild: string }) {
 			</h1>
 			<Button
 				variant='outline'
-				className='px-6'
+				className='px-6 text-white'
 				onClick={() => Router.push(`${config.inviteUrl}&guild_id=${guild}`)}
 			>
-				<FaRobot className='mr-2' />
-				{t('button.invite')}
+				<FaRobot className='mr-2 text-white' />
+				{t2('invite')}
 			</Button>
 		</div>
 	);
