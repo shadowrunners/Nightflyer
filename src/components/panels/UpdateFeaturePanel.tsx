@@ -1,14 +1,15 @@
 'use client';
 
-import { FeatureConfig, UseFormRenderResult, CustomFeatures } from '@/config/types';
-import { useEnableFeatureMutation, useUpdateFeatureMutation } from '@/api/hooks';
+import { useEnableFeatureMutation, useUpdateFeatureMutation } from '@/utils/API/hooks';
+import type { FeatureConfig, CustomFeatures } from '@/types/features';
 import { RiErrorWarningFill as WarningIcon } from 'react-icons/ri';
-import { IoSave } from 'react-icons/io5';
+import type { UseFormRenderResult } from '@/types/formTypes';
 import { Button, Spacer } from '@/components/ui';
-import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
+import { IoSave } from 'react-icons/io5';
+import { motion } from 'framer-motion';
 
-export function UpdateFeaturePanel({
+export const UpdateFeaturePanel = ({
 	guild,
 	featureId,
 	feature,
@@ -16,13 +17,12 @@ export function UpdateFeaturePanel({
 }: {
   guild: string,
   featureId: keyof CustomFeatures,
-  feature: CustomFeatures[keyof CustomFeatures];
+  feature: CustomFeatures[keyof CustomFeatures] | undefined;
   config: FeatureConfig<keyof CustomFeatures>;
-}) {
-	console.log(`Feature: ${feature}, Config: ${config}`);
+}) => {
 	const mutation = useUpdateFeatureMutation();
 	const enableMutation = useEnableFeatureMutation();
-	const result = config.useRender(feature, async (data) => {
+	const result = config.useRender(feature!, async (data) => {
 		return await mutation.mutateAsync({
 			guild,
 			feature: featureId,
@@ -52,17 +52,15 @@ export function UpdateFeaturePanel({
 			</div>
 
 			{result.component}
-			<Savebar isLoading={mutation.isLoading} result={result} />
+			<Savebar result={result} />
 		</div>
 	);
-}
+};
 
 function Savebar({
 	result: { canSave, onSubmit, reset },
-	isLoading,
 }: {
   result: UseFormRenderResult;
-  isLoading: boolean;
 }) {
 	const t = useTranslations();
 	const t2 = useTranslations('dash');

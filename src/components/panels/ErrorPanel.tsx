@@ -1,7 +1,7 @@
 import { MdOutlineError } from 'react-icons/md';
 import { Button } from '@/components/ui';
 
-export function ErrorPanel({ children, retry }: { children: string; retry: () => void }) {
+export const ErrorPanel = ({ children, retry }: { children: string; retry: () => void }) => {
 	return (
 		<div className='flex w-full h-full items-center justify-center'>
 			<div className='flex items-center flex-col gap-2.5'>
@@ -13,4 +13,4 @@ export function ErrorPanel({ children, retry }: { children: string; retry: () =>
 			</div>
 		</div>
 	);
-}
+};
