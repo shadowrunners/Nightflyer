@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 'use client';
 
 import * as React from 'react';
@@ -5,7 +7,7 @@ import * as SheetPrimitive from '@radix-ui/react-dialog';
 import { Cross2Icon } from '@radix-ui/react-icons';
 import { cva, type VariantProps } from 'class-variance-authority';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/util';
 
 const Sheet = SheetPrimitive.Root;
 
@@ -13,13 +15,7 @@ const SheetTrigger = SheetPrimitive.Trigger;
 
 const SheetClose = SheetPrimitive.Close;
 
-const SheetPortal = ({
-	className,
-	...props
-}: SheetPrimitive.DialogPortalProps) => (
-	<SheetPrimitive.Portal className={cn(className)} {...props} />
-);
-SheetPortal.displayName = SheetPrimitive.Portal.displayName;
+const SheetPortal = SheetPrimitive.Portal;
 
 const SheetOverlay = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Overlay>,
