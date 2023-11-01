@@ -6,6 +6,7 @@ import { BsSendFill } from 'react-icons/bs';
 import { Poppins } from 'next/font/google';
 import { FaMusic } from 'react-icons/fa';
 import { motion } from 'framer-motion';
+import { styles } from '@/utils/util';
 
 const font = Poppins({
 	weight: '400',
