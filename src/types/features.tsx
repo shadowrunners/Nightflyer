@@ -12,8 +12,9 @@ import {
 	useWelcomeFeature,
 } from '@/features';
 
-import { GiTalk } from 'react-icons/gi';
-import { MdMessage } from 'react-icons/md';
+import { LuDiff, LuMailQuestion, LuScrollText, LuTicket } from 'react-icons/lu';
+import { MdMessage, MdPhishing } from 'react-icons/md';
+import { IoShieldCheckmarkSharp } from 'react-icons/io5';
 import type { UseFormRender } from '@/types/formTypes';
 
 export type CustomFeatures = {
@@ -49,49 +50,49 @@ export interface FeatureConfig<K extends keyof CustomFeatures> {
 export const Features: FeaturesConfig = {
 	antiphishing: {
 		name: 'Anti-Phishing',
-		description: 'Protects your server against scammers.',
-		icon: <GiTalk />,
+		description: 'Protects your server against fraudulent links that steal users information.',
+		icon: <MdPhishing />,
 		useRender: useAntiPhishFeature,
 	},
 	confessions: {
 		name: 'Confessions',
 		description: 'Sends an anonymous message to a designated channel.',
-		icon: <GiTalk />,
+		icon: <LuMailQuestion />,
 		useRender: useConfessionSystem,
 	},
 	goodbye: {
 		name: 'Goodbye',
-		description: 'Sends a custom message when a user joins the server.',
+		description: 'Sends a custom message when a user leaves the server.',
 		icon: <MdMessage />,
 		useRender: useGoodbyeSystem,
 	},
 	logs: {
 		name: 'Logs',
 		description: 'Logs every single mod(s) action / server change to a designated channel.',
-		icon: <GiTalk />,
+		icon: <LuScrollText />,
 		useRender: useLogsSystem,
 	},
 	levelling: {
 		name: 'Levelling',
 		description: 'Makes chatting more rewarding by introducing an XP system.',
-		icon: <GiTalk />,
+		icon: <LuDiff />,
 		useRender: useLevellingSystem,
 	},
 	tickets: {
 		name: 'Tickets',
-		description: 'Makes chatting more rewarding by introducing an XP system.',
-		icon: <GiTalk />,
+		description: 'Makes your moderation team\'s job of helping server members easier.',
+		icon: <LuTicket />,
 		useRender: useTicketSystem,
 	},
 	verification: {
 		name: 'Verification',
-		description: 'Sends a custom message when a user joins the server',
-		icon: <MdMessage />,
+		description: 'Blocks bots and raiders by making them complete a captcha before entering.',
+		icon: <IoShieldCheckmarkSharp />,
 		useRender: useVerifySystem,
 	},
 	welcome: {
 		name: 'Welcome',
-		description: 'Sends a custom message when a user joins the server',
+		description: 'Sends a custom message when a user joins the server.',
 		icon: <MdMessage />,
 		useRender: useWelcomeFeature,
 	},
