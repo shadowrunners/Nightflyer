@@ -6,8 +6,10 @@ import { Button, Separator } from '@/components/ui';
 import { FaChevronLeft } from 'react-icons/fa';
 import { usePathname } from 'next/navigation';
 import { getFeatures } from '@/utils/util';
+import { useTranslations } from 'next-intl';
 
 export function InGuildSidebar() {
+	const t = useTranslations('dash');
 	const path = usePathname().split('/');
 	const guildId = path[3];
 	const activeId = path[5];
@@ -25,7 +27,7 @@ export function InGuildSidebar() {
 				</h1>
 			</a>
 			<div className='flex stretch gap-2.5 flex-col mb-2'>
-				<h1 className='flex font-poppins font-semibold mx-auto'>Features</h1>
+				<h1 className='flex font-poppins font-semibold mx-auto'>{t('features.name')}</h1>
 				<Separator className='mb-2' />
 
 				{getFeatures().map((feature) => (

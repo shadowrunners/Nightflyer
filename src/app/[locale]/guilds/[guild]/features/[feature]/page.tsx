@@ -18,7 +18,7 @@ const FeaturePage = ({ params }: { params: { feature: keyof CustomFeatures, guil
 	const { feature, guild } = params;
 
 	const query = useFeatureQuery(guild, feature);
-	const featureConfig = Features[feature] as FeatureConfig<typeof feature>;
+	const featureConfig = Features()[feature] as FeatureConfig<typeof feature>;
 	const skeleton = featureConfig?.useSkeleton?.();
 
 	if (featureConfig == null) return <NotFound />;

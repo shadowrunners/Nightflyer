@@ -43,13 +43,46 @@
         "button": {
             "enablefeature": "Enable",
             "disablefeature": "Disable",
-            "configfeature": "Config",
+            "configfeature": "Configure",
             "invite": "Invite Evelyn",
             "save": "Save",
-            "discard": "Discard"
+            "discard": "Discard",
+            "tryagain": "Try Again"
         },
         "features": {
-
+            "name": "Features",
+            "antiphishing": {
+                "title": "Anti-Phishing",
+                "description": "Protects your server against fraudulent links that steal users information."
+            },
+            "confessions": {
+                "title": "Confessions",
+                "description": "Sends an anonymous message to a designated channel."
+            },
+            "goodbye": {
+                "title": "Goodbye",
+                "description": "Sends a custom message when a user leaves the server."
+            },
+            "logs": {
+                "title": "Logs",
+                "description": "Logs every single mod(s) action / server change to a designated channel."
+            },
+            "levelling": {
+                "title": "Levelling",
+                "description": "Makes chatting more rewarding by introducing an XP system."
+            },
+            "tickets": {
+                "title": "Tickets",
+                "description": "Makes your moderation team's job of helping server members easier."
+            },
+            "verification": {
+                "title": "Verification",
+                "description": "Blocks bots and raiders by making them complete a captcha before entering."
+            },
+            "welcome": {
+                "title": "Welcome",
+                "description": "Sends a custom message when a user joins the server."
+            }
         },
         "banner": {
             "title": "Welcome back, runner.",
@@ -66,11 +99,6 @@
         "not_enabled": "This feature is not enabled",
         "not_enabled_desc": "Enable this feature in order to customize its aspects."
     },
-    "buttons": {
-        "invite": "Invite Evelyn",
-        "tryagain": "Try Again"
-    },
     "loading": "Loading",
-    "unsaved": "Save Changes?",
-    "features": "Features"
+    "unsaved": "Save Changes?"
 }

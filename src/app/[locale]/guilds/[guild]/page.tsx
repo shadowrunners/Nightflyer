@@ -27,13 +27,13 @@ const GuildPage = ({ params }: { params: { guild: string }}) => {
 
 function GuildPanel({ guild: id, data }: { guild: string; data: HVGuild }) {
 	const Router = useRouter();
-	const t = useTranslations();
+	const t = useTranslations('dash');
 
 	return (
 		<div className='flex flex-col gap-5 text-white'>
 			<Banner />
 
-			<h1 className='text-[23px] font-poppins font-semibold'>{t('features')}</h1>
+			<h1 className='text-[23px] font-poppins font-semibold'>{t('features.name')}</h1>
 			<div className="flex-row grid grid-cols-1 md:grid-cols-3 2xl:grid-cols-3 gap-3">
 				{getFeatures().map((feature) => (
 					<Card className='black2 text-white'>
@@ -56,7 +56,7 @@ function GuildPanel({ guild: id, data }: { guild: string; data: HVGuild }) {
 								className='rounded-2xl bg-white text-black font-poppins font-semibold transition-transform button-glow'
 								onClick={() => Router.push(`/guilds/${id}/features/${feature.id}`)}
 							>
-								{data?.enabledFeatures?.includes(feature.id) ? 'Configure' : 'Enable'}
+								{data?.enabledFeatures?.includes(feature.id) ? t('button.configfeature') : t('button.enablefeature')}
 							</Button>
 						</CardFooter>
 					</Card>
@@ -68,7 +68,7 @@ function GuildPanel({ guild: id, data }: { guild: string; data: HVGuild }) {
 
 function NotJoined({ guild }: { guild: string }) {
 	const t = useTranslations('error');
-	const t2 = useTranslations('buttons');
+	const t2 = useTranslations('dash');
 	const Router = useRouter();
 
 	return (
@@ -86,7 +86,7 @@ function NotJoined({ guild }: { guild: string }) {
 				onClick={() => Router.push(`${config.inviteUrl}&guild_id=${guild}`)}
 			>
 				<FaRobot className='mr-2 text-white' />
-				{t2('invite')}
+				{t2('button.invite')}
 			</Button>
 		</div>
 	);
