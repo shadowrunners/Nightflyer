@@ -119,7 +119,6 @@ export enum ChannelTypes {
     PRIVATE_THREAD = 12,
     GUILD_STAGE_VOICE = 13,
     GUILD_DIRECTORY = 14,
-    GUILD_FORUM = 15,
 }
 
 export type Styles = {
@@ -137,7 +136,7 @@ export type Styles = {
 };
 
 /** The guild information retrieved from the Hivemind API. */
-export interface HVGuild {
+export type HVGuild = {
     /** The guild's ID. */
     id?: string;
     /** The guild's name. */

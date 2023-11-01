@@ -1,6 +1,5 @@
 'use client';
 
-import { observerHook, styles, variants } from '@/utils/util';
 import { useEffect, useRef, useState } from 'react';
 import { HiShieldCheck } from 'react-icons/hi';
 import { BsSendFill } from 'react-icons/bs';
@@ -14,20 +13,26 @@ const font = Poppins({
 });
 
 const Features = () => {
-	const [isElementInView, setInView] = useState(false);
+	const [inView, setInView] = useState(false);
 	const ref = useRef<HTMLDivElement | null>(null);
 
 	useEffect(() => {
-		observerHook(ref, setInView);
+		const observer = new IntersectionObserver(([entry]) => {
+			setInView(entry.isIntersecting);
+		}, { threshold: 0.3 });
+		if (ref.current) observer.observe(ref.current);
+		return () => {
+			if (ref.current) observer.unobserve(ref.current);
+		};
 	}, []);
 
 	return (
 		<motion.section
 			id="features"
 			ref={ref}
-			variants={variants}
-			initial='hidden'
-			animate={ isElementInView ? 'visible' : 'hidden' }
+			initial={{ opacity: 0, x: inView ? 0 : -100 }}
+			animate={{ opacity: inView ? 1 : 0, x: inView ? 0 : -100 }}
+			exit={{ opacity: 0, x: -100 }}
 			transition={{ duration: 0.5 }}
 		>
 			<div
