@@ -1,10 +1,17 @@
+import { Poppins } from 'next/font/google';
 import { styles } from '@/utils/util';
 import Image from 'next/image';
+
+const font = Poppins({
+	weight: '400',
+	subsets: ['latin', 'latin-ext'],
+	style: 'normal',
+});
 
 export const Developers = () => (
 	<section
 		id="developers"
-		className={`${styles.paddingY} ${styles.flexCenter} flex-col relative`}
+		className={`${styles.paddingY} ${styles.flexCenter} ${font.className} flex-col relative text-white`}
 	>
 		<div className="absolute z-[0] w-[60%] h-[60%] -right-[50%] rounded-full blue__gradient bottom-40" />
 
@@ -32,17 +39,17 @@ export const Developers = () => (
 					className="h-[75px] w-[75px] rounded-full"
 				/>
 
-				<div className="flex flex-col ml-4">
-					<h4 className="font-poppins font-semibold text-[30px] leading-[32px] text-white">
+				<div className={`${font.className} flex-col ml-4`}>
+					<h4 className="font-semibold text-[30px] leading-[32px]">
 							scrappie
 					</h4>
-					<p className="font-poppins font-normal text-[20px] leading-[24px] my-[7px] text-dimWhite">
+					<p className="text-[20px] leading-[24px] my-[7px] text-dimWhite">
 							the only dev
 					</p>
 				</div>
 			</div>
 
-			<p className="font-poppins font-normal text-[18px] leading-[32.4px] text-white my-10">
+			<p className="text-[18px] leading-[32.4px] my-10">
 				I've put more effort into this project than I've put in my exams.
 			</p>
 		</div>
