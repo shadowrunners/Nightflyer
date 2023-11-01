@@ -2,8 +2,16 @@
 
 import { observerHook, styles, variants } from '@/utils/util';
 import { useEffect, useRef, useState } from 'react';
+import { HiShieldCheck } from 'react-icons/hi';
+import { BsSendFill } from 'react-icons/bs';
+import { Poppins } from 'next/font/google';
+import { FaMusic } from 'react-icons/fa';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
+
+const font = Poppins({
+	weight: '400',
+	subsets: ['latin', 'latin-ext'],
+});
 
 const Features = () => {
 	const [isElementInView, setInView] = useState(false);
@@ -23,7 +31,7 @@ const Features = () => {
 			transition={{ duration: 0.5 }}
 		>
 			<div
-				className={'w-full justify-between items-center md:flex-row flex-col sm:mb-16 mb-6 relative z-[1]'}
+				className='w-full justify-between items-center md:flex-row flex-col sm:mb-16 mb-6 relative z-[1]'
 			>
 				<h2 className={`${styles.heading2} text-center`}>Features</h2>
 				<p className={`${styles.paragraph} text-center mt-5`}>
@@ -32,65 +40,47 @@ const Features = () => {
 				</p>
 			</div>
 
-			<div className="grid gap-3 lg:grid-cols-3 flex-col md:flex-row px-10 py-12 rounded-[20px] md:mr-5">
+			<div className={`${font.className} grid gap-3 lg:grid-cols-3 flex-col md:flex-row px-10 py-12 rounded-[20px] md:mr-5 text-white`}>
 				<div className="px-10 py-12 rounded-[20px] md:mr-5 my-5 feedback-card">
 					<div className={`w-[64px] h-[64px] rounded-full ${styles.flexCenter} bg-dimBlue`}>
-						<Image
-							width={32}
-							height={32}
-							src="https://res.cloudinary.com/shadowrunners/image/upload/v1683319996/evelyn/music.webp"
-							className="w-[50%] h-[50%] object-contain"
-							alt="Music Feature"
-						/>
+						<FaMusic className='w-6 h-6' />
 					</div>
 					<div className="flex-1 flex flex-col ml-3 mt-3">
-						<h4 className="font-poppins font-semibold text-white text-[18px] leading-[23px] mb-1">
+						<h4 className="font-semiboldtext-[18px] leading-[23px] mb-1">
 							Music
 						</h4>
-						<p className="font-poppins font-normal text-dimWhite text-[16px] leading-[24px] mb-1">
-							With the music module, you can make your gaming sessions inside
-							voice channels even more enjoyable. You can play music from
-							numerous platforms such as Deezer, Spotify and more! (except YouTube and YT Music)
+						<p className="text-dimWhite text-[16px] leading-[24px] mb-1">
+							With the music module powered by our custom in-house package,
+							you can make your gaming sessions inside voice channels even more enjoyable.
+							You can play music from numerous platforms such as Deezer, Spotify and more! (except YouTube and YT Music)
 						</p>
 					</div>
 				</div>
 
-				<div className={'px-10 py-12 rounded-[20px] md:mr-5 my-5 feedback-card'}>
+				<div className='px-10 py-12 rounded-[20px] md:mr-5 my-5 feedback-card'>
 					<div className={`w-[64px] h-[64px] rounded-full ${styles.flexCenter} bg-dimBlue`}>
-						<Image
-							width={32}
-							height={32}
-							src="https://res.cloudinary.com/shadowrunners/image/upload/q_auto/evelyn/shield.webp"
-							className="w-[50%] h-[50%] object-contain"
-							alt="Overwatch Feature"
-						/>
+						<HiShieldCheck className="w-9 h-9" />
 					</div>
 					<div className="flex-1 flex flex-col ml-3 mt-3">
-						<h4 className="font-poppins font-semibold text-white text-[18px] leading-[23px] mb-1">
+						<h4 className="font-semibold text-[18px] leading-[23px] mb-1">
 							Overwatch
 						</h4>
-						<p className="font-poppins font-normal text-dimWhite text-[16px] leading-[24px] mb-1">
-							Keep your server safe with Overwatch, the ultimate moderation toolkit containing anti-scamming, auto moderation, logging and verification systems.
+						<p className="text-dimWhite text-[16px] leading-[24px] mb-1">
+							Keep your server safe with Overwatch, the ultimate moderation toolkit containing anti-phishing, auto moderation, logging and verification systems.
 						</p>
 					</div>
 				</div>
 
 
-				<div className={'px-10 py-12 rounded-[20px] md:mr-5 my-5 feedback-card'}>
+				<div className='px-10 py-12 rounded-[20px] md:mr-5 my-5 feedback-card'>
 					<div className={`w-[64px] h-[64px] rounded-full ${styles.flexCenter} bg-dimBlue`}>
-						<Image
-							width={64}
-							height={64}
-							src="./send.svg"
-							className="object-contain w-auto h-auto"
-							alt="WL_FW Feature"
-						/>
+						<BsSendFill className="w-7 h-7" />
 					</div>
 					<div className="flex-1 flex flex-col ml-3 mt-3">
-						<h4 className="font-poppins font-semibold text-white text-[18px] leading-[23px] mb-1">
+						<h4 className="font-semibold text-[18px] leading-[23px] mb-1">
 							Welcomer / Farewell
 						</h4>
-						<p className="font-poppins font-normal text-dimWhite text-[16px] leading-[24px] mb-1">
+						<p className="text-dimWhite text-[16px] leading-[24px] mb-1">
 							Say hello and farewell in style with Evelyn's customizable welcome and goodbye system, featuring fully customizable embeds and messages.
 						</p>
 					</div>
