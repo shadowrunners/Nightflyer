@@ -10,7 +10,7 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
 	const query = useSelfUserQuery();
 
 	return (
-		<div className='flex flex-row h-full'>
+		<div className='flex flex-row h-full black2'>
 			<Sidebar />
 			<div className='hidden lg:block'>
 				<SidebarResponsive />
