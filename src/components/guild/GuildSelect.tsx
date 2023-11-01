@@ -17,7 +17,7 @@ export function GuildSelect() {
 							<a href={`/guilds/${guild.id}`}>
 								<CardHeader className='flex flex-row gap-3'>
 									<Avatar>
-										<AvatarImage src={getGuildImg(guild.id, guild.icon) || './send.svg'}/>
+										<AvatarImage src={getGuildImg(guild.id, guild.icon)}/>
 										<AvatarFallback className='text-black'>SW</AvatarFallback>
 									</Avatar>
 									<h1>{guild.name}</h1>

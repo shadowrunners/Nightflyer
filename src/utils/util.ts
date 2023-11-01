@@ -86,7 +86,7 @@ export function toRGB(num: number) {
 }
 
 export function getFeatures(): IdFeature<any>[] {
-	return Object.entries(Features).map(([k, v]) => {
+	return Object.entries(Features()).map(([k, v]) => {
 		return {
 			id: k,
 			...v,

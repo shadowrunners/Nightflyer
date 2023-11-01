@@ -42,6 +42,10 @@ body {
   background-color: #181114 !important;
 }
 
+.discord-embed .discord-embed-root .discord-embed-wrapper {
+  background-color: #181114 !important;
+}
+
 .card-background {
   background: #100C0E;
 }

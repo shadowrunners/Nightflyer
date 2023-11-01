@@ -26,7 +26,7 @@ export const TextAreaForm: ControlledInput<Omit<Props, 'value' | 'onChange'>> = 
 							name={controller.name}
 							render={({ field }) => (
 								<FormItem>
-									<Textarea placeholder='Write a cool level up message here! ✨' {...field} />
+									<Textarea placeholder='Write a cool message here! ✨' {...field} />
 								</FormItem>
 							)}
 						/>

@@ -47,3 +47,4 @@ export type ControlledInput<Props, V = unknown> = <
 export type WithControl<T> = T & {
     control: Omit<FormProps, 'children'>;
 };
+

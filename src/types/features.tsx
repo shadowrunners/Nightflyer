@@ -12,9 +12,11 @@ import {
 	useWelcomeFeature,
 } from '@/features';
 
-import { GiTalk } from 'react-icons/gi';
-import { MdMessage } from 'react-icons/md';
+import { LuDiff, LuMailQuestion, LuScrollText, LuTicket } from 'react-icons/lu';
+import { MdMessage, MdPhishing } from 'react-icons/md';
+import { IoShieldCheckmarkSharp } from 'react-icons/io5';
 import type { UseFormRender } from '@/types/formTypes';
+import { useTranslations } from 'next-intl';
 
 export type CustomFeatures = {
     antiphishing: AntiPhishingFeature,
@@ -25,10 +27,6 @@ export type CustomFeatures = {
     tickets: TicketsFeature,
     verification: VerifyFeature,
     welcome: WelcomeFeature,
-};
-
-type FeaturesConfig = {
-    [K in keyof CustomFeatures]: FeatureConfig<K>;
 };
 
 export interface FeatureConfig<K extends keyof CustomFeatures> {
@@ -46,55 +44,59 @@ export interface FeatureConfig<K extends keyof CustomFeatures> {
 }
 
 /** This is where the information for every feature is. */
-export const Features: FeaturesConfig = {
-	antiphishing: {
-		name: 'Anti-Phishing',
-		description: 'Protects your server against scammers.',
-		icon: <GiTalk />,
-		useRender: useAntiPhishFeature,
-	},
-	confessions: {
-		name: 'Confessions',
-		description: 'Sends an anonymous message to a designated channel.',
-		icon: <GiTalk />,
-		useRender: useConfessionSystem,
-	},
-	goodbye: {
-		name: 'Goodbye',
-		description: 'Sends a custom message when a user joins the server.',
-		icon: <MdMessage />,
-		useRender: useGoodbyeSystem,
-	},
-	logs: {
-		name: 'Logs',
-		description: 'Logs every single mod(s) action / server change to a designated channel.',
-		icon: <GiTalk />,
-		useRender: useLogsSystem,
-	},
-	levelling: {
-		name: 'Levelling',
-		description: 'Makes chatting more rewarding by introducing an XP system.',
-		icon: <GiTalk />,
-		useRender: useLevellingSystem,
-	},
-	tickets: {
-		name: 'Tickets',
-		description: 'Makes chatting more rewarding by introducing an XP system.',
-		icon: <GiTalk />,
-		useRender: useTicketSystem,
-	},
-	verification: {
-		name: 'Verification',
-		description: 'Sends a custom message when a user joins the server',
-		icon: <MdMessage />,
-		useRender: useVerifySystem,
-	},
-	welcome: {
-		name: 'Welcome',
-		description: 'Sends a custom message when a user joins the server',
-		icon: <MdMessage />,
-		useRender: useWelcomeFeature,
-	},
+export const Features = () => {
+	const t = useTranslations('dash');
+
+	return {
+		antiphishing: {
+			name: t('features.antiphishing.title'),
+			description: t('features.antiphishing.description'),
+			icon: <MdPhishing />,
+			useRender: useAntiPhishFeature,
+		},
+		confessions: {
+			name: t('features.confessions.title'),
+			description: t('features.confessions.description'),
+			icon: <LuMailQuestion />,
+			useRender: useConfessionSystem,
+		},
+		goodbye: {
+			name: t('features.goodbye.title'),
+			description: t('features.goodbye.description'),
+			icon: <MdMessage />,
+			useRender: useGoodbyeSystem,
+		},
+		logs: {
+			name: t('features.logs.title'),
+			description: t('features.logs.description'),
+			icon: <LuScrollText />,
+			useRender: useLogsSystem,
+		},
+		levelling: {
+			name: t('features.levelling.title'),
+			description: t('features.levelling.description'),
+			icon: <LuDiff />,
+			useRender: useLevellingSystem,
+		},
+		tickets: {
+			name: t('features.tickets.title'),
+			description: t('features.tickets.description'),
+			icon: <LuTicket />,
+			useRender: useTicketSystem,
+		},
+		verification: {
+			name: t('features.verification.title'),
+			description: t('features.verification.description'),
+			icon: <IoShieldCheckmarkSharp />,
+			useRender: useVerifySystem,
+		},
+		welcome: {
+			name: t('features.welcome.title'),
+			description: t('features.welcome.description'),
+			icon: <MdMessage />,
+			useRender: useWelcomeFeature,
+		},
+	};
 };
 
 export type AntiPhishingFeature = {
