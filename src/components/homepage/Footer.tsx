@@ -13,7 +13,7 @@ const Footer = () => {
 					<Image
 						width={128}
 						height={128}
-						src='https://res.cloudinary.com/shadowrunners/image/upload/v1687690764/evl_logo.webp'
+						src='./logo.webp'
 						alt="evelyn"
 						className="w-[128px] h-[128px] object-contain"
 					/>
