@@ -21,7 +21,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@Types": ["./src/types/*"],
+      "@Types": ["./src/types/index"],
+      "@Hooks": ["./src/utils/API/hooks"],
       "@UI": ["./src/components/ui/index"],
       "@public/*": [
         "./public/*"
