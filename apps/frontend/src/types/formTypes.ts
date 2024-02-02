@@ -1,5 +1,6 @@
 import type { FieldValues, Path, UseControllerProps, FieldPathByValue } from 'react-hook-form';
 import type { ReactElement, ReactNode } from 'react';
+import { Props as SelectProps } from 'react-select';
 import type { Override } from '@/types/types';
 
 export type FormProps = {
@@ -44,7 +45,18 @@ export type ControlledInput<Props, V = unknown> = <
     props: ControlledInputProps<Props, TFieldValues, TName>
 ) => ReactElement;
 
-export type WithControl<T> = T & {
-    control: Omit<FormProps, 'children'>;
-};
+export type SelectMenuProps = Override<
+  SelectProps<never, false>,
+  {
+    value?: string;
+    onChange: (v: string | string[]) => void;
+  }
+>;
 
+/** The type used by the multi select menu component. */
+export type SelectMenuOptionArray = {
+    /** The label of the option. */
+	label: string;
+    /** The value of the option. */
+	value: string;
+}[];

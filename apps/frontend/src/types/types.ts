@@ -146,8 +146,3 @@ export type HVGuild = {
     /** The guild's enabled features. */
     enabledFeatures?: string[];
 }
-
-export type OnChangeProps = {
-	label: string;
-	value: string;
-}[];
