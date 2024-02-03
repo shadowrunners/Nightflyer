@@ -1,7 +1,7 @@
 'use client';
 
-import { Form, FormField, FormItem, Textarea } from '@/components/ui';
-import type { ControlledInput } from '@/types/formTypes';
+import { Form, FormField, FormItem, Textarea } from '@UI';
+import type { ControlledInput } from '@Types';
 import type { Props } from 'react-select';
 import { useForm } from 'react-hook-form';
 
