@@ -52,6 +52,7 @@ export const GuildSchema = new Schema<Guild>({
 	},
 	starboard: {
 		enabled: Boolean,
+		starboardChannel: String,
 		starsRequirement: Number,
 	},
 	verification: {

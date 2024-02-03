@@ -83,6 +83,8 @@ export interface Guild extends Document {
 	starboard: {
 		/** Indicates if the starboard system is enabled or not. */
 		enabled: boolean;
+		/** The channel where the stared messages will be sent. */
+		starboardChannel: string;
 		/** The amount of stars required for the message to be pushed to the starboard channel. */
 		starsRequirement: number;
 	}

@@ -365,6 +365,7 @@ export class GuildController {
 
 		return {
 			enabled: data?.starboard?.enabled,
+			channel: data?.starboard?.starboardChannel,
 			starsRequirement: data?.starboard?.starsRequirement,
 		};
 	}
@@ -393,6 +394,7 @@ export class GuildController {
 		return await this.guilds.updateFeature(guild, {
 			starboard: {
 				enabled: true,
+				starboardChannel: body.channel,
 				starsRequirement: body.starsRequirement,
 			},
 		});
