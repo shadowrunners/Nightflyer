@@ -21,17 +21,18 @@ export class BotService {
 		const data = await this.guilds.getGuild(guild);
 
 		const features = [
-			{ name: 'antiphishing', enabled: () => data?.antiphishing?.enabled },
-			{ name: 'confessions', enabled: () => data?.confessions?.enabled },
-			{ name: 'goodbye', enabled: () => data?.goodbye?.enabled },
-			{ name: 'logs', enabled: () => data?.logs?.enabled },
-			{ name: 'levelling', enabled: () => data?.levels?.enabled },
-			{ name: 'tickets', enabled: () => data?.tickets?.enabled },
-			{ name: 'verification', enabled: () => data?.verification?.enabled },
-			{ name: 'welcome', enabled: () => data?.welcome?.enabled },
+			{ name: 'antiphishing', enabled: data?.antiphishing?.enabled },
+			{ name: 'confessions', enabled: data?.confessions?.enabled },
+			{ name: 'goodbye', enabled: data?.goodbye?.enabled },
+			{ name: 'logs', enabled: data?.logs?.enabled },
+			{ name: 'levelling', enabled: data?.levels?.enabled },
+			{ name: 'starboard', enabled: data?.starboard.enabled },
+			{ name: 'tickets', enabled: data?.tickets?.enabled },
+			{ name: 'verification', enabled: data?.verification?.enabled },
+			{ name: 'welcome', enabled: data?.welcome?.enabled },
 		];
 
-		const filterFeatures = features.filter((feature) => feature.enabled() === true);
+		const filterFeatures = features.filter((feature) => feature.enabled === true);
 		const enabledFeatures = filterFeatures.map((feature) => feature.name);
 		return enabledFeatures.join(', ');
 	}
