@@ -8,13 +8,6 @@ const withNextIntl = require('next-intl/plugin')(
 module.exports = withNextIntl({
 	reactStrictMode: true,
 	swcMinify: true,
-	async redirects() {
-		return [
-			{ source: '/auth', destination: '/auth/login', permanent: false },
-			{ source: '/user', destination: '/dash/user/home', permanent: false },
-			// { source: '/', destination: '/landing', permanent: true },
-		];
-	},
 	images: {
 		domains: ['i.imgur.com', 'cdn.discordapp.com', 'res.cloudinary.com'],
 		unoptimized: true,
