@@ -1,9 +1,9 @@
 'use client';
 
-import { Avatar, AvatarImage, AvatarFallback, Card, CardHeader, Button, Skeleton } from '@/components/ui';
+import { Avatar, AvatarImage, AvatarFallback, Card, CardHeader, Button, Skeleton } from './';
 import { getGuildImg } from '@/utils/API/fetch';
-import { useGuilds } from '@/utils/API/hooks';
-import { filterGuilds } from '@/utils/util';
+import { filterGuilds } from '@Utils';
+import { useGuilds } from '@Hooks';
 
 export function GuildSelect() {
 	const { status, data, refetch } = useGuilds();

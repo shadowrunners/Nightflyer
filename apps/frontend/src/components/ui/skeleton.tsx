@@ -1,5 +1,5 @@
 import { HTMLAttributes } from 'react';
-import { cn } from '@/utils/util';
+import { cn } from '@Utils';
 
 function Skeleton({
 	className,

@@ -1,11 +1,11 @@
 'use client';
 
 import { Avatar, AvatarImage, DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuLabel, DropdownMenuItem, DropdownMenuSeparator } from '@UI';
-import { getAvatarUrl } from '@/utils/API/fetch';
-import { useSelfUserQuery } from '@/utils/API/hooks';
 import { FaSignOutAlt, FaList } from 'react-icons/fa';
-import { signOut } from 'next-auth/react';
+import { getAvatarUrl } from '@/utils/API/fetch';
 import { useRouter } from 'next/navigation';
+import { useSelfUserQuery } from '@Hooks';
+import { signOut } from 'next-auth/react';
 
 // TODO: Add placeholder.
 export function Profile({ className }: { className?: string }) {

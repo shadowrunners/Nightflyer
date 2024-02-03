@@ -2,8 +2,7 @@
 
 
 import Select, { Props } from 'react-select';
-import { forwardRef } from 'react';
-import { cn } from '@/utils/util';
+import { cn } from '@Utils';
 
 const multiValueStyles =
     'mt-0.5 ml-1 mb-0.5 bg-background border border-gray-800 rounded items-center py-0.5 pl-2 pr-1 gap-1.5 bg-transparent';
@@ -24,7 +23,7 @@ interface SelectComponentProps extends Props {
 
 // TODO: Replace with FC
 
-export const SelectMenu = forwardRef(
+export const SelectMenu = (
 	({
 		options,
 		value,
