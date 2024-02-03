@@ -21,9 +21,9 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from '@UI';
-import { usePathname } from 'next/navigation';
 import { useGuildRolesQuery } from '@Hooks';
 import { useForm } from 'react-hook-form';
+import { useGuildId } from '@Utils';
 import { useMemo } from 'react';
 
 export const RoleSelectForm: ControlledInput<Omit<SelectMenuProps, 'value' | 'onChange'>> = ({
@@ -32,14 +32,12 @@ export const RoleSelectForm: ControlledInput<Omit<SelectMenuProps, 'value' | 'on
 	...props
 }) => {
 	const form = useForm();
-	const guild = usePathname().split('/')[3];
-
-	const rolesQuery = useGuildRolesQuery(guild);
-	const isLoading = rolesQuery.isLoading;
+	const guild = useGuildId();
+	const { data, isLoading } = useGuildRolesQuery(guild);
 
 	const selected = useMemo(() => {
-		return props.defaultValue !== undefined ? rolesQuery.data?.find((r) => r.id === props.defaultValue?.toString()) : null;
-	}, [props.defaultValue, rolesQuery.data]);
+		return props.defaultValue ? data?.find((r) => r.id === props.defaultValue?.toString()) : null;
+	}, [props.defaultValue, data]);
 
 	return (
 		<div className='grid gap-3'>
@@ -50,31 +48,29 @@ export const RoleSelectForm: ControlledInput<Omit<SelectMenuProps, 'value' | 'on
 				</label>
 				<Spacer />
 				<Form {...form}>
-					<form>
-						<FormField
-							control={controller.control}
-							name={controller.name}
-							render={({ field }) => (
-								<FormItem className='text-white'>
-									<Select value={field.value} onValueChange={field.onChange} disabled={isLoading}>
-										<FormControl>
-											<SelectTrigger>
-												<SelectValue placeholder='placeholder' defaultValue={selected?.id} />
-											</SelectTrigger>
-										</FormControl>
-										<SelectContent className='black2 text-white'>
-											<SelectGroup className='font-poppins m-2'>
-												<SelectLabel>Roles</SelectLabel>
-												{rolesQuery.data?.map((role) => (
-													<SelectItem className='font-poppins' value={role.id.toString()}>{role.name}</SelectItem>
-												))}
-											</SelectGroup>
-										</SelectContent>
-									</Select>
-								</FormItem>
-							)}
-						/>
-					</form>
+					<FormField
+						control={controller.control}
+						name={controller.name}
+						render={({ field }) => (
+							<FormItem className='text-white'>
+								<Select value={field.value} onValueChange={field.onChange} disabled={isLoading}>
+									<FormControl>
+										<SelectTrigger>
+											<SelectValue placeholder='placeholder' defaultValue={selected?.id} key={selected?.id} />
+										</SelectTrigger>
+									</FormControl>
+									<SelectContent className='black2 text-white'>
+										<SelectGroup className='font-poppins m-2'>
+											<SelectLabel>Roles</SelectLabel>
+											{data?.map((role) => (
+												<SelectItem className='font-poppins' value={role.id.toString()} key={role.id.toString()}>{role.name}</SelectItem>
+											))}
+										</SelectGroup>
+									</SelectContent>
+								</Select>
+							</FormItem>
+						)}
+					/>
 				</Form>
 			</div>
 		</div>
@@ -87,25 +83,16 @@ export const MultiRoleSelect = ({
 	value: SelectMenuOptionArray | string[];
 	onChange: (role: SelectMenuOptionArray) => void;
 }) => {
-	const guild = usePathname().split('/')[3];
-	const rolesQuery = useGuildRolesQuery(guild);
-	const isLoading = rolesQuery.isLoading;
+	const guild = useGuildId();
+	const { data, isLoading } = useGuildRolesQuery(guild);
 
 	const options = useMemo(() => {
-		return rolesQuery.data?.map((role) => ({ label: role.name, value: role.id }));
-	}, [rolesQuery.data]);
+		return data?.map((role) => ({ label: role.name, value: role.id }));
+	}, [data]);
 
 	const selected = useMemo(() => {
-		// handles cases where value is an array of strings
-		if (value.length > 0 && typeof value[0] === 'string') {
-			return options?.filter((role) => (value as string[]).includes(role.value)) ?? [];
-		}
-		// handles cases where value is an array of labels and values. without this, you'll get empty values.
-		// was a fucking pain in the ass to figure out. fuck this.
-		else {
-			const mappedValues = (value as SelectMenuOptionArray).map((role) => role.value) ?? [];
-			return options?.filter((role) => mappedValues.includes(role.value)) ?? [];
-		}
+		const selectedValues = new Set(value.map((role) => typeof role === 'string' ? role : role?.value));
+		return options?.filter((role) => selectedValues.has(role?.value));
 	}, [options, value]);
 
 	return (
@@ -115,7 +102,7 @@ export const MultiRoleSelect = ({
 			value={selected}
 			placeholder='Select a role.'
 			options={options}
-			onChange={(e) => e !== null && onChange((e as SelectMenuOptionArray))}
+			onChange={(e) => onChange((e as SelectMenuOptionArray))}
 			{...rest}
 		/>
 	);
