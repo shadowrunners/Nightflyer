@@ -2,10 +2,10 @@
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { DiscordMessages, DiscordMessage, DiscordEmbed, DiscordEmbedDescription, DiscordEmbedFooter } from '@skyra/discord-components-react';
-import { SmallColorPickerForm } from '@/components/forms';
-import { Input, Textarea } from '@/components/ui';
 import { UseFormRegister, Control } from 'react-hook-form';
+import { SmallColorPickerForm } from '@/components/forms';
 import type { CustomFeatures } from '@/types/features';
+import { Input, Textarea } from '@UI';
 import { Fragment } from 'react';
 
 interface IEmbed<T extends CustomFeatures> {
