@@ -358,6 +358,59 @@ export class GuildController {
 		return 'Success';
 	}
 
+	@Get('/features/starboard')
+	async getSBFeature(@Param('guild') guild: string) {
+		const data = await this.guilds.getGuild(guild);
+		if (!data) return null;
+
+		return {
+			enabled: data?.starboard?.enabled,
+			starsRequirement: data?.starboard?.starsRequirement,
+		};
+	}
+
+	@Post('/features/starboard')
+	async enableSBFeature(@Req() req: FastifyRequest['raw'], @Param('guild') guild: string) {
+		await this.bot.checkPermissions(req.headers.authorization, guild);
+
+		await this.guilds.updateFeature(guild, {
+			starboard: {
+				enabled: true,
+			},
+		});
+
+		return 'Success';
+	}
+
+	@Patch('/features/starboard')
+	async updateSBFeature(
+		@Req() req: FastifyRequest['raw'],
+		@Param('guild') guild: string,
+		@Body() body: StarboardResponse,
+	) {
+		await this.bot.checkPermissions(req.headers.authorization, guild);
+
+		return await this.guilds.updateFeature(guild, {
+			starboard: {
+				enabled: true,
+				starsRequirement: body.starsRequirement,
+			},
+		});
+	}
+
+	@Delete('/features/starboard')
+	async disableSBFeature(@Param('guild') guild: string, @Req() req: FastifyRequest['raw']) {
+		await this.bot.checkPermissions(req.headers.authorization, guild);
+
+		await this.guilds.updateFeature(guild, {
+			starboard: {
+				enabled: false,
+			},
+		});
+
+		return 'Success';
+	}
+
 	@Get('/features/tickets')
 	async getTicketsFeature(@Param('guild') guild: string) {
 		const data = await this.guilds.getGuild(guild);
@@ -528,7 +581,7 @@ export class GuildController {
 		const channels = await this.bot.api.guilds.getChannels(guild);
 		if (!channels) return null;
 
-		return channels.values();
+		return channels;
 	}
 
 	@Get('/roles')
@@ -536,7 +589,7 @@ export class GuildController {
 		const roles = await this.bot.api.guilds.getRoles(guild);
 		if (!roles) return null;
 
-		return roles.values();
+		return roles;
 	}
 
 	async getBotInfo() {
@@ -574,6 +627,11 @@ interface TicketsResponse extends BaseResponse {
   transcriptChannel: string;
   assistantRole: string;
   embed: EmbedInterface;
+}
+
+interface StarboardResponse extends BaseResponse {
+  channel: string;
+  starsRequirement: number;
 }
 
 interface LevelsResponse extends BaseResponse {

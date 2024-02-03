@@ -80,6 +80,12 @@ export interface Guild extends Document {
 		/** Indicates if the anti-phishing system is enabled or not. */
 		enabled: boolean;
 	};
+	starboard: {
+		/** Indicates if the starboard system is enabled or not. */
+		enabled: boolean;
+		/** The amount of stars required for the message to be pushed to the starboard channel. */
+		starsRequirement: number;
+	}
 	verification: {
 		/** Indicates if the verification system is enabled or not. */
 		enabled: boolean;

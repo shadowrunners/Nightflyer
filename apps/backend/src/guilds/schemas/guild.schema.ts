@@ -50,6 +50,10 @@ export const GuildSchema = new Schema<Guild>({
 	antiphishing: {
 		enabled: Boolean,
 	},
+	starboard: {
+		enabled: Boolean,
+		starsRequirement: Number,
+	},
 	verification: {
 		enabled: Boolean,
 		role: String,
