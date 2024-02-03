@@ -24,8 +24,7 @@ export class GuildsService {
 		return await this.guilds.updateOne(
 			{ guildId: guild },
 			{ $set: data },
-			{ lean: true },
-		);
+		).lean();
 	}
 }
 
