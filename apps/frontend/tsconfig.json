@@ -24,6 +24,7 @@
       "@Types": ["./src/types/index"],
       "@Hooks": ["./src/utils/API/hooks"],
       "@UI": ["./src/components/ui/index"],
+      "@Utils": ["./src/utils/util"],
       "@public/*": [
         "./public/*"
       ]
