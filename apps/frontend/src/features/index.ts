@@ -5,6 +5,7 @@ import { useLevellingSystem } from './LevelSystem';
 import { useGoodbyeSystem } from './GoodbyeSystem';
 import { useLogsSystem } from './LogsSystem';
 import { useTicketSystem } from './TicketSystem';
+import { useStarboardSystem } from './StarboardSystem';
 import { useVerifySystem } from './VerifySystem';
 
 export {
@@ -15,5 +16,6 @@ export {
 	useLevellingSystem,
 	useLogsSystem,
 	useTicketSystem,
+	useStarboardSystem,
 	useWelcomeFeature,
 };

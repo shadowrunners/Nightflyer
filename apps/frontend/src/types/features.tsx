@@ -10,13 +10,14 @@ import {
 	useTicketSystem,
 	useVerifySystem,
 	useWelcomeFeature,
+	useStarboardSystem,
 } from '@/features';
 
-import { LuDiff, LuMailQuestion, LuScrollText, LuTicket } from 'react-icons/lu';
-import { MdMessage, MdPhishing } from 'react-icons/md';
+import { LuDiff, LuMailQuestion, LuScrollText, LuStar, LuTicket } from 'react-icons/lu';
 import { IoShieldCheckmarkSharp } from 'react-icons/io5';
-import type { UseFormRender } from '@/types/formTypes';
+import { MdMessage, MdPhishing } from 'react-icons/md';
 import { useTranslations } from 'next-intl';
+import type { UseFormRender } from './';
 
 export type CustomFeatures = {
     antiphishing: AntiPhishingFeature,
@@ -25,6 +26,7 @@ export type CustomFeatures = {
     logs: LogsFeature,
     levelling: LevellingFeature,
     tickets: TicketsFeature,
+    starboard: StarboardFeature,
     verification: VerifyFeature,
     welcome: WelcomeFeature,
 };
@@ -84,6 +86,12 @@ export const Features = () => {
 			icon: <LuTicket />,
 			useRender: useTicketSystem,
 		},
+		starboard: {
+			name: t('features.starboard.title'),
+			description: t('features.starboard.description'),
+			icon: <LuStar />,
+			useRender: useStarboardSystem,
+		},
 		verification: {
 			name: t('features.verification.title'),
 			description: t('features.verification.description'),
@@ -99,9 +107,7 @@ export const Features = () => {
 	};
 };
 
-export type AntiPhishingFeature = {
-    channel?: string;
-}
+export type AntiPhishingFeature = {}
 
 export type ConfessionsFeature = {
     channel?: string;
@@ -116,14 +122,10 @@ export type LevellingFeature = {
     message?: string;
     restrictedChannels?: {
         value: string;
-    }[];
+    }[] | string[];
     restrictedRoles?: {
         value: string;
-    }[];
-    roleRewards: {
-        level: number;
-        roleId: string;
-    }[];
+    }[] | string[];
 }
 
 export type TicketsFeature = {
@@ -189,6 +191,11 @@ export type GoodbyeFeature = {
 
 export type VerifyFeature = {
     role?: string;
+}
+
+export type StarboardFeature = {
+    channel?: string;
+    starsRequirement?: number;
 }
 
 export type IdFeature<K extends keyof CustomFeatures = keyof CustomFeatures> = FeatureConfig<K> & {

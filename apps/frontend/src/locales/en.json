@@ -71,6 +71,10 @@
                 "title": "Levelling",
                 "description": "Makes chatting more rewarding by introducing an XP system."
             },
+            "starboard": {
+                "title": "Starboard",
+                "description": "Highlight and archive the best messages sent on your server."
+            },
             "tickets": {
                 "title": "Tickets",
                 "description": "Makes your moderation team's job of helping server members easier."
