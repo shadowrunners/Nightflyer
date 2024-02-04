@@ -1,10 +1,10 @@
 'use client';
 
 import { Button, ScrollArea, Sheet, SheetTrigger, SheetContent } from './';
-import { useGuildPreview } from '@/utils/API/hooks';
 import { RxHamburgerMenu } from 'react-icons/rx';
-import { cn, getFeatures } from '@/utils/util';
 import { FaChevronLeft } from 'react-icons/fa';
+import { useGuildPreview } from '@Hooks';
+import { cn, getFeatures } from '@Utils';
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
 	guildId: string;
@@ -17,7 +17,7 @@ export function Sidebar({ className, guildId }: SidebarProps) {
 		<div className={cn('pb-12 xl:flex hidden text-white w-[300px] overflow-x-hidden overflow-y-auto m-3 rounded-xl bg-secondary', className)}>
 			<div className="space-y-4 py-4">
 				<div className="px-3">
-					<a className='flex items-center cursor-pointer mb-2' href={`/guilds/${guild?.id}`}>
+					<a key={guild?.id} className='flex items-center cursor-pointer mb-2' href={`/guilds/${guild?.id}`}>
 						<Button className='hidden xl:block bg-primary rounded-2xl'>
 							<FaChevronLeft className='align-middle text-white' />
 						</Button>
@@ -33,7 +33,7 @@ export function Sidebar({ className, guildId }: SidebarProps) {
 					<ScrollArea className="h-auto px-1">
 						<div className="space-y-2 p-2">
 							{getFeatures().map((feature) => (
-								<a className='' href={`/guilds/${guildId}/features/${feature.name.toLowerCase().replace('-', '')}`}>
+								<a key={feature.id} href={`/guilds/${guildId}/features/${feature.name.toLowerCase().replace('-', '')}`}>
 									<Button
 										key={`${feature.id}-${feature.name}`}
 										variant="ghost"
