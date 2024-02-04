@@ -25,6 +25,8 @@
       "@Hooks": ["./src/utils/API/hooks"],
       "@UI": ["./src/components/ui/index"],
       "@Utils": ["./src/utils/util"],
+      "@Features": ["./src/types/features"],
+      "@Forms": ["./src/components/forms/index"],
       "@public/*": [
         "./public/*"
       ]
