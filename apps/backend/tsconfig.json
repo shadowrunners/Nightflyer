@@ -1,8 +1,16 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "experimentalDecorators": true,
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
     "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ESNext",
+    "strict": false,
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "outDir": "./dist",
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": true,
@@ -10,9 +18,5 @@
     "strictBindCallApply": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "paths": {
-      "@server/*": ["./apps/server/src/*"],
-      "@web/*": ["./apps/frontend/*"]
-    }
   }
 }
