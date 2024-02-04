@@ -9,14 +9,16 @@ import { signOut } from 'next-auth/react';
  * @returns The information if the user is in the guild otherwise null.
  */
 export async function fetchGuildInfo(id: string, accessToken: string): Promise<HVGuild | null> {
-	const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/guilds/${id}`, {
+	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/guilds/${id}`, {
 		method: 'GET',
 		headers: {
 			Authorization: `Bearer ${accessToken}`,
 		},
 	});
 
-	return await data.json();
+	if (res.status === 401) await signOut();
+
+	return await res.json();
 }
 
 /**
@@ -63,14 +65,16 @@ export async function getFeature<K extends keyof CustomFeatures>(
 	feature: K,
 	accessToken: string,
 ): Promise<CustomFeatures[K]> {
-	const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/guilds/${id}/features/${feature}`, {
+	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/guilds/${id}/features/${feature}`, {
 		method: 'GET',
 		headers: {
 			Authorization: `Bearer ${accessToken}`,
 		},
 	});
 
-	return await data.json();
+	if (res.status === 401) await signOut();
+
+	return await res.json();
 }
 
 /**
@@ -87,7 +91,7 @@ export async function updateFeature<K extends keyof CustomFeatures>(
 	options: FormData | string,
 	accessToken: string,
 ): Promise<CustomFeatures[K]> {
-	const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/guilds/${id}/features/${feature}`, {
+	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/guilds/${id}/features/${feature}`, {
 		method: 'PATCH',
 		headers: {
 			Authorization: `Bearer ${accessToken}`,
@@ -96,7 +100,9 @@ export async function updateFeature<K extends keyof CustomFeatures>(
 		body: options,
 	});
 
-	return await data.json();
+	if (res.status === 401) await signOut();
+
+	return await res.json();
 }
 
 /**
@@ -112,6 +118,8 @@ export async function fetchGuildRoles(id: string, accessToken: string) {
 			Authorization: `Bearer ${accessToken}`,
 		},
 	});
+
+	if (res.status === 401) await signOut();
 
 	return await res.json() as APIRole[];
 }
@@ -130,8 +138,9 @@ export async function fetchGuildChannels(id: string, accessToken: string) {
 		},
 	});
 
-	const body = res.json() as Promise<APIChannel[]>;
-	return body;
+	if (res.status === 401) await signOut();
+
+	return res.json() as Promise<APIChannel[]>;
 }
 
 /**
@@ -158,14 +167,16 @@ export async function fetchUserInfo(accessToken: string) {
  * @returns The user's guilds.
  */
 export async function getGuilds(accessToken: string) {
-	const data = await fetch('https://discord.com/api/v10/users/@me/guilds', {
+	const res = await fetch('https://discord.com/api/v10/users/@me/guilds', {
 		method: 'GET',
 		headers: {
 			Authorization: `Bearer ${accessToken}`,
 		},
 	});
 
-	return await data.json() as APIGuild[];
+	if (res.status === 401) await signOut();
+
+	return await res.json() as APIGuild[];
 }
 
 /**
@@ -175,14 +186,16 @@ export async function getGuilds(accessToken: string) {
  * @returns The user's guilds.
  */
 export async function getGuild(accessToken: string, id: string) {
-	const data = await fetch(`https://discord.com/api/v10/guilds/${id}`, {
+	const res = await fetch(`https://discord.com/api/v10/guilds/${id}`, {
 		method: 'GET',
 		headers: {
 			Authorization: `Bearer ${accessToken}`,
 		},
 	});
 
-	return await data.json() as APIGuild[];
+	if (res.status === 401) await signOut();
+
+	return await res.json() as APIGuild;
 }
 
 export function getGuildImg(id: string, icon: string) {
