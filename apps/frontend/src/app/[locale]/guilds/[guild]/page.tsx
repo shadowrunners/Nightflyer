@@ -10,7 +10,6 @@ import { useGuildInfoQuery } from '@/utils/API/hooks';
 import { useRouter } from 'next/navigation';
 import { getFeatures } from '@/utils/util';
 import type { HVGuild } from '@/types/types';
-import { useEffect, useState } from 'react';
 
 const GuildPage = ({ params }: { params: { guild: string }}) => {
 	const guild = params.guild;
