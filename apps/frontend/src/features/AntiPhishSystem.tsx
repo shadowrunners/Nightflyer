@@ -1,36 +1,22 @@
 'use client';
 
-import type { AntiPhishingFeature } from '@/types/features';
-import type { UseFormRender } from '@/types/formTypes';
-import { ChannelSelectForm } from '@/components/forms';
+import type { AntiPhishingFeature } from '@Features';
+import type { UseFormRender } from '@Types';
 import { useForm } from 'react-hook-form';
 
-export const useAntiPhishFeature: UseFormRender<AntiPhishingFeature> = (data, onSubmit) => {
+export const useAntiPhishFeature: UseFormRender<AntiPhishingFeature> = (data) => {
 	const { reset, handleSubmit, formState, control } = useForm<AntiPhishingFeature>({
 		shouldUnregister: false,
-		defaultValues: {
-			channel: data.channel,
-		},
+		defaultValues: {},
 	});
 
 	return {
 		component: (
-			<div className='grid grid-cols-1 lg:grid-cols-2 gap-3'>
-				<ChannelSelectForm
-					control={{
-						label: 'Channel',
-						description: 'The channel where the anti-phishing module will send alerts.',
-					}}
-					controller={{ control, name: 'channel' }} />
+			<div className='flex items-center justify-center w-full h-full'>
+				<h1 className='font-poppins font-bold'>This feature doesn't have any configurable options. In order to receive alerts regarding Anti-Phishing, please enable Logs.</h1>
 			</div>
 		),
-		onSubmit: handleSubmit(async (e) => {
-			await onSubmit(
-				JSON.stringify({
-					channel: e.channel,
-				}),
-			);
-
+		onSubmit: handleSubmit(async () => {
 			reset(data);
 		}),
 		canSave: formState.isDirty,

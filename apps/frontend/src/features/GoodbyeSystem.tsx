@@ -1,13 +1,36 @@
 'use client';
 
-import { ChannelSelectForm, TextAreaForm, Embed } from '@/components/forms';
-import type { GoodbyeFeature } from '@/types/features';
-import type { UseFormRender } from '@/types/formTypes';
+import { ChannelSelectForm, TextAreaForm, Embed } from '@Forms';
+import { zodResolver } from '@hookform/resolvers/zod';
+import type { UseFormRender } from '@Types';
 import { useForm } from 'react-hook-form';
 import { Fragment } from 'react';
+import * as z from 'zod';
+
+const schema = z.object({
+	channel: z.string(),
+	embed: z.object({
+		content: z.string(),
+		author: z.object({
+			name: z.string(),
+			iconURL: z.string(),
+		}),
+		color: z.string(),
+		title: z.string(),
+		description: z.string(),
+		thumbnail: z.string(),
+		image: z.string(),
+		footer: z.object({
+			text: z.string(),
+			iconURL: z.string(),
+		}),
+	}),
+});
+type GoodbyeFeature = z.infer<typeof schema>;
 
 export const useGoodbyeSystem: UseFormRender<GoodbyeFeature> = (data, onSubmit) => {
 	const { register, reset, handleSubmit, formState, control, watch } = useForm<GoodbyeFeature>({
+		resolver: zodResolver(schema),
 		shouldUnregister: false,
 		defaultValues: {
 			channel: data.channel,

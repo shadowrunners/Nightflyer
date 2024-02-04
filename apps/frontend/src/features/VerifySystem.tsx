@@ -1,12 +1,19 @@
 'use client';
 
-import type { UseFormRender } from '@/types/formTypes';
-import type { VerifyFeature } from '@/types/features';
-import { RoleSelectForm } from '@/components/forms';
+import { zodResolver } from '@hookform/resolvers/zod';
+import type { UseFormRender } from '@Types';
 import { useForm } from 'react-hook-form';
+import { RoleSelectForm } from '@Forms';
+import * as z from 'zod';
+
+const schema = z.object({
+	role: z.string(),
+});
+type VerifyFeature = z.infer<typeof schema>;
 
 export const useVerifySystem: UseFormRender<VerifyFeature> = (data, onSubmit) => {
 	const { reset, handleSubmit, formState, control } = useForm<VerifyFeature>({
+		resolver: zodResolver(schema),
 		shouldUnregister: false,
 		defaultValues: {
 			role: data.role,

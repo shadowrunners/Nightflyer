@@ -1,8 +1,8 @@
 'use client';
 
-import { ChannelSelectForm, RoleSelectForm, Embed } from '@/components/forms';
-import type { UseFormRender } from '@/types/formTypes';
-import type { TicketsFeature } from '@/types/features';
+import { ChannelSelectForm, RoleSelectForm, Embed } from '@Forms';
+import type { TicketsFeature } from '@Features';
+import type { UseFormRender } from '@Types';
 import { useForm } from 'react-hook-form';
 import { Fragment } from 'react';
 

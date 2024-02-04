@@ -1,23 +1,19 @@
 'use client';
 
-import { ChannelSelectForm, TextAreaForm } from '@/components/forms';
-import { MultiChannelSelectForm } from '@/components/forms/ChannelSelect';
-import { LevelTable } from '@/components/forms/LevelTable';
-import { MultiRoleSelectForm } from '@/components/forms/RoleSelect';
-import type { LevellingFeature } from '@/types/features';
-import type { UseFormRender } from '@/types/formTypes';
-import { Fragment } from 'react';
+import { ChannelSelectForm, MultiChannelSelectForm, MultiRoleSelectForm, TextAreaForm } from '@Forms';
+import type { LevellingFeature } from '@Features';
+import type { UseFormRender } from '@Types';
 import { useForm } from 'react-hook-form';
+import { Fragment } from 'react';
 
 export const useLevellingSystem: UseFormRender<LevellingFeature> = (data, onSubmit) => {
-	const { reset, handleSubmit, formState, control, register } = useForm<LevellingFeature>({
+	const { reset, handleSubmit, formState, control } = useForm<LevellingFeature>({
 		shouldUnregister: false,
 		defaultValues: {
 			channel: data.channel,
 			message: data.message,
 			restrictedChannels: data.restrictedChannels,
 			restrictedRoles: data.restrictedRoles,
-			roleRewards: data.roleRewards,
 		},
 	});
 
@@ -54,31 +50,18 @@ export const useLevellingSystem: UseFormRender<LevellingFeature> = (data, onSubm
 						controller={{ control, name: 'restrictedChannels' }}
 					/>
 				</div>
-
-
-				<div><LevelTable control={{
-					label: 'Role Rewards',
-					description: 'PLACEHOLDER',
-				}}
-				controller={{
-					control,
-					name: 'roleRewards',
-				}}
-				initialData={[]}
-				register={register} /></div>
 			</Fragment>
 		),
 		onSubmit: handleSubmit(async (e) => {
-			console.log(e);
-			const mappedChannel = e.restrictedChannels?.map((channel) => channel.value);
-			const mappedRoles = e.restrictedRoles?.map((role) => role.value);
+			const mappedChannels = new Set(e.restrictedChannels?.map((c) => typeof c === 'string' ? c : c?.value));
+			const mappedRoles = new Set(e.restrictedRoles?.map((r) => typeof r === 'string' ? r : r?.value));
 
 			await onSubmit(
 				JSON.stringify({
 					channel: e.channel,
 					message: e.message,
-					restrictedChannels: mappedChannel,
-					restrictedRoles: mappedRoles,
+					restrictedChannels: Array.from(mappedChannels),
+					restrictedRoles: Array.from(mappedRoles),
 				}),
 			);
 
