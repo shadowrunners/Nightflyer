@@ -10,10 +10,8 @@
     "home": {
         "main": {
             "hero": {
-                "main1": "Unleash the",
-                "main2": "full potential",
-                "main3": "of your server.",
-                "punchline": "An alternative to paid bots, open source and constantly evolving."
+                "main": "break beyond the paywall.",
+                "punchline": "a free and open source alternative to your favorite tools."
             },
             "features": "Features"
         },
