@@ -71,7 +71,7 @@ export class GuildController {
 	@Get('/features/automod')
 	async getAMFeature(@Param('guild') guild: string) {
 		const data = await this.guilds.getFeature(guild, 'automod');
-		if (!data) return null;
+		// if (!data) return null;
 
 		return {
 			alertsChannel: data?.automod.alertsChannel,
@@ -98,7 +98,7 @@ export class GuildController {
 	@Get('/features/antiphishing')
 	async getAPFeature(@Param('guild') guild: string) {
 		const data = await this.guilds.getFeature(guild, 'antiphishing');
-		if (!data?.antiphishing.enabled) return null;
+		// if (!data?.antiphishing.enabled) return null;
 
 		return data;
 	}
