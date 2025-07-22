@@ -1,12 +1,14 @@
 import type { ReactNode } from 'react';
-import { Navbar, Footer } from '~/components/homepage';
+
+import { NavigationBar } from '~/components/home/nav';
+import { Footer } from '~/components/home/home-footer';
 
 export default function GuildLayout({ children }: { children: ReactNode }) {
 	return (
 		<div className='bg-black w-full overflow-hidden font-sans'>
 			<div className='sm:px-16 px-6 flex justify-center items-center'>
 				<div className='xl:max-w-[1920px] w-full'>
-					<Navbar />
+					<NavigationBar />
 				</div>
 			</div>
 			<div className='flex justify-center items-start text-white'>
