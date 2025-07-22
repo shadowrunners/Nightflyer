@@ -1,5 +1,4 @@
-# Nightflyer
+# Blackspace
+Blackspace (prev. Nightflyer) is the dashboard (+ API) project for the Evelyn bot. This repository contains both the frontend (bs-web) & backend (bs-api) of the dashboard, both need to be hosted in order for the project to work properly as they're intertwined with each other.
 
-The dashboard project for Evelyn. Contains both the frontend and backend of the dashboard. 
-
-A better README will be written later (if I don't forget).
+> Blackspace is a part of the OpenEve project.
