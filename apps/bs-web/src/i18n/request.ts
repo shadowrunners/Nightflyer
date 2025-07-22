@@ -1,12 +1,9 @@
 import { getRequestConfig } from 'next-intl/server';
-import { routing } from './routing';
+import { cookies } from 'next/headers';
 
-export default getRequestConfig(async ({ requestLocale }) => {
-    let locale = await requestLocale;
-
-    if (!locale || !routing.locales.includes(locale as any)) {
-        locale = routing.defaultLocale;
-    };
+export default getRequestConfig(async () => {
+    const jar = await cookies();
+    const locale = jar.get('bs-locale')?.value ?? 'en';
 
     return {
         locale,
