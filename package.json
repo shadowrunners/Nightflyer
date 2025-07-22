@@ -1,5 +1,5 @@
 {
-  "name": "@spearhead/nightflyer",
+  "name": "@blackfall/blackspace",
   "private": true,
   "workspaces": [
     "apps/*"
@@ -8,7 +8,7 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
-    "dev:web": "turbo dev --filter=./apps/frontend --filter=./apps/backend",
+    "dev:web": "turbo dev --filter=./apps/bs-web --filter=./apps/bs-api",
     "dev:frontend": "turbo dev --filter=./apps/frontend",
     "dev:backend": "turbo dev --filter=./apps/backend",
     "dev:docs": "turbo dev --filter=./apps/docs"
@@ -16,7 +16,7 @@
   "devDependencies": {
     "turbo": "latest"
   },
-  "packageManager": "pnpm@9.15.0",
+  "packageManager": "bun@1.2.19",
   "engines": {
     "node": ">=18"
   }
