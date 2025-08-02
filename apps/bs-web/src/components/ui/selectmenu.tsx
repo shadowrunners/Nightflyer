@@ -2,7 +2,7 @@
 
 
 import Select, { Props } from 'react-select';
-import { cn } from '~/utils';
+import { cn } from '~/lib/util';
 import { forwardRef } from 'react';
 
 const multiValueStyles =

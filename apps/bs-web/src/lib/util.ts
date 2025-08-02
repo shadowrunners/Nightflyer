@@ -4,6 +4,7 @@ import type { EvelynFeature } from '~/types';
 import { type ClassValue, clsx } from 'clsx';
 import { useTranslations } from 'next-intl';
 import { twMerge } from 'tailwind-merge';
+
 /**
  *
  * @param type The type of feature array that will be returned.
@@ -72,30 +73,6 @@ export function getFeatures(type: 'sidebar' | 'cards', guildId?: string): Evelyn
 		}
 	}
 }
-
-/**
- * The styles used by the homepage.
- * @deprecated Will be removed in a future update since they're not being reused anymore.
- */
-export const styles = {
-	boxWidth: 'xl:max-w-[1280px] w-full',
-	boxNav: 'xl:max-w-[1920px] w-full',
-
-	heading2:
-		'font-poppins font-semibold xs:text-[48px] text-[40px] text-white xs:leading-[76.8px] leading-[66.8px] w-full',
-	paragraph:
-		'font-poppins font-normal text-dimWhite text-[18px] leading-[30.8px]',
-
-	flexCenter: 'flex justify-center items-center',
-	flexStart: 'flex justify-center items-start',
-
-	paddingX: 'sm:px-16 px-6',
-	paddingY: 'sm:py-16 py-6',
-	padding: 'sm:px-16 px-6 sm:py-12 py-4',
-
-	marginX: 'sm:mx-16 mx-6',
-	marginY: 'sm:my-16 my-6',
-};
 
 /** The function used by all @shadcn/ui elements. */
 export function cn(...inputs: ClassValue[]) {

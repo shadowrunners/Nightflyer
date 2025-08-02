@@ -10,7 +10,7 @@ import {
 	WandSparkles,
 } from 'lucide-react';
 
-import { cn } from '~/utils';
+import { cn } from '~/lib/util';
 import { Separator } from '~/components/ui/separator';
 import { Button } from '~/components/ui/button';
 import { Badge } from '~/components/ui/badge';
