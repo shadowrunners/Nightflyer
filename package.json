@@ -9,8 +9,8 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
     "dev:web": "turbo dev --filter=./apps/bs-web --filter=./apps/bs-api",
-    "dev:frontend": "turbo dev --filter=./apps/frontend",
-    "dev:backend": "turbo dev --filter=./apps/backend",
+    "dev:frontend": "turbo dev --filter=./apps/bs-web",
+    "dev:backend": "turbo dev --filter=./apps/bs-api",
     "dev:docs": "turbo dev --filter=./apps/docs"
   },
   "devDependencies": {
