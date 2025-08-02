@@ -8,13 +8,6 @@
         "oauth_button": "Sign in with Discord"
     },
     "home": {
-        "main": {
-            "hero": {
-                "main": "break beyond the paywall.",
-                "punchline": "a free and open source alternative to your favorite tools."
-            },
-            "features": "Features"
-        },
         "nav": {
             "home": "Home",
             "commands": "Commands",
@@ -23,10 +16,14 @@
             "btn_notsignedin": "Sign in",
             "btn_signedin": "Manage Servers"
         },
+        "hero": {
+            "main": "break beyond the paywall.",
+            "punchline": "a free and open source alternative to your favorite tools."
+        },
         "features": {
             "header": {
-                "title": "Features",
-                "description": "Supercharge your Discord experience to a new level with Evelyn's powerful toolkit, packed with an array of exciting features!"
+                "title": "features.",
+                "description": "these are just a few of the features the bot offers. don't forget, if we don't have what you want, you can always suggest it to us."
             },
             "feature1": {
                 "name": "Music",
@@ -70,6 +67,9 @@
             }
         },
         "footer": {
+            "main": {
+                "paragraph": "A Blackfall Labs project & a part of the OpenEve project."
+            },
             "legal": {
                 "name": "Legal",
                 "privacy": "Privacy Policy",
@@ -84,7 +84,8 @@
                 "github": "GitHub",
                 "documentation": "Documentation",
                 "donations": "Support Us"
-            }
+            },
+            "copyright": "Crafted with 💝 by scrappie @ Blackfall Labs. © DATE_PLACEHOLDER_DO_NOT_CHANGE_IN_TRANSLATION Blackfall Labs. All rights reserved."
         }
     },
     "other": {
