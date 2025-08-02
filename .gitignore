@@ -3,6 +3,7 @@
 # Dependencies
 node_modules
 .pnp
+bun.lock
 .pnp.js
 
 # Local env files
